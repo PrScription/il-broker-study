@@ -1,0 +1,21 @@
+{
+  "app": "IL Broker Study Pack",
+  "version": 2,
+  "source": "Sample",
+  "items": [
+    {
+      "topic": "Illinois License Law",
+      "term": "Pattern of Business",
+      "definition": "Two or more qualifying occasions in any 12-month period.",
+      "question": "Under the broker definition, what constitutes a pattern of business?",
+      "choices": [
+        "One transaction in 24 months",
+        "Two or more qualifying occasions in 12 months",
+        "Three transactions in a calendar year",
+        "Five compensated transactions"
+      ],
+      "correct": 1,
+      "explanation": "The threshold is two or more qualifying occasions within any 12-month period."
+    }
+  ]
+}
