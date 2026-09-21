@@ -3,282 +3,324 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#0f172a" />
+  <meta name="theme-color" content="#111827" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="IL Broker Study" />
-  <meta name="description" content="Offline Illinois Broker exam flashcards and practice tests." />
+  <meta name="description" content="Offline Illinois Broker flashcards and practice tests." />
   <link rel="manifest" href="./manifest.webmanifest" />
   <link rel="icon" href="./icon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
   <title>IL Broker Study</title>
-  <style>
-    :root{
-      --bg:#f3f4f6; --panel:#ffffff; --ink:#111827; --muted:#6b7280; --line:#e5e7eb;
-      --navy:#0f172a; --blue:#2563eb; --green:#15803d; --red:#b91c1c; --amber:#b45309;
-      --shadow:0 10px 30px rgba(15,23,42,.08); --radius:18px;
-    }
-    *{box-sizing:border-box}
-    html,body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-    body{min-height:100vh}
-    button,input,select,textarea{font:inherit}
-    button{cursor:pointer}
-    .app{max-width:760px;margin:0 auto;min-height:100vh;padding-bottom:92px}
-    header{
-      position:sticky;top:0;z-index:20;background:rgba(15,23,42,.96);color:#fff;
-      padding:calc(14px + env(safe-area-inset-top)) 18px 14px;backdrop-filter:blur(14px)
-    }
-    .toprow{display:flex;align-items:center;justify-content:space-between;gap:12px}
-    .brand{font-weight:800;letter-spacing:.2px;font-size:20px}
-    .subbrand{font-size:12px;color:#cbd5e1;margin-top:2px}
-    .pill{border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:7px 10px;font-size:12px;color:#e2e8f0;background:rgba(255,255,255,.06)}
-    main{padding:18px}
-    .view{display:none}
-    .view.active{display:block}
-    h1,h2,h3{margin:0 0 10px}
-    h1{font-size:24px}
-    h2{font-size:20px}
-    h3{font-size:16px}
-    p{line-height:1.45}
-    .muted{color:var(--muted)}
-    .grid{display:grid;gap:12px}
-    .grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}
-    @media(max-width:520px){.grid.two{grid-template-columns:1fr}}
-    .card{
-      background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
-      padding:16px;box-shadow:var(--shadow)
-    }
-    .hero{background:linear-gradient(135deg,#0f172a,#1e3a8a);color:#fff;border:none}
-    .hero p{color:#dbeafe}
-    .statrow{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
-    .stat{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);padding:11px;border-radius:14px;text-align:center}
-    .stat b{display:block;font-size:20px}
-    .stat span{font-size:11px;color:#dbeafe}
-    .action{
-      width:100%;border:0;border-radius:15px;padding:15px 14px;text-align:left;background:#fff;
-      border:1px solid var(--line);box-shadow:var(--shadow);font-weight:750;color:var(--ink)
-    }
-    .action small{display:block;color:var(--muted);font-weight:500;margin-top:3px}
-    .btn{border:0;border-radius:12px;padding:11px 14px;font-weight:750;background:var(--navy);color:#fff}
-    .btn.secondary{background:#fff;color:var(--ink);border:1px solid var(--line)}
-    .btn.blue{background:var(--blue)}
-    .btn.green{background:var(--green)}
-    .btn.red{background:var(--red)}
-    .btn.amber{background:var(--amber)}
-    .btn:disabled{opacity:.45;cursor:not-allowed}
-    .toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
-    .field{margin-bottom:13px}
-    label{display:block;font-size:13px;font-weight:700;margin-bottom:6px}
-    input,select,textarea{
-      width:100%;border:1px solid #cbd5e1;border-radius:12px;padding:12px;background:#fff;color:var(--ink)
-    }
-    textarea{min-height:94px;resize:vertical}
-    .flashcard{
-      min-height:330px;display:flex;align-items:center;justify-content:center;text-align:center;
-      padding:26px;background:#fff;border-radius:22px;border:1px solid var(--line);box-shadow:var(--shadow);
-      position:relative;user-select:none
-    }
-    .flashcard .side{font-size:22px;font-weight:750;line-height:1.4;white-space:pre-wrap}
-    .flashcard .hint{position:absolute;bottom:14px;color:var(--muted);font-size:12px;font-weight:500}
-    .tag{display:inline-block;background:#eef2ff;color:#3730a3;padding:5px 8px;border-radius:999px;font-size:11px;font-weight:700;margin-bottom:10px}
-    .progressbar{height:10px;background:#e5e7eb;border-radius:999px;overflow:hidden}
-    .progressbar>div{height:100%;background:var(--blue);width:0}
-    .row{display:flex;align-items:center;justify-content:space-between;gap:10px}
-    .stack{display:flex;flex-direction:column;gap:10px}
-    .question{
-      background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:var(--shadow)
-    }
-    .choice{
-      display:block;width:100%;text-align:left;border:1px solid #cbd5e1;background:#fff;color:var(--ink);
-      border-radius:13px;padding:12px;margin:9px 0;font-weight:650
-    }
-    .choice.selected{border-color:var(--blue);background:#eff6ff}
-    .choice.correct{border-color:#22c55e;background:#f0fdf4}
-    .choice.wrong{border-color:#ef4444;background:#fef2f2}
-    .explain{margin-top:12px;padding:12px;border-radius:12px;background:#f8fafc;border:1px solid var(--line);font-size:14px;line-height:1.45}
-    .listitem{background:#fff;border:1px solid var(--line);border-radius:15px;padding:13px}
-    .listitem .title{font-weight:800}
-    .listitem .meta{font-size:12px;color:var(--muted);margin-top:4px}
-    .mini{font-size:12px;padding:7px 9px;border-radius:9px}
-    nav{
-      position:fixed;bottom:0;left:0;right:0;z-index:30;background:rgba(255,255,255,.96);
-      border-top:1px solid var(--line);padding:8px max(8px,env(safe-area-inset-right)) calc(8px + env(safe-area-inset-bottom)) max(8px,env(safe-area-inset-left));
-      display:grid;grid-template-columns:repeat(4,1fr);backdrop-filter:blur(14px)
-    }
-    nav button{border:0;background:transparent;padding:8px 5px;color:var(--muted);font-weight:700;font-size:12px;border-radius:12px}
-    nav button.active{background:#eef2ff;color:#1d4ed8}
-    .empty{text-align:center;padding:26px 14px;color:var(--muted)}
-    .modalback{
-      position:fixed;inset:0;background:rgba(15,23,42,.55);z-index:100;display:none;align-items:flex-end;justify-content:center
-    }
-    .modalback.show{display:flex}
-    .modal{
-      background:#fff;width:100%;max-width:760px;max-height:92vh;overflow:auto;border-radius:22px 22px 0 0;
-      padding:18px 18px calc(18px + env(safe-area-inset-bottom))
-    }
-    .divider{height:1px;background:var(--line);margin:16px 0}
-    .badge-good{color:var(--green);font-weight:800}
-    .badge-bad{color:var(--red);font-weight:800}
-    .notice{padding:12px;border-radius:12px;background:#fffbeb;border:1px solid #fde68a;color:#92400e;font-size:13px;line-height:1.4}
-    .hidden{display:none!important}
-    .install-tip{font-size:13px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:12px;padding:11px;color:#1e3a8a}
-    .kpi{font-size:30px;font-weight:900}
-    .counter{font-size:11px;color:var(--muted);margin-top:5px;text-align:right}
-    .longtext{min-height:150px}
-    .choiceText{min-height:72px}
-    .sectionhead{font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#475569;margin:18px 0 9px}
-  </style>
+<style>
+:root{
+  --bg:#f6f7fb; --panel:#fff; --ink:#18202d; --muted:#667085; --line:#e4e7ec;
+  --navy:#111827; --blue:#3157d5; --blue2:#eef2ff; --green:#17803d; --red:#b42318;
+  --amber:#a15c00; --purple:#6941c6; --shadow:0 8px 26px rgba(16,24,40,.07);
+  --radius:16px; --safe-b:env(safe-area-inset-bottom);
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+body{min-height:100vh}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+.app{max-width:1020px;margin:0 auto;min-height:100vh;padding-bottom:92px}
+header{
+  position:sticky;top:0;z-index:40;background:rgba(17,24,39,.97);color:#fff;
+  padding:calc(12px + env(safe-area-inset-top)) 16px 12px;backdrop-filter:blur(14px)
+}
+.toprow{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{font-size:20px;font-weight:850;letter-spacing:-.02em}
+.subbrand{font-size:11px;color:#cbd5e1;margin-top:2px}
+.head-actions{display:flex;align-items:center;gap:8px}
+.pill{border:1px solid rgba(255,255,255,.2);border-radius:999px;padding:7px 10px;font-size:11px;color:#e5e7eb;background:rgba(255,255,255,.06)}
+.iconbtn{width:38px;height:38px;border-radius:11px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);color:#fff;font-weight:900;font-size:20px}
+main{padding:18px}
+.view{display:none}.view.active{display:block}
+h1,h2,h3,h4{margin:0} h1{font-size:26px;letter-spacing:-.03em} h2{font-size:22px;letter-spacing:-.025em} h3{font-size:16px}
+p{line-height:1.5}.muted{color:var(--muted)}.tiny{font-size:11px;color:var(--muted)}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+.pad{padding:16px}
+.hero{padding:20px;background:linear-gradient(135deg,#111827,#243b75);color:white;border:0}
+.hero p{color:#dbe4ff;margin:8px 0 0}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:16px}
+.stat{padding:11px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.08);border-radius:12px;text-align:center}
+.stat b{display:block;font-size:20px}.stat span{display:block;color:#dbe4ff;font-size:10px;margin-top:2px}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.wrap{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.grid{display:grid;gap:12px}.grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media(max-width:720px){.grid.three{grid-template-columns:1fr}.grid.two{grid-template-columns:1fr}}
+.btn{border:0;border-radius:11px;padding:11px 14px;font-weight:750;background:var(--navy);color:#fff}
+.btn.blue{background:var(--blue)}.btn.green{background:var(--green)}.btn.red{background:var(--red)}.btn.amber{background:var(--amber)}
+.btn.secondary{background:#fff;color:var(--ink);border:1px solid var(--line)}
+.btn.ghost{background:transparent;color:var(--muted);border:1px solid var(--line)}
+.btn.small{padding:7px 10px;font-size:12px;border-radius:9px}.btn:disabled{opacity:.42;cursor:not-allowed}
+.action{width:100%;text-align:left;background:#fff;color:var(--ink);border:1px solid var(--line);border-radius:14px;padding:15px;box-shadow:var(--shadow);font-weight:800}
+.action small{display:block;color:var(--muted);font-weight:500;margin-top:4px;line-height:1.35}
+.section-title{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin:22px 0 10px}
+.set-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media(max-width:620px){.set-grid{grid-template-columns:1fr}}
+.set-card{padding:14px;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);cursor:pointer}
+.set-card:hover{border-color:#bcc6ec}.set-title{font-weight:850}.set-meta{font-size:12px;color:var(--muted);margin-top:4px}
+.mini-progress{height:6px;background:#edf0f5;border-radius:999px;overflow:hidden;margin-top:10px}.mini-progress>div{height:100%;background:var(--blue)}
+.controls{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px;box-shadow:var(--shadow);margin:12px 0}
+.field{margin-bottom:12px} label{display:block;font-size:12px;font-weight:750;margin-bottom:6px}
+input,select,textarea{width:100%;border:1px solid #cfd5df;border-radius:10px;padding:11px 12px;background:#fff;color:var(--ink);outline:none}
+input:focus,select:focus,textarea:focus{border-color:#8aa0ee;box-shadow:0 0 0 3px #eef2ff}
+textarea{min-height:110px;resize:vertical;line-height:1.45}.longtext{min-height:170px}.choiceText{min-height:74px}
+.searchrow{display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:8px}
+@media(max-width:760px){.searchrow{grid-template-columns:1fr 1fr}.searchrow .wide{grid-column:1/-1}}
+.segment{display:inline-flex;padding:3px;border:1px solid var(--line);background:#f8fafc;border-radius:10px}
+.segment button{border:0;background:transparent;color:var(--muted);padding:7px 10px;border-radius:8px;font-weight:700;font-size:12px}
+.segment button.active{background:#fff;color:var(--ink);box-shadow:0 1px 4px rgba(16,24,40,.08)}
+.library-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.library-list{display:flex;flex-direction:column;gap:8px}
+.study-item{display:grid;grid-template-columns:36px minmax(0,1fr) auto;gap:10px;align-items:stretch;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 3px 12px rgba(16,24,40,.045);overflow:hidden;transition:.14s}
+.study-item.drag-target{border-color:#6d83df;box-shadow:0 0 0 3px #eef2ff}
+.study-item.selected{border-color:#7290ee;background:#fafbff}
+.drag-handle{display:flex;align-items:center;justify-content:center;background:#fafbfc;border-right:1px solid var(--line);color:#98a2b3;font-size:20px;touch-action:none;user-select:none;cursor:grab}
+.drag-handle:active{cursor:grabbing}
+.item-main{padding:12px 0;min-width:0;cursor:pointer}
+.item-number{font-size:10px;color:#98a2b3;font-weight:800;text-transform:uppercase;letter-spacing:.06em}
+.item-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:20px;margin-top:7px}
+@media(max-width:620px){.item-grid{grid-template-columns:1fr;gap:10px}}
+.term{font-weight:800;white-space:pre-wrap;overflow-wrap:anywhere}.definition{white-space:pre-wrap;line-height:1.42;overflow-wrap:anywhere}
+.item-label{font-size:10px;color:#98a2b3;text-transform:uppercase;font-weight:850;letter-spacing:.06em;margin-bottom:3px}
+.item-actions{padding:8px;display:flex;flex-direction:column;justify-content:center;gap:6px}
+.item-actions button{width:34px;height:34px;border-radius:9px;border:1px solid var(--line);background:#fff;color:#475467;font-weight:850}
+.item-actions button.starred{color:#b7791f;background:#fffaeb}
+.mcq-preview .definition{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.checkbox{width:18px;height:18px}
+.select-box{display:flex;align-items:center;justify-content:center;padding:0 4px}
+.selectionbar{position:fixed;left:50%;bottom:calc(74px + var(--safe-b));transform:translateX(-50%);z-index:35;width:min(94%,760px);background:#111827;color:#fff;border-radius:15px;padding:10px;display:none;box-shadow:0 12px 30px rgba(16,24,40,.25)}
+.selectionbar.show{display:flex}.selectionbar .row{width:100%}
+.selectionbar .btn.secondary{background:#fff}
+.empty{text-align:center;color:var(--muted);padding:32px 16px}
+.badge{display:inline-flex;align-items:center;gap:5px;border-radius:999px;padding:5px 8px;font-size:10px;font-weight:800;background:#f2f4f7;color:#475467}
+.badge.blue{background:#eef2ff;color:#3449a5}.badge.green{background:#ecfdf3;color:#18713c}.badge.amber{background:#fff7ed;color:#9a4d00}
+.progressbar{height:9px;background:#e8ebf0;border-radius:999px;overflow:hidden}.progressbar>div{height:100%;background:var(--blue);width:0}
+.flash-stage{perspective:1200px;min-height:390px}
+.flashcard{min-height:370px;background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center;text-align:center;padding:32px 26px;position:relative;user-select:none;touch-action:pan-y}
+.flashcard .side{font-size:22px;font-weight:760;line-height:1.5;white-space:pre-wrap;overflow-wrap:anywhere;max-width:780px}
+.flashcard .corner{position:absolute;top:14px;left:14px}.flashcard .hint{position:absolute;bottom:14px;left:0;right:0;color:var(--muted);font-size:11px}
+.study-nav{display:grid;grid-template-columns:auto 1fr auto;gap:8px;margin-top:10px}
+.study-nav .btn{min-width:50px}
+.rategrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.question{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:var(--shadow)}
+.choice{display:block;width:100%;text-align:left;border:1px solid #cfd5df;background:#fff;color:var(--ink);border-radius:11px;padding:12px;margin:8px 0;font-weight:650}
+.choice.selected{border-color:var(--blue);background:#f4f6ff}.choice.correct{border-color:#37a15e;background:#effcf3}.choice.wrong{border-color:#e57373;background:#fff1f0}
+.explain{margin-top:12px;padding:12px;border-radius:10px;background:#f8fafc;border:1px solid var(--line);font-size:13px;line-height:1.45}
+.modalback{position:fixed;inset:0;background:rgba(16,24,40,.56);z-index:100;display:none;align-items:flex-end;justify-content:center}.modalback.show{display:flex}
+.modal{background:#fff;width:100%;max-width:820px;max-height:93vh;overflow:auto;border-radius:20px 20px 0 0;padding:18px 18px calc(18px + var(--safe-b))}
+.modal.wide{max-width:980px}
+.modalhead{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px;position:sticky;top:-18px;background:#fff;padding:15px 0 8px;z-index:4}
+.closex{border:0;background:#f2f4f7;width:34px;height:34px;border-radius:9px;font-weight:900;color:#475467}
+.divider{height:1px;background:var(--line);margin:16px 0}.sectionhead{font-size:11px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#667085;margin:18px 0 9px}
+.counter{font-size:10px;color:#98a2b3;text-align:right;margin-top:4px}
+.notice{padding:11px 12px;border-radius:10px;background:#fffaeb;border:1px solid #fedf89;color:#854a0e;font-size:12px;line-height:1.45}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.kpi-card{padding:14px}.kpi{font-size:27px;font-weight:900;margin-top:3px}
+@media(max-width:620px){.kpis{grid-template-columns:repeat(2,1fr)}}
+.topicrow{margin:12px 0}.topicrow .row{font-size:13px}
+.history{display:flex;flex-direction:column;gap:8px}.historyitem{padding:12px;border:1px solid var(--line);border-radius:11px;background:#fff}
+.preview-card{border:1px solid var(--line);border-radius:14px;overflow:hidden}.preview-half{padding:16px}.preview-half+.preview-half{border-top:1px solid var(--line)}
+.hidden{display:none!important}
+.install-tip{font-size:12px;background:#eef4ff;border:1px solid #c9d5ff;border-radius:11px;padding:11px;color:#2d438d}
+nav{position:fixed;bottom:0;left:0;right:0;z-index:30;background:rgba(255,255,255,.97);border-top:1px solid var(--line);padding:7px max(8px,env(safe-area-inset-right)) calc(7px + var(--safe-b)) max(8px,env(safe-area-inset-left));display:grid;grid-template-columns:repeat(4,1fr);backdrop-filter:blur(14px)}
+nav button{border:0;background:transparent;padding:8px 4px;color:#667085;font-weight:750;font-size:11px;border-radius:10px}nav button.active{background:#eef2ff;color:#3157d5}
+@media(min-width:850px){nav{left:50%;right:auto;transform:translateX(-50%);width:720px;border:1px solid var(--line);border-bottom:0;border-radius:16px 16px 0 0}}
+
+/* V4 product/visual overhaul */
+:root{--bg:#f7f8fc;--navy:#172554;--blue:#425fd7;--purple:#6b4fc8;--blueSoft:#eef2ff}
+body{background:radial-gradient(circle at top,#eef2ff 0,#f7f8fc 420px)}
+header{background:rgba(23,37,84,.97)}
+.hero{background:linear-gradient(135deg,#172554 0%,#253b88 68%,#4159c5 100%);padding:21px}
+.hero h1{font-size:28px;letter-spacing:-.035em}.hero p{max-width:680px}
+.mode-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.mode-card{min-height:132px;text-align:left;background:#fff;border:1px solid var(--line);border-radius:16px;padding:15px;box-shadow:var(--shadow);color:var(--ink)}
+.mode-card b{display:block;font-size:15px}.mode-card small{display:block;margin-top:5px;color:var(--muted);line-height:1.38}
+.mode-icon{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;margin-bottom:12px;background:#eef2ff;color:#3349a7;font-weight:900;font-size:17px}
+@media(max-width:760px){.mode-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:420px){.mode-grid{grid-template-columns:1fr}}
+.create-grid,.game-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;margin-top:14px}
+@media(max-width:560px){.create-grid,.game-grid{grid-template-columns:1fr}}
+.feature-card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:var(--shadow);text-align:left;color:var(--ink)}
+.feature-card h3{margin:0 0 5px}.feature-card p{font-size:12px;color:var(--muted);margin:0;line-height:1.45}
+.game-banner{background:linear-gradient(135deg,#25204f,#6941c6);color:#fff;border:0;border-radius:18px;padding:18px;box-shadow:var(--shadow)}
+.game-banner p{color:#e9e4ff;margin:6px 0 0}
+.game-panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:17px;box-shadow:var(--shadow)}
+.game-score{font-size:46px;font-weight:950;letter-spacing:-.05em}.game-time{font-variant-numeric:tabular-nums;font-weight:900}
+.match-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.match-tile{min-height:86px;background:#fff;border:1px solid var(--line);border-radius:11px;padding:10px;color:var(--ink);font-weight:720;line-height:1.3}.match-tile.active{border-color:#6076dc;background:#eef2ff}.match-tile.done{opacity:.22;pointer-events:none}
+.smart-tabs{display:flex;gap:4px;padding:4px;background:#eef0f4;border:1px solid var(--line);border-radius:11px}.smart-tabs button{flex:1;border:0;background:transparent;padding:8px;border-radius:8px;font-weight:800;color:var(--muted)}.smart-tabs button.active{background:#fff;color:var(--ink);box-shadow:0 1px 4px rgba(16,24,40,.08)}
+.smart-drop{border:2px dashed #cbd3e1;border-radius:15px;padding:20px;text-align:center;background:#fafbfe}.smart-drafts{display:flex;flex-direction:column;gap:8px}.smart-draft{border:1px solid var(--line);border-radius:12px;padding:11px;background:#fff}.source-snippet{margin-top:7px;padding:8px;background:#f7f8fa;border-radius:8px;color:#667085;font-size:11px;line-height:1.35;max-height:72px;overflow:auto}
+.readbtn{position:absolute;right:12px;top:12px}
+.xp-pill{display:inline-flex;gap:5px;align-items:center;border-radius:999px;background:rgba(255,255,255,.13);padding:6px 9px;font-size:11px;color:#fff}
+nav{grid-template-columns:repeat(5,1fr)}nav button span{display:block;font-size:17px;line-height:18px;margin-bottom:3px}
+
+</style>
 </head>
 <body>
 <div class="app">
-  <header>
-    <div class="toprow">
-      <div>
-        <div class="brand">IL Broker Study</div>
-        <div class="subbrand">Flashcards + practice tests</div>
-      </div>
-      <div class="pill" id="offlinePill">Ready offline</div>
+<header>
+  <div class="toprow">
+    <div><div class="brand">IL Broker Study</div><div class="subbrand">Private study workspace</div></div>
+    <div class="head-actions">
+      <div class="pill" id="offlinePill">Online</div>
+      <button class="iconbtn" aria-label="Quick add" onclick="openQuickAdd()">+</button>
     </div>
-  </header>
+  </div>
+</header>
 
-  <main>
-    <section class="view active" id="homeView">
-      <div class="card hero">
-        <h1>Illinois Broker Exam</h1>
-        <p>Study your own material, test yourself, and keep everything on your device.</p>
-        <div class="statrow">
-          <div class="stat"><b id="homeCards">0</b><span>Cards</span></div>
-          <div class="stat"><b id="homeQuestions">0</b><span>Questions</span></div>
-          <div class="stat"><b id="homeAccuracy">—</b><span>Accuracy</span></div>
-        </div>
-      </div>
+<main>
+<section class="view active" id="homeView">
+  <div class="card hero">
+    <div class="eyebrow" style="color:#c7d2fe">STUDY DASHBOARD</div>
+    <h1>Learn it. Test it. Keep it.</h1>
+    <p>Your own Illinois Broker study workspace: manually build material, generate editable drafts from notes, then reinforce it with cards, quizzes, tests, and games.</p>
+    <div class="stats">
+      <div class="stat"><b id="homeCards">0</b><span>FLASHCARDS</span></div>
+      <div class="stat"><b id="homeQuestions">0</b><span>QUESTIONS</span></div>
+      <div class="stat"><b id="homeAccuracy">—</b><span>ACCURACY</span></div>
+    </div>
+  </div>
 
-      <div style="height:14px"></div>
-      <div class="grid two">
-        <button class="action" onclick="startFlashcards()">
-          Study Flashcards
-          <small>Tap to flip. Mark Again, Hard, or Know It.</small>
-        </button>
-        <button class="action" onclick="openTestSetup()">
-          Take Practice Test
-          <small>Choose topic, question count, and randomization.</small>
-        </button>
-        <button class="action" onclick="showView('manage')">
-          Manage Questions
-          <small>Add, edit, delete, import, or export your study bank.</small>
-        </button>
-        <button class="action" onclick="showView('progress')">
-          Progress
-          <small>See test history, accuracy, and weak topics.</small>
-        </button>
-      </div>
+  <div class="section-title"><div><h3>Choose a study mode</h3><div class="tiny">Browse freely or launch a focused session.</div></div></div>
+  <div class="mode-grid">
+    <button class="mode-card" onclick="startFlashcards()"><div class="mode-icon">↻</div><b>Flashcards</b><small>Tap, swipe, star, read aloud, and mark Again / Hard / Know It.</small></button>
+    <button class="mode-card" onclick="openQuizSetup()"><div class="mode-icon">✓</div><b>Quiz</b><small>Immediate feedback and explanations after every answer.</small></button>
+    <button class="mode-card" onclick="openTestSetup()"><div class="mode-icon">▣</div><b>Practice Test</b><small>Exam-style questions with results held until the end.</small></button>
+    <button class="mode-card" onclick="showView('play')"><div class="mode-icon">★</div><b>Play</b><small>Speed, streak, match, and solo challenge modes.</small></button>
+  </div>
 
-      <div style="height:14px"></div>
-      <div class="install-tip">
-        <b>Install on iPhone:</b> open this site in Safari → Share → Add to Home Screen → Open as Web App.
-      </div>
-    </section>
+  <div class="section-title"><div><h3>Your sets</h3><div class="tiny">Topics work like Quizlet-style study sets.</div></div><button class="btn secondary small" onclick="showView('create')">+ Create</button></div>
+  <div id="homeSets" class="set-grid"></div>
 
-    <section class="view" id="studyView">
-      <div class="row" style="margin-bottom:12px">
-        <div>
-          <h2>Flashcards</h2>
-          <div class="muted" id="studyMeta">0 cards</div>
-        </div>
-        <button class="btn secondary mini" onclick="studySettings()">Filter</button>
-      </div>
-      <div class="progressbar"><div id="studyProgress"></div></div>
-      <div style="height:12px"></div>
-      <div id="flashcardArea"></div>
-    </section>
+  <div class="section-title"><div><h3>Build from your material</h3></div></div>
+  <div class="grid two">
+    <button class="action" onclick="openSmartImport()">Smart Import<small>Paste notes or upload TXT/Markdown/PDF and review local source-backed drafts before saving.</small></button>
+    <button class="action" onclick="openLibrary()">Browse Library<small>See many cards at once, edit, drag, search, select, and organize by set.</small></button>
+  </div>
+  <div style="height:14px"></div>
+  <div class="install-tip"><b>Privacy:</b> the hosted app contains no paid course text. Your imported course cards stay in your browser storage unless you export them yourself.</div>
+</section>
 
-    <section class="view" id="testView">
-      <div class="row" style="margin-bottom:12px">
-        <div>
-          <h2>Practice Test</h2>
-          <div class="muted" id="testMeta"></div>
-        </div>
-        <button class="btn secondary mini" onclick="confirmQuitTest()">Quit</button>
-      </div>
-      <div class="progressbar"><div id="testProgress"></div></div>
-      <div style="height:12px"></div>
-      <div id="testArea"></div>
-    </section>
+<section class="view" id="libraryView">
+  <div class="library-head">
+    <div><h2>Cards & Questions</h2><div class="muted" id="libraryMeta">0 items</div></div>
+    <div class="wrap">
+      <button class="btn blue small" onclick="openEditor('', 'flash')">+ Flashcard</button>
+      <button class="btn green small" onclick="openEditor('', 'mcq')">+ Question</button>
+    </div>
+  </div>
 
-    <section class="view" id="manageView">
-      <div class="row">
-        <div>
-          <h2>Study Bank</h2>
-          <div class="muted" id="manageMeta"></div>
-        </div>
+  <div class="controls">
+    <div class="searchrow">
+      <input class="wide" id="searchBank" placeholder="Search your cards, answers, or questions…" oninput="renderLibrary()">
+      <select id="filterTopic" onchange="renderLibrary()"></select>
+      <select id="sortBank" onchange="renderLibrary()">
+        <option value="custom">Custom order</option>
+        <option value="az">A–Z</option>
+        <option value="newest">Newest</option>
+        <option value="hard">Needs review</option>
+      </select>
+      <button class="btn secondary small" id="selectModeBtn" onclick="toggleSelectMode()">Select</button>
+    </div>
+    <div class="row" style="margin-top:10px;align-items:flex-start">
+      <div class="segment" id="typeSegment">
+        <button data-type="all" class="active" onclick="setLibraryType('all')">All</button>
+        <button data-type="flash" onclick="setLibraryType('flash')">Flashcards</button>
+        <button data-type="mcq" onclick="setLibraryType('mcq')">Questions</button>
       </div>
-      <div style="height:12px"></div>
-      <div class="grid two">
-        <button class="btn blue" onclick="openEditor('', 'flash')">+ Add Flashcard</button>
-        <button class="btn green" onclick="openEditor('', 'mcq')">+ Add Multiple Choice</button>
+      <div class="wrap">
+        <label class="btn secondary small" style="display:inline-block;margin:0">Import Study Pack<input class="hidden" type="file" id="studyPackFile" accept=".json,application/json" onchange="importStudyPack(event)"></label>
+        <button class="btn secondary small" onclick="showDataMenu()">Backup / Import</button>
       </div>
-      <div style="height:12px"></div>
-      <div class="toolbar">
-        <label class="btn secondary mini" style="display:inline-block;margin:0">
-          Import Study Pack
-          <input id="studyPackFile" type="file" accept=".json,application/json" class="hidden" onchange="importStudyPack(event)">
-        </label>
-        <button class="btn secondary mini" onclick="showPdfWorkflow()">PDF → Study Pack</button>
-        <button class="btn secondary mini" onclick="exportData()">Export Full Backup</button>
-        <label class="btn secondary mini" style="display:inline-block;margin:0">
-          Restore Backup
-          <input id="importFile" type="file" accept=".json,application/json" class="hidden" onchange="importData(event)">
-        </label>
-        <button class="btn secondary mini" onclick="loadStarterData(true)">Restore Starter Cards</button>
-      </div>
-      <div class="notice">Study Pack imports <b>append</b> new material. Full Backup restore replaces the current bank and restores progress/history too.</div>
-      <div style="height:12px"></div>
-      <div class="field">
-        <input id="searchBank" placeholder="Search terms, definitions, questions, or topics..." oninput="renderManage()">
-      </div>
-      <div class="field">
-        <select id="filterTopic" onchange="renderManage()"></select>
-      </div>
-      <div id="bankList" class="stack"></div>
-    </section>
+    </div>
+  </div>
 
-    <section class="view" id="progressView">
-      <h2>Progress</h2>
-      <div class="grid two" style="margin-top:12px">
-        <div class="card"><div class="muted">Overall test accuracy</div><div class="kpi" id="overallAccuracy">—</div></div>
-        <div class="card"><div class="muted">Tests completed</div><div class="kpi" id="testsCompleted">0</div></div>
-        <div class="card"><div class="muted">Questions answered</div><div class="kpi" id="questionsAnswered">0</div></div>
-        <div class="card"><div class="muted">Cards reviewed</div><div class="kpi" id="cardsReviewed">0</div></div>
-        <div class="card"><div class="muted">Cards marked Know It</div><div class="kpi" id="cardsKnown">0</div></div>
-        <div class="card"><div class="muted">Needs review</div><div class="kpi" id="cardsNeedReview">0</div></div>
-      </div>
-      <div style="height:14px"></div>
-      <div class="card">
-        <h3>Accuracy by topic</h3>
-        <div id="topicProgress" class="stack"></div>
-      </div>
-      <div style="height:14px"></div>
-      <div class="card">
-        <h3>Weakest topics</h3>
-        <div id="weakTopics" class="stack"></div>
-      </div>
-      <div style="height:14px"></div>
-      <div class="card">
-        <div class="row">
-          <h3>Recent tests</h3>
-          <button class="btn secondary mini" onclick="clearProgress()">Clear Progress</button>
-        </div>
-        <div id="historyList" class="stack" style="margin-top:10px"></div>
-      </div>
-    </section>
-  </main>
+  <div class="tiny" style="margin:8px 2px 10px">Tip: drag the grip on the left to rearrange items in Custom order. On iPhone, press and drag the grip. Tap a card anywhere else to preview it.</div>
+  <div id="bankList" class="library-list"></div>
+</section>
 
-  <nav id="bottomNav">
-    <button data-view="home" class="active" onclick="showView('home')">Home</button>
-    <button data-view="study" onclick="startFlashcards()">Cards</button>
-    <button data-view="manage" onclick="showView('manage')">Bank</button>
-    <button data-view="progress" onclick="showView('progress')">Progress</button>
-  </nav>
+<section class="view" id="createView">
+  <div><h2>Create</h2><div class="muted">Manual creation stays the primary workflow.</div></div>
+  <div class="create-grid">
+    <button class="feature-card" onclick="openEditor('', 'flash')"><h3>New Flashcard</h3><p>Long front/back text, set/topic tagging, source notes, and no app-imposed character cap.</p></button>
+    <button class="feature-card" onclick="openEditor('', 'mcq')"><h3>New Multiple Choice</h3><p>Long scenarios, four choices, correct answer, and detailed explanation.</p></button>
+    <button class="feature-card" onclick="openSmartImport('local')"><h3>Smart Import</h3><p>Paste notes or upload a PDF/text file. Review locally generated drafts before adding them.</p></button>
+    <button class="feature-card" onclick="openSmartImport('pack')"><h3>AI Study Pack</h3><p>Import the higher-quality JSON pack generated from your source material in ChatGPT.</p></button>
+  </div>
+</section>
+
+<section class="view" id="playView">
+  <div class="game-banner"><div class="row"><div><h2>Study Games</h2><p>Use retrieval pressure and repetition without changing your study material.</p></div><div class="xp-pill">XP <b id="gameXp">0</b></div></div></div>
+  <div class="game-grid">
+    <button class="feature-card" onclick="openGameSetup('speed')"><h3>⚡ Speed Round</h3><p>60 seconds. Answer as many questions as possible.</p></button>
+    <button class="feature-card" onclick="openGameSetup('streak')"><h3>🔥 Streak Challenge</h3><p>Three lives. Build the longest correct-answer streak you can.</p></button>
+    <button class="feature-card" onclick="openGameSetup('match')"><h3>⇄ Match</h3><p>Pair terms with definitions from your flashcards.</p></button>
+    <button class="feature-card" onclick="openGameSetup('solo')"><h3>🏁 Solo Showdown</h3><p>Kahoot-like personal challenge with a timer, speed bonus, and streak multiplier.</p></button>
+  </div>
+  <div id="gameArea" style="margin-top:14px"></div>
+</section>
+
+<section class="view" id="studyView">
+  <div class="row" style="margin-bottom:10px">
+    <div><h2>Flashcard Study</h2><div class="muted" id="studyMeta">0 cards</div></div>
+    <div class="wrap"><button class="btn secondary small" onclick="studySettings()">Settings</button><button class="btn secondary small" onclick="showView('library')">Exit</button></div>
+  </div>
+  <div class="progressbar"><div id="studyProgress"></div></div>
+  <div style="height:12px"></div>
+  <div class="flash-stage"><div id="flashcardArea"></div></div>
+</section>
+
+<section class="view" id="testView">
+  <div class="row" style="margin-bottom:10px">
+    <div><h2 id="testTitle">Practice Test</h2><div class="muted" id="testMeta"></div></div>
+    <button class="btn secondary small" onclick="confirmQuitTest()">Quit</button>
+  </div>
+  <div class="progressbar"><div id="testProgress"></div></div>
+  <div style="height:12px"></div>
+  <div id="testArea"></div>
+</section>
+
+<section class="view" id="progressView">
+  <div class="row"><div><h2>Progress</h2><div class="muted">Your local study history.</div></div><button class="btn secondary small" onclick="startReviewOnly()">Review weak cards</button></div>
+  <div class="kpis" style="margin-top:12px">
+    <div class="card kpi-card"><div class="tiny">TEST ACCURACY</div><div class="kpi" id="overallAccuracy">—</div></div>
+    <div class="card kpi-card"><div class="tiny">TESTS</div><div class="kpi" id="testsCompleted">0</div></div>
+    <div class="card kpi-card"><div class="tiny">QUESTIONS ANSWERED</div><div class="kpi" id="questionsAnswered">0</div></div>
+    <div class="card kpi-card"><div class="tiny">CARDS REVIEWED</div><div class="kpi" id="cardsReviewed">0</div></div>
+    <div class="card kpi-card"><div class="tiny">KNOW IT</div><div class="kpi" id="cardsKnown">0</div></div>
+    <div class="card kpi-card"><div class="tiny">NEEDS REVIEW</div><div class="kpi" id="cardsNeedReview">0</div></div>
+    <div class="card kpi-card"><div class="tiny">GAME XP</div><div class="kpi" id="progressGameXp">0</div></div>
+    <div class="card kpi-card"><div class="tiny">BEST GAME STREAK</div><div class="kpi" id="progressBestStreak">0</div></div>
+  </div>
+  <div class="section-title"><div><h3>Accuracy by topic</h3><div class="tiny">Lowest-performing topics are shown first.</div></div></div>
+  <div class="card pad" id="topicProgress"></div>
+  <div class="section-title"><div><h3>Recent tests</h3></div><button class="btn secondary small" onclick="clearProgress()">Clear progress</button></div>
+  <div id="historyList" class="history"></div>
+</section>
+</main>
+
+<nav>
+  <button data-view="home" class="active" onclick="showView('home')"><span>⌂</span>Home</button>
+  <button data-view="library" onclick="openLibrary()"><span>▤</span>Library</button>
+  <button data-view="create" onclick="showView('create')"><span>＋</span>Create</button>
+  <button data-view="play" onclick="showView('play')"><span>★</span>Play</button>
+  <button data-view="progress" onclick="showView('progress')"><span>▥</span>Progress</button>
+</nav>
+</div>
+
+<div id="selectionBar" class="selectionbar">
+  <div class="row">
+    <div><b id="selectedCount">0 selected</b></div>
+    <div class="wrap">
+      <button class="btn secondary small" onclick="studySelected()">Study</button>
+      <button class="btn secondary small" onclick="quizSelected()">Quiz</button>
+      <button class="btn secondary small" onclick="testSelected()">Test</button>
+      <button class="btn red small" onclick="deleteSelected()">Delete</button>
+      <button class="btn ghost small" style="color:white;border-color:#475467" onclick="clearSelection()">Clear</button>
+    </div>
+  </div>
 </div>
 
 <div class="modalback" id="modalBack" onclick="modalBackdrop(event)">
@@ -286,621 +328,517 @@
 </div>
 
 <script>
-const DB_KEY = 'ilBrokerStudyData_v1';
-const HISTORY_KEY = 'ilBrokerStudyHistory_v1';
-const STUDY_KEY = 'ilBrokerStudyRatings_v1';
+const DB_KEY='ilBrokerStudyData_v1';
+const HISTORY_KEY='ilBrokerStudyHistory_v1';
+const STUDY_KEY='ilBrokerStudyRatings_v1';
+const UI_KEY='ilBrokerStudyUi_v4';
+const GAME_KEY='ilBrokerStudyGame_v4';
 
-const STARTER = [
-  {
-    id:"starter_broker_def",
-    topic:"Illinois License Law",
-    term:"Broker",
-    definition:"An individual or business entity, other than a residential leasing agent, who for another and for compensation, or with the intent or expectation of compensation, directly or indirectly performs licensed real estate activities such as selling, buying, exchanging, renting, leasing, negotiating, listing, procuring leads, opening property to the public for marketing, auctioning real estate, or preparing a BPO/CMA.",
-    question:"Which description best captures the Illinois definition of a broker?",
-    choices:[
-      "A person who performs specified real estate activities for another and for compensation or expected compensation",
-      "Any property owner who sells their own home one time",
-      "Only an individual who works for a residential leasing company",
-      "Any person who discusses real estate without compensation"
-    ],
-    correct:0,
-    explanation:"The definition centers on performing specified real estate activities for another and for compensation, or with the intent or expectation of compensation."
-  },
-  {
-    id:"starter_pattern",
-    topic:"Illinois License Law",
-    term:"Pattern of Business",
-    definition:"For the broker definition, a person or entity is considered to have engaged in a pattern of business if they engage in specified contract/option dealing practices on 2 or more occasions in any 12-month period, alone or in combination with others.",
-    question:"Under the broker definition, when is a person or entity considered to have engaged in a pattern of business?",
-    choices:[
-      "After 1 transaction in any 24-month period",
-      "After 2 or more qualifying occasions in any 12-month period",
-      "After 3 qualifying occasions in a calendar year",
-      "Only after receiving compensation 5 times"
-    ],
-    correct:1,
-    explanation:"The threshold is 2 or more qualifying occasions within any 12-month period."
-  },
-  {
-    id:"starter_bpo",
-    topic:"Illinois License Law",
-    term:"BPO / CMA",
-    definition:"Preparing or providing a Broker Price Opinion (BPO) or Comparative Market Analysis (CMA) is included among activities performed by a broker.",
-    question:"Which of the following is specifically included among broker activities?",
-    choices:[
-      "Issuing a building permit",
-      "Preparing or providing a BPO or CMA",
-      "Performing a municipal tax assessment",
-      "Approving a mortgage loan"
-    ],
-    correct:1,
-    explanation:"The statutory broker definition specifically includes preparing or providing a BPO or CMA."
-  },
-  {
-    id:"starter_leads",
-    topic:"Illinois License Law",
-    term:"Leads and Prospects",
-    definition:"Broker activity includes assisting or directing the procuring or referring of leads or prospects intended to result in the sale, exchange, lease, or rental of real estate.",
-    question:"Which activity can fall within the Illinois broker definition?",
-    choices:[
-      "Referring real estate prospects for a transaction",
-      "Replacing a furnace filter",
-      "Painting a house before sale",
-      "Delivering office supplies"
-    ],
-    correct:0,
-    explanation:"Assisting or directing the procuring or referring of leads or prospects intended to produce a real estate transaction is specifically included."
-  },
-  {
-    id:"starter_open_house",
-    topic:"Illinois License Law",
-    term:"Opening Property to the Public",
-    definition:"Opening real estate to the public for marketing purposes is included among broker activities.",
-    question:"Opening real estate to the public for marketing purposes is:",
-    choices:[
-      "Excluded from the broker definition",
-      "Included among broker activities",
-      "Allowed only for appraisers",
-      "A property-management activity only"
-    ],
-    correct:1,
-    explanation:"Opening real estate to the public for marketing purposes is expressly included among broker activities."
-  },
-  {
-    id:"starter_auction",
-    topic:"Illinois License Law",
-    term:"Auction Activity",
-    definition:"Selling, renting, leasing, or offering real estate for sale or lease at auction is included among broker activities.",
-    question:"Which auction-related act is included among broker activities?",
-    choices:[
-      "Auctioning household furniture only",
-      "Selling or offering real estate for sale or lease at auction",
-      "Appraising antiques for an estate sale",
-      "Running an online auction for vehicles"
-    ],
-    correct:1,
-    explanation:"The broker definition includes selling, renting, leasing, or offering real estate for sale or lease at auction."
-  }
-];
+let bank=[],history=[],ratings={},ui={},game={xp:0,bestStreak:0,best:{},sessions:0};
+let currentView='home',libraryType='all',selectMode=false,selectedIds=new Set();
+let studyDeck=[],studyIndex=0,studyShowingBack=false,studyTopic='All Topics',studyMode='all',studyShuffle=true;
+let testState=null,dragState=null,swipeStart=null,gameState=null,gameTimer=null,smartDrafts=[],smartSourceName='';
 
-let bank = [];
-let history = [];
-let ratings = {};
-let currentView = 'home';
-
-let studyDeck = [];
-let studyIndex = 0;
-let studyShowingBack = false;
-let studyTopic = 'All Topics';
-let studyMode = 'all';
-
-let testState = null;
-
-function uid(){
-  return 'q_' + Date.now().toString(36) + Math.random().toString(36).slice(2,8);
-}
+function safeParse(s,f){try{return JSON.parse(s)}catch{return f}}
+function uid(){return 'q_'+Date.now().toString(36)+Math.random().toString(36).slice(2,8)}
+function escapeHtml(s=''){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
+function nl2br(s=''){return escapeHtml(s).replace(/\n/g,'<br>')}
+function shuffle(a){a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function hasFlash(x){return !!(x.term&&x.definition)}
+function hasValidQuestion(x){return !!(x.question&&Array.isArray(x.choices)&&x.choices.length>=2&&Number.isInteger(x.correct)&&x.correct>=0&&x.correct<x.choices.length)}
+function itemLabel(x){return x.term||x.question||'Untitled'}
+function itemCreated(x){return x.createdAt||x.importedAt||'1970-01-01'}
+function topics(){return ['All Topics',...Array.from(new Set(bank.map(x=>x.topic||'Uncategorized'))).sort((a,b)=>a.localeCompare(b))]}
+function saveBank(){localStorage.setItem(DB_KEY,JSON.stringify(bank));refreshAll()}
+function saveRatings(){localStorage.setItem(STUDY_KEY,JSON.stringify(ratings));refreshAll()}
+function saveHistory(){localStorage.setItem(HISTORY_KEY,JSON.stringify(history));refreshAll()}
+function saveUi(){localStorage.setItem(UI_KEY,JSON.stringify(ui))}
 function load(){
-  const raw = localStorage.getItem(DB_KEY);
-  bank = raw ? safeParse(raw, []) : [];
-  history = safeParse(localStorage.getItem(HISTORY_KEY), []);
-  ratings = safeParse(localStorage.getItem(STUDY_KEY), {});
-  if(!bank.length) loadStarterData(false);
+  bank=safeParse(localStorage.getItem(DB_KEY),[]);
+  history=safeParse(localStorage.getItem(HISTORY_KEY),[]);
+  ratings=safeParse(localStorage.getItem(STUDY_KEY),{});
+  ui=safeParse(localStorage.getItem(UI_KEY),{});
+  studyTopic=ui.studyTopic||'All Topics'; studyMode=ui.studyMode||'all'; studyShuffle=ui.studyShuffle!==false;
+  bank=bank.map((x,i)=>({...x,createdAt:x.createdAt||new Date(Date.now()-((bank.length-i)*1000)).toISOString()}));
+  localStorage.setItem(DB_KEY,JSON.stringify(bank));
   refreshAll();
-}
-function safeParse(s,fallback){
-  try{return JSON.parse(s)}catch{return fallback}
-}
-function saveBank(){
-  localStorage.setItem(DB_KEY, JSON.stringify(bank));
-  refreshAll();
-}
-function saveHistory(){
-  localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
-  refreshAll();
-}
-function saveRatings(){
-  localStorage.setItem(STUDY_KEY, JSON.stringify(ratings));
-  refreshAll();
-}
-function loadStarterData(confirmFirst){
-  if(confirmFirst && !confirm('Add the starter Illinois Broker cards back into your bank? Existing items will not be deleted.')) return;
-  const existing = new Set(bank.map(x=>x.id));
-  STARTER.forEach(x=>{ if(!existing.has(x.id)) bank.push(structuredClone(x)); });
-  saveBank();
-}
-function topics(){
-  return ['All Topics', ...Array.from(new Set(bank.map(x=>x.topic || 'Uncategorized'))).sort()];
 }
 function refreshAll(){
-  document.getElementById('homeCards').textContent = bank.filter(x=>x.term && x.definition).length;
-  document.getElementById('homeQuestions').textContent = bank.filter(hasValidQuestion).length;
-  const totals = history.reduce((a,h)=>{a.c+=h.correct||0;a.t+=h.total||0;return a},{c:0,t:0});
-  document.getElementById('homeAccuracy').textContent = totals.t ? Math.round(totals.c/totals.t*100)+'%' : '—';
-  document.getElementById('manageMeta').textContent = `${bank.length} study items`;
-  populateTopicFilter();
-  renderProgress();
-  if(currentView==='manage') renderManage();
-}
-function hasValidQuestion(x){
-  return x.question && Array.isArray(x.choices) && x.choices.length>=2 && Number.isInteger(x.correct) && x.correct>=0 && x.correct<x.choices.length;
+  const cards=bank.filter(hasFlash),qs=bank.filter(hasValidQuestion);
+  document.getElementById('homeCards').textContent=cards.length;
+  document.getElementById('homeQuestions').textContent=qs.length;
+  const totals=history.reduce((a,h)=>{a.c+=h.correct||0;a.t+=h.total||0;return a},{c:0,t:0});
+  document.getElementById('homeAccuracy').textContent=totals.t?Math.round(totals.c/totals.t*100)+'%':'—';
+  renderHomeSets(); populateTopicFilter(); renderProgress();
+  if(currentView==='library')renderLibrary();
 }
 function showView(name){
+  clearGameTimer();
   currentView=name;
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
   document.getElementById(name+'View').classList.add('active');
   document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.view===name));
-  if(name==='manage') renderManage();
-  if(name==='progress') renderProgress();
+  if(name==='library')renderLibrary();
+  if(name==='progress')renderProgress();
+  if(name==='home')renderHomeSets();
   window.scrollTo({top:0,behavior:'instant'});
 }
+function openLibrary(topic=null){
+  showView('library');
+  if(topic){
+    document.getElementById('filterTopic').value=topic;
+    renderLibrary();
+  }
+}
+function renderHomeSets(){
+  const host=document.getElementById('homeSets');
+  const ts=topics().filter(t=>t!=='All Topics');
+  if(!ts.length){host.innerHTML='<div class="card pad empty" style="grid-column:1/-1">No sets yet. Add a flashcard or question and give it a topic/chapter.</div>';return}
+  host.innerHTML=ts.map(t=>{
+    const items=bank.filter(x=>(x.topic||'Uncategorized')===t),cards=items.filter(hasFlash),qs=items.filter(hasValidQuestion);
+    const reviewed=cards.filter(x=>ratings[x.id]?.rating).length,known=cards.filter(x=>ratings[x.id]?.rating==='know').length;
+    const pct=reviewed?Math.round(known/reviewed*100):0;
+    return `<div class="set-card" onclick="openLibrary('${escapeHtml(t).replace(/'/g,"&#39;")}')">
+      <div class="row"><div class="set-title">${escapeHtml(t)}</div><span class="badge blue">${items.length} items</span></div>
+      <div class="set-meta">${cards.length} flashcards · ${qs.length} questions · ${reviewed?`${pct}% known among reviewed`:'not studied yet'}</div>
+      <div class="mini-progress"><div style="width:${pct}%"></div></div>
+    </div>`
+  }).join('');
+}
 function populateTopicFilter(){
-  const select = document.getElementById('filterTopic');
-  const prev = select.value || 'All Topics';
-  select.innerHTML = topics().map(t=>`<option>${escapeHtml(t)}</option>`).join('');
-  if(topics().includes(prev)) select.value=prev;
+  const s=document.getElementById('filterTopic'); if(!s)return;
+  const prev=s.value||ui.libraryTopic||'All Topics';
+  s.innerHTML=topics().map(t=>`<option>${escapeHtml(t)}</option>`).join('');
+  if(topics().includes(prev))s.value=prev;
 }
-function shuffle(arr){
-  const a=[...arr];
-  for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}
-  return a;
+function setLibraryType(type){
+  libraryType=type;
+  document.querySelectorAll('#typeSegment button').forEach(b=>b.classList.toggle('active',b.dataset.type===type));
+  renderLibrary();
 }
-function escapeHtml(s=''){
-  return String(s).replace(/[&<>"']/g,m=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;' }[m]));
-}
-function modal(html){
-  document.getElementById('modal').innerHTML=html;
-  document.getElementById('modalBack').classList.add('show');
-}
-function closeModal(){document.getElementById('modalBack').classList.remove('show')}
-function modalBackdrop(e){ if(e.target.id==='modalBack') closeModal(); }
-
-function startFlashcards(){
-  if(!bank.some(x=>x.term && x.definition)){ alert('Add at least one flashcard first.'); showView('manage'); return; }
-  buildStudyDeck();
-  showView('study');
-  renderFlashcard();
-}
-function buildStudyDeck(){
-  let deck=bank.filter(x=>x.term && x.definition);
-  if(studyTopic!=='All Topics') deck=deck.filter(x=>(x.topic||'Uncategorized')===studyTopic);
-  if(studyMode==='hard') deck=deck.filter(x=>['again','hard'].includes(ratings[x.id]?.rating));
-  studyDeck=shuffle(deck);
-  studyIndex=0; studyShowingBack=false;
-}
-function renderFlashcard(){
-  const area=document.getElementById('flashcardArea');
-  if(!studyDeck.length){
-    area.innerHTML=`<div class="card empty">No cards match this filter.<br><br><button class="btn" onclick="studySettings()">Change Filter</button></div>`;
-    document.getElementById('studyMeta').textContent='0 cards';
-    document.getElementById('studyProgress').style.width='0%';
-    return;
-  }
-  if(studyIndex>=studyDeck.length){
-    area.innerHTML=`<div class="card" style="text-align:center">
-      <h2>Deck complete</h2>
-      <p class="muted">You reviewed ${studyDeck.length} card${studyDeck.length===1?'':'s'}.</p>
-      <div class="grid two">
-        <button class="btn blue" onclick="buildStudyDeck();renderFlashcard()">Study Again</button>
-        <button class="btn secondary" onclick="showView('home')">Home</button>
-      </div>
-    </div>`;
-    document.getElementById('studyMeta').textContent='Complete';
-    document.getElementById('studyProgress').style.width='100%';
-    return;
-  }
-  const c=studyDeck[studyIndex];
-  document.getElementById('studyMeta').textContent=`${studyIndex+1} of ${studyDeck.length} • ${c.topic||'Uncategorized'}`;
-  document.getElementById('studyProgress').style.width=((studyIndex)/studyDeck.length*100)+'%';
-  const content = studyShowingBack ? c.definition : c.term;
-  area.innerHTML=`
-    <div class="flashcard" onclick="flipCard()">
-      <div>
-        <div class="tag">${escapeHtml(c.topic||'Uncategorized')}</div>
-        <div class="side">${escapeHtml(content)}</div>
-      </div>
-      <div class="hint">${studyShowingBack?'Tap to show term':'Tap to reveal answer'}</div>
-    </div>
-    <div style="height:12px"></div>
-    ${studyShowingBack?`
-      <div class="grid" style="grid-template-columns:repeat(3,1fr)">
-        <button class="btn red" onclick="rateCard('again')">Again</button>
-        <button class="btn amber" onclick="rateCard('hard')">Hard</button>
-        <button class="btn green" onclick="rateCard('know')">Know It</button>
-      </div>`:
-      `<button class="btn blue" style="width:100%" onclick="flipCard()">Show Answer</button>`}
-  `;
-}
-function flipCard(){studyShowingBack=!studyShowingBack;renderFlashcard()}
-function rateCard(rating){
-  const c=studyDeck[studyIndex];
-  const prev=ratings[c.id]||{};
-  const counts=prev.counts||{again:0,hard:0,know:0};
-  counts[rating]=(counts[rating]||0)+1;
-  ratings[c.id]={rating,at:new Date().toISOString(),times:(prev.times||0)+1,counts};
-  localStorage.setItem(STUDY_KEY,JSON.stringify(ratings));
-  studyIndex++;studyShowingBack=false;renderFlashcard();
-}
-function studySettings(){
-  modal(`
-    <h2>Flashcard Filter</h2>
-    <div class="field"><label>Topic</label><select id="studyTopicSel">${topics().map(t=>`<option ${t===studyTopic?'selected':''}>${escapeHtml(t)}</option>`).join('')}</select></div>
-    <div class="field"><label>Cards</label>
-      <select id="studyModeSel">
-        <option value="all" ${studyMode==='all'?'selected':''}>All cards</option>
-        <option value="hard" ${studyMode==='hard'?'selected':''}>Only Again / Hard cards</option>
-      </select>
-    </div>
-    <div class="grid two">
-      <button class="btn secondary" onclick="closeModal()">Cancel</button>
-      <button class="btn blue" onclick="applyStudySettings()">Apply</button>
-    </div>`);
-}
-function applyStudySettings(){
-  studyTopic=document.getElementById('studyTopicSel').value;
-  studyMode=document.getElementById('studyModeSel').value;
-  closeModal();buildStudyDeck();showView('study');renderFlashcard();
-}
-
-function openTestSetup(){
-  const available=bank.filter(hasValidQuestion);
-  if(!available.length){alert('Add at least one valid multiple-choice question first.');showView('manage');return}
-  modal(`
-    <h2>Practice Test Setup</h2>
-    <div class="field"><label>Topic</label><select id="testTopic">${topics().map(t=>`<option>${escapeHtml(t)}</option>`).join('')}</select></div>
-    <div class="field"><label>Number of questions</label>
-      <select id="testCount">
-        <option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="all">All available</option>
-      </select>
-    </div>
-    <div class="field"><label><input id="shuffleChoices" type="checkbox" checked style="width:auto;margin-right:7px"> Randomize answer choices</label></div>
-    <div class="field"><label><input id="instantFeedback" type="checkbox" style="width:auto;margin-right:7px"> Show answer after each question</label></div>
-    <div class="grid two">
-      <button class="btn secondary" onclick="closeModal()">Cancel</button>
-      <button class="btn blue" onclick="beginTest()">Start Test</button>
-    </div>`);
-}
-function beginTest(){
-  const topic=document.getElementById('testTopic').value;
-  const countVal=document.getElementById('testCount').value;
-  const shuffleChoices=document.getElementById('shuffleChoices').checked;
-  const instant=document.getElementById('instantFeedback').checked;
-  let qs=bank.filter(hasValidQuestion);
-  if(topic!=='All Topics') qs=qs.filter(x=>(x.topic||'Uncategorized')===topic);
-  if(!qs.length){alert('No test questions in that topic.');return}
-  qs=shuffle(qs);
-  const count=countVal==='all'?qs.length:Math.min(Number(countVal),qs.length);
-  qs=qs.slice(0,count).map(q=>prepareQuestion(q,shuffleChoices));
-  testState={topic,questions:qs,index:0,answers:[],correct:0,instant,locked:false};
-  closeModal();showView('test');renderTestQuestion();
-}
-function prepareQuestion(q,doShuffle){
-  const choiceObjs=q.choices.map((text,i)=>({text,correct:i===q.correct}));
-  const arranged=doShuffle?shuffle(choiceObjs):choiceObjs;
-  return {
-    id:q.id,topic:q.topic||'Uncategorized',question:q.question,explanation:q.explanation||'',
-    choices:arranged, correctIndex:arranged.findIndex(x=>x.correct)
-  };
-}
-function renderTestQuestion(){
-  const a=document.getElementById('testArea');
-  if(!testState)return;
-  const {questions,index}=testState;
-  if(index>=questions.length){finishTest();return}
-  const q=questions[index];
-  document.getElementById('testMeta').textContent=`Question ${index+1} of ${questions.length} • ${q.topic}`;
-  document.getElementById('testProgress').style.width=(index/questions.length*100)+'%';
-  const existing=testState.answers[index];
-  const selected=existing?.selected;
-  const revealed=testState.instant && testState.locked;
-  a.innerHTML=`
-    <div class="question">
-      <div class="tag">${escapeHtml(q.topic)}</div>
-      <h3 style="font-size:19px;line-height:1.4">${escapeHtml(q.question)}</h3>
-      <div style="margin-top:12px">
-      ${q.choices.map((c,i)=>{
-        let cls='choice';
-        if(selected===i) cls+=' selected';
-        if(revealed){
-          if(i===q.correctIndex) cls+=' correct';
-          else if(selected===i) cls+=' wrong';
-        }
-        return `<button class="${cls}" ${revealed?'disabled':''} onclick="selectChoice(${i})">${String.fromCharCode(65+i)}. ${escapeHtml(c.text)}</button>`
-      }).join('')}
-      </div>
-      ${revealed?`<div class="explain"><b>${selected===q.correctIndex?'Correct':'Incorrect'}.</b> ${escapeHtml(q.explanation||'')}</div>`:''}
-    </div>
-    <div style="height:12px"></div>
-    <button class="btn blue" style="width:100%" ${selected===undefined?'disabled':''} onclick="${revealed?'nextQuestion()':'submitQuestion()'}">${revealed?'Next Question':(index===questions.length-1?'Finish Test':'Next')}</button>
-  `;
-}
-function selectChoice(i){
-  if(testState.locked)return;
-  testState.answers[testState.index]={selected:i};
-  renderTestQuestion();
-}
-function submitQuestion(){
-  const i=testState.index, q=testState.questions[i], a=testState.answers[i];
-  if(!a)return;
-  a.correct = a.selected===q.correctIndex;
-  if(testState.instant){
-    testState.locked=true;
-    renderTestQuestion();
-  }else{
-    nextQuestion();
-  }
-}
-function nextQuestion(){
-  const i=testState.index, q=testState.questions[i], a=testState.answers[i];
-  if(a && a.correct===undefined) a.correct=a.selected===q.correctIndex;
-  testState.index++;testState.locked=false;
-  renderTestQuestion();
-}
-function finishTest(){
-  testState.answers.forEach((a,i)=>{if(a.correct===undefined)a.correct=a.selected===testState.questions[i].correctIndex});
-  const correct=testState.answers.filter(a=>a.correct).length;
-  const total=testState.questions.length;
-  const pct=Math.round(correct/total*100);
-  const item={
-    id:uid(),date:new Date().toISOString(),topic:testState.topic,total,correct,pct,
-    details:testState.questions.map((q,i)=>({id:q.id,topic:q.topic,correct:!!testState.answers[i]?.correct}))
-  };
-  history.unshift(item);history=history.slice(0,100);saveHistory();
-  document.getElementById('testProgress').style.width='100%';
-  const missed=testState.questions.filter((q,i)=>!testState.answers[i]?.correct);
-  document.getElementById('testArea').innerHTML=`
-    <div class="card" style="text-align:center">
-      <div class="${pct>=75?'badge-good':'badge-bad'}" style="font-size:48px">${pct}%</div>
-      <h2>${correct} / ${total} correct</h2>
-      <p class="muted">${missed.length?`${missed.length} question${missed.length===1?'':'s'} to review.`:'Perfect score.'}</p>
-      <div class="grid two">
-        ${missed.length?`<button class="btn amber" onclick="reviewMissed()">Review Missed</button>`:''}
-        <button class="btn blue" onclick="openTestSetup()">New Test</button>
-      </div>
-      <div style="height:10px"></div>
-      <button class="btn secondary" style="width:100%" onclick="showView('home')">Home</button>
-    </div>`;
-  document.getElementById('testMeta').textContent='Complete';
-}
-function reviewMissed(){
-  const missed=testState.questions.filter((q,i)=>!testState.answers[i]?.correct);
-  modal(`
-    <h2>Missed Questions</h2>
-    <div class="stack">${missed.map(q=>`
-      <div class="listitem">
-        <div class="title">${escapeHtml(q.question)}</div>
-        <div class="meta">Correct: ${escapeHtml(q.choices[q.correctIndex].text)}</div>
-        ${q.explanation?`<div style="margin-top:7px;font-size:13px">${escapeHtml(q.explanation)}</div>`:''}
-      </div>`).join('')}</div>
-    <div style="height:12px"></div><button class="btn blue" style="width:100%" onclick="closeModal()">Done</button>`);
-}
-function confirmQuitTest(){
-  if(confirm('Quit this test? Your current attempt will not be saved.')){testState=null;showView('home')}
-}
-
-function renderManage(){
-  const list=document.getElementById('bankList');
-  const q=(document.getElementById('searchBank')?.value||'').toLowerCase().trim();
+function getFilteredItems(){
+  const q=(document.getElementById('searchBank')?.value||'').trim().toLowerCase();
   const topic=document.getElementById('filterTopic')?.value||'All Topics';
+  const sort=document.getElementById('sortBank')?.value||'custom';
+  ui.libraryTopic=topic; saveUi();
   let items=bank.filter(x=>{
-    const hay=[x.term,x.definition,x.question,x.topic].join(' ').toLowerCase();
-    return (!q||hay.includes(q)) && (topic==='All Topics'||(x.topic||'Uncategorized')===topic);
+    if(topic!=='All Topics'&&(x.topic||'Uncategorized')!==topic)return false;
+    if(libraryType==='flash'&&!hasFlash(x))return false;
+    if(libraryType==='mcq'&&!hasValidQuestion(x))return false;
+    const hay=[x.term,x.definition,x.question,(x.choices||[]).join(' '),x.explanation,x.topic].join(' ').toLowerCase();
+    return !q||hay.includes(q);
   });
-  if(!items.length){list.innerHTML='<div class="empty">No study items match your filter.</div>';return}
-  list.innerHTML=items.map(x=>`
-    <div class="listitem">
-      <div class="row">
-        <div style="min-width:0">
-          <div class="title">${escapeHtml(x.term||x.question||'Untitled')}</div>
-          <div class="meta">${escapeHtml(x.topic||'Uncategorized')} • ${x.term&&x.definition?'Flashcard':''}${x.term&&x.definition&&hasValidQuestion(x)?' + ':''}${hasValidQuestion(x)?'Test question':''}</div>
-        </div>
-        <div style="display:flex;gap:6px">
-          <button class="btn secondary mini" onclick="openEditor('${x.id}', 'edit')">Edit</button>
-          <button class="btn red mini" onclick="deleteItem('${x.id}')">Delete</button>
-        </div>
-      </div>
-    </div>`).join('');
+  if(sort==='az')items.sort((a,b)=>itemLabel(a).localeCompare(itemLabel(b)));
+  if(sort==='newest')items.sort((a,b)=>new Date(itemCreated(b))-new Date(itemCreated(a)));
+  if(sort==='hard')items.sort((a,b)=>{
+    const rank=r=>r==='again'?0:r==='hard'?1:r?3:2;
+    return rank(ratings[a.id]?.rating)-rank(ratings[b.id]?.rating);
+  });
+  return items;
 }
-function charInfo(id){
-  const el=document.getElementById(id); if(!el)return;
-  const out=document.getElementById(id+'Count'); if(out)out.textContent=`${el.value.length.toLocaleString()} characters`;
+function renderLibrary(){
+  const host=document.getElementById('bankList'); if(!host)return;
+  const items=getFilteredItems();
+  document.getElementById('libraryMeta').textContent=`${items.length} shown · ${bank.length} total`;
+  if(!items.length){host.innerHTML='<div class="card empty">Nothing matches this view.</div>';updateSelectionBar();return}
+  host.innerHTML=items.map((x,i)=>renderLibraryItem(x,i)).join('');
+  bindDragHandles();
+  updateSelectionBar();
 }
-function counterField(id,label,value='',cls='longtext'){
-  return `<div class="field"><label>${label}</label><textarea class="${cls}" id="${id}" oninput="charInfo('${id}')">${escapeHtml(value||'')}</textarea><div class="counter" id="${id}Count">${String(value||'').length.toLocaleString()} characters • no app-set character limit</div></div>`;
+function renderLibraryItem(x,i){
+  const isSel=selectedIds.has(x.id),flash=hasFlash(x),mcq=hasValidQuestion(x),rating=ratings[x.id]?.rating;
+  let content='';
+  if(flash){
+    content=`<div class="item-grid">
+      <div><div class="item-label">Term / Front</div><div class="term">${nl2br(x.term)}</div></div>
+      <div><div class="item-label">Definition / Back</div><div class="definition">${nl2br(x.definition)}</div></div>
+    </div>`;
+  }else if(mcq){
+    content=`<div class="item-grid mcq-preview">
+      <div><div class="item-label">Question</div><div class="term">${nl2br(x.question)}</div></div>
+      <div><div class="item-label">Answer</div><div class="definition">Tap to preview choices and answer.</div></div>
+    </div>`;
+  }
+  const typeBadge=flash&&mcq?'Card + Question':flash?'Flashcard':'Question';
+  const star=!!x.starred;
+  return `<div class="study-item ${isSel?'selected':''}" data-id="${x.id}">
+    <div class="drag-handle" data-drag-id="${x.id}" title="Drag to reorder">⋮⋮</div>
+    <div class="item-main" onclick="${selectMode?`toggleSelected('${x.id}')`:`previewItem('${x.id}')`}">
+      <div class="row" style="justify-content:flex-start;flex-wrap:wrap">
+        ${selectMode?`<input class="checkbox" type="checkbox" ${isSel?'checked':''} onclick="event.stopPropagation();toggleSelected('${x.id}')">`:''}
+        <span class="item-number">${i+1}</span>
+        <span class="badge">${escapeHtml(x.topic||'Uncategorized')}</span>
+        <span class="badge ${mcq?'green':'blue'}">${typeBadge}</span>
+        ${rating?`<span class="badge ${rating==='know'?'green':rating==='hard'?'amber':''}">${rating==='know'?'Know it':rating==='hard'?'Hard':'Again'}</span>`:''}
+      </div>${content}
+    </div>
+    <div class="item-actions">
+      <button class="${star?'starred':''}" onclick="event.stopPropagation();toggleStar('${x.id}')" title="Star">${star?'★':'☆'}</button>
+      <button onclick="event.stopPropagation();openEditor('${x.id}','both')" title="Edit">✎</button>
+      <button onclick="event.stopPropagation();showItemMenu('${x.id}')" title="More">•••</button>
+    </div>
+  </div>`;
 }
-function openEditor(id='', type='both'){
-  const existing=id?bank.find(z=>z.id===id):null;
-  const x=existing||{id:'',topic:'Illinois License Law',term:'',definition:'',question:'',choices:['','','',''],correct:0,explanation:''};
-  if(existing) type='both';
-  const choices=[...(x.choices||[])]; while(choices.length<4)choices.push('');
-  const showFlash=type==='flash'||type==='both'||type==='edit';
-  const showMcq=type==='mcq'||type==='both'||type==='edit';
-  const title=id?'Edit Study Item':type==='flash'?'Add Flashcard':type==='mcq'?'Add Multiple-Choice Question':'Add Study Item';
-  modal(`
-    <h2>${title}</h2>
-    <div class="notice">Long definitions, scenarios, and explanations are supported. There is no per-field character cap in the app; storage is limited only by your browser/device.</div>
-    <div style="height:12px"></div>
-    <div class="field"><label>Topic / Chapter</label><input id="eTopic" value="${escapeHtml(x.topic||'')}" placeholder="Example: Illinois License Law"></div>
-    ${showFlash?`
-      <div class="sectionhead">Flashcard</div>
-      ${counterField('eTerm','Front / term / question',x.term)}
-      ${counterField('eDefinition','Back / definition / answer',x.definition)}
-    `:''}
-    ${showMcq?`
-      <div class="sectionhead">Multiple Choice</div>
-      ${counterField('eQuestion','Question / scenario',x.question)}
-      ${choices.slice(0,4).map((c,i)=>counterField('eChoice'+i,'Choice '+String.fromCharCode(65+i),c,'choiceText')).join('')}
-      <div class="field"><label>Correct answer</label>
-        <select id="eCorrect">
-          <option value="0" ${x.correct===0?'selected':''}>A</option>
-          <option value="1" ${x.correct===1?'selected':''}>B</option>
-          <option value="2" ${x.correct===2?'selected':''}>C</option>
-          <option value="3" ${x.correct===3?'selected':''}>D</option>
-        </select>
-      </div>
-      ${counterField('eExplanation','Answer explanation',x.explanation)}
-    `:''}
+function toggleStar(id){const x=bank.find(z=>z.id===id);if(!x)return;x.starred=!x.starred;saveBank()}
+function toggleSelectMode(){selectMode=!selectMode;if(!selectMode)selectedIds.clear();document.getElementById('selectModeBtn').textContent=selectMode?'Done':'Select';renderLibrary()}
+function toggleSelected(id){if(selectedIds.has(id))selectedIds.delete(id);else selectedIds.add(id);renderLibrary()}
+function clearSelection(){selectedIds.clear();renderLibrary()}
+function updateSelectionBar(){
+  const b=document.getElementById('selectionBar'); if(!b)return;
+  b.classList.toggle('show',selectedIds.size>0);
+  document.getElementById('selectedCount').textContent=`${selectedIds.size} selected`;
+}
+function studySelected(){
+  const deck=bank.filter(x=>selectedIds.has(x.id)&&hasFlash(x));
+  if(!deck.length){alert('None of the selected items contain a flashcard.');return}
+  studyDeck=deck;studyIndex=0;studyShowingBack=false;showView('study');renderFlashcard();
+}
+function testSelected(){
+  const qs=bank.filter(x=>selectedIds.has(x.id)&&hasValidQuestion(x));
+  if(!qs.length){alert('None of the selected items contain a test question.');return}
+  beginTestWithQuestions(qs,'Selected questions',true,false);
+}
+function deleteSelected(){
+  if(!selectedIds.size||!confirm(`Delete ${selectedIds.size} selected item(s)?`))return;
+  bank=bank.filter(x=>!selectedIds.has(x.id));selectedIds.clear();saveBank();renderLibrary();
+}
+function bindDragHandles(){
+  document.querySelectorAll('.drag-handle').forEach(h=>{
+    h.addEventListener('pointerdown',startPointerDrag);
+  });
+}
+function startPointerDrag(e){
+  if((document.getElementById('sortBank')?.value||'custom')!=='custom'){alert('Switch Sort to Custom order before dragging.');return}
+  const id=e.currentTarget.dataset.dragId;
+  dragState={id,pointerId:e.pointerId,targetId:null,handle:e.currentTarget};
+  e.currentTarget.setPointerCapture?.(e.pointerId);
+  e.preventDefault();
+  document.addEventListener('pointermove',pointerDragMove,{passive:false});
+  document.addEventListener('pointerup',pointerDragEnd,{once:true});
+}
+function pointerDragMove(e){
+  if(!dragState)return;e.preventDefault();
+  const el=document.elementFromPoint(e.clientX,e.clientY)?.closest('.study-item');
+  document.querySelectorAll('.study-item.drag-target').forEach(x=>x.classList.remove('drag-target'));
+  if(el&&el.dataset.id!==dragState.id){dragState.targetId=el.dataset.id;el.classList.add('drag-target')}
+}
+function pointerDragEnd(){
+  document.removeEventListener('pointermove',pointerDragMove);
+  document.querySelectorAll('.study-item.drag-target').forEach(x=>x.classList.remove('drag-target'));
+  if(dragState?.targetId)moveBefore(dragState.id,dragState.targetId);
+  dragState=null;
+}
+function moveBefore(id,targetId){
+  const from=bank.findIndex(x=>x.id===id),to=bank.findIndex(x=>x.id===targetId);
+  if(from<0||to<0||from===to)return;
+  const [item]=bank.splice(from,1);
+  const newTo=bank.findIndex(x=>x.id===targetId);
+  bank.splice(newTo,0,item);saveBank();
+}
+function moveItem(id,delta){
+  const i=bank.findIndex(x=>x.id===id),j=i+delta;if(i<0||j<0||j>=bank.length)return;
+  [bank[i],bank[j]]=[bank[j],bank[i]];saveBank();closeModal();
+}
+function showItemMenu(id){
+  const x=bank.find(z=>z.id===id);if(!x)return;
+  modal(`<div class="modalhead"><h3>Card actions</h3><button class="closex" onclick="closeModal()">×</button></div>
     <div class="grid two">
-      <button class="btn secondary" onclick="closeModal()">Cancel</button>
-      <button class="btn blue" onclick="saveEditor('${id}','${type}')">Save</button>
+      <button class="btn secondary" onclick="openEditor('${id}','both')">Edit</button>
+      <button class="btn secondary" onclick="duplicateItem('${id}')">Duplicate</button>
+      <button class="btn secondary" onclick="moveItem('${id}',-1)">Move up</button>
+      <button class="btn secondary" onclick="moveItem('${id}',1)">Move down</button>
+      ${hasValidQuestion(x)?`<button class="btn secondary" onclick="makeFlashcardFromQuestion('${id}')">Make flashcard from question</button>`:''}
+      <button class="btn red" onclick="deleteItem('${id}')">Delete</button>
     </div>`);
+}
+function duplicateItem(id){
+  const x=bank.find(z=>z.id===id);if(!x)return;
+  const copy=structuredClone(x);copy.id=uid();copy.createdAt=new Date().toISOString();copy.term=copy.term?copy.term+' (copy)':copy.term;bank.push(copy);saveBank();closeModal();
+}
+function previewItem(id){
+  const x=bank.find(z=>z.id===id);if(!x)return;
+  let body='';
+  if(hasFlash(x))body+=`<div class="preview-card"><div class="preview-half"><div class="item-label">Front</div><div class="term">${nl2br(x.term)}</div></div><div class="preview-half"><div class="item-label">Back</div><div class="definition">${nl2br(x.definition)}</div></div></div>`;
+  if(hasValidQuestion(x)){
+    body+=`<div style="height:12px"></div><div class="question"><div class="item-label">Practice question</div><h3 style="margin-top:6px;line-height:1.4">${nl2br(x.question)}</h3>${x.choices.map((c,i)=>`<div class="choice ${i===x.correct?'correct':''}" style="cursor:default">${String.fromCharCode(65+i)}. ${nl2br(c)}</div>`).join('')}${x.explanation?`<div class="explain">${nl2br(x.explanation)}</div>`:''}</div>`;
+  }
+  modal(`<div class="modalhead"><div><h3>${escapeHtml(x.topic||'Uncategorized')}</h3><div class="tiny">${hasFlash(x)?'Flashcard':''}${hasFlash(x)&&hasValidQuestion(x)?' + ':''}${hasValidQuestion(x)?'Practice question':''}</div></div><button class="closex" onclick="closeModal()">×</button></div>
+    ${body}
+    <div class="grid two" style="margin-top:14px"><button class="btn blue" onclick="openEditor('${id}','both')">Edit</button><button class="btn secondary" onclick="closeModal()">Close</button></div>`);
+}
+
+function openQuickAdd(){
+  modal(`<div class="modalhead"><h3>Quick add</h3><button class="closex" onclick="closeModal()">×</button></div>
+  <div class="grid two"><button class="action" onclick="openEditor('', 'flash')">Flashcard<small>Front + back with no practical text limit.</small></button><button class="action" onclick="openEditor('', 'mcq')">Multiple-choice question<small>Four choices, correct answer, explanation.</small></button></div>`);
+}
+function charInfo(id){const el=document.getElementById(id),out=document.getElementById(id+'Count');if(el&&out)out.textContent=el.value.length.toLocaleString()+' characters'}
+function textField(id,label,value='',cls='longtext'){
+  return `<div class="field"><label>${label}</label><textarea id="${id}" class="${cls}" oninput="charInfo('${id}')">${escapeHtml(value)}</textarea><div class="counter" id="${id}Count">${String(value||'').length.toLocaleString()} characters</div></div>`
+}
+function openEditor(id='',type='both',prefill=null){
+  const x=id?bank.find(z=>z.id===id):(prefill||{id:'',topic:ui.lastTopic||'',term:'',definition:'',question:'',choices:['','','',''],correct:0,explanation:'',source:''});
+  if(!x)return;
+  const choices=[...(x.choices||[])];while(choices.length<4)choices.push('');
+  const showFlash=type!=='mcq'||id||prefill?.term,showMcq=type!=='flash'||id||prefill?.question;
+  const title=id?'Edit study item':type==='flash'?'Add flashcard':type==='mcq'?'Add multiple-choice question':'Add study item';
+  modal(`<div class="modalhead"><div><h2>${title}</h2><div class="tiny">Long-form fields are intentionally unrestricted by the app.</div></div><button class="closex" onclick="closeModal()">×</button></div>
+    <div class="field"><label>Topic / chapter / set</label><input id="eTopic" value="${escapeHtml(x.topic||'')}" placeholder="e.g. Chapter 1 — Illinois License Law"></div>
+    ${showFlash?`<div class="sectionhead">Flashcard</div>${textField('eTerm','Front / term',x.term||'')}${textField('eDefinition','Back / definition',x.definition||'')}`:''}
+    ${showMcq?`<div class="sectionhead">Multiple-choice question</div>${textField('eQuestion','Question / scenario',x.question||'')}
+      ${choices.slice(0,4).map((c,i)=>textField('eChoice'+i,'Choice '+String.fromCharCode(65+i),c,'choiceText')).join('')}
+      <div class="field"><label>Correct answer</label><select id="eCorrect">${[0,1,2,3].map(i=>`<option value="${i}" ${Number(x.correct)===i?'selected':''}>${String.fromCharCode(65+i)}</option>`).join('')}</select></div>
+      ${textField('eExplanation','Explanation / why the answer is correct',x.explanation||'')}`:''}
+    <div class="sectionhead">Optional source note</div>
+    <div class="field"><label>Source / page / personal note</label><input id="eSource" value="${escapeHtml(x.source||'')}" placeholder="e.g. 60-Hr Book — Ch. 1, p. 6"></div>
+    <div class="grid two"><button class="btn secondary" onclick="closeModal()">Cancel</button><button class="btn blue" onclick="saveEditor('${id}','${type}')">Save</button></div>`);
 }
 function val(id){return document.getElementById(id)?.value.trim()||''}
 function saveEditor(id,type='both'){
-  const old=id?bank.find(x=>x.id===id):null;
+  const existing=id?bank.find(x=>x.id===id):null;
   const item={
-    id:id||uid(),
-    topic:val('eTopic')||'Uncategorized',
-    term:document.getElementById('eTerm')?val('eTerm'):(old?.term||''),
-    definition:document.getElementById('eDefinition')?val('eDefinition'):(old?.definition||''),
-    question:document.getElementById('eQuestion')?val('eQuestion'):(old?.question||''),
-    choices:document.getElementById('eChoice0')?[0,1,2,3].map(i=>val('eChoice'+i)):(old?.choices||['','','','']),
-    correct:document.getElementById('eCorrect')?Number(document.getElementById('eCorrect').value):(old?.correct||0),
-    explanation:document.getElementById('eExplanation')?val('eExplanation'):(old?.explanation||'')
+    ...(existing||{}),id:id||uid(),topic:val('eTopic')||'Uncategorized',
+    createdAt:existing?.createdAt||new Date().toISOString(),updatedAt:new Date().toISOString(),
+    source:val('eSource')
   };
+  if(document.getElementById('eTerm')){item.term=val('eTerm');item.definition=val('eDefinition')}
+  if(document.getElementById('eQuestion')){
+    item.question=val('eQuestion');item.choices=[0,1,2,3].map(i=>val('eChoice'+i));item.correct=Number(document.getElementById('eCorrect').value);item.explanation=val('eExplanation')
+  }
   if((item.term&&!item.definition)||(!item.term&&item.definition)){alert('A flashcard needs both a front and back.');return}
-  const questionFields=item.question||item.choices.some(Boolean);
-  if(questionFields && (!item.question||item.choices.some(c=>!c))){alert('A test question needs the question plus all four answer choices.');return}
-  if(!item.term&&!item.question){alert('Enter a flashcard or a test question.');return}
-  const idx=bank.findIndex(x=>x.id===id); if(idx>=0)bank[idx]=item; else bank.push(item);
-  saveBank();closeModal();renderManage();
+  if(item.question||item.choices?.some(Boolean)){
+    if(!item.question||!item.choices||item.choices.length<4||item.choices.some(c=>!c)){alert('A multiple-choice question needs the question and all four choices.');return}
+  }
+  if(!hasFlash(item)&&!hasValidQuestion(item)){alert('Enter a complete flashcard or multiple-choice question.');return}
+  ui.lastTopic=item.topic;saveUi();
+  const i=bank.findIndex(x=>x.id===id);if(i>=0)bank[i]=item;else bank.push(item);
+  saveBank();closeModal();if(currentView!=='library')openLibrary(item.topic);else renderLibrary();
 }
-function deleteItem(id){
-  if(!confirm('Delete this study item?'))return;
-  bank=bank.filter(x=>x.id!==id);saveBank();
+function deleteItem(id){if(!confirm('Delete this study item?'))return;bank=bank.filter(x=>x.id!==id);selectedIds.delete(id);saveBank();closeModal()}
+function makeFlashcardFromQuestion(id){
+  const x=bank.find(z=>z.id===id);if(!x||!hasValidQuestion(x))return;
+  const answer=x.choices[x.correct]||'';
+  const back=x.explanation?`${answer}\n\n${x.explanation}`:answer;
+  openEditor('','flash',{topic:x.topic,term:x.question,definition:back,source:x.source||'',choices:['','','',''],correct:0});
 }
-function showPdfWorkflow(){
-  modal(`
-    <h2>PDF → Study Pack</h2>
-    <p>Keep the app free: upload your course PDF to ChatGPT, have it converted into an <b>IL Broker Study Pack JSON</b>, then import that JSON here.</p>
-    <div class="notice"><b>Recommended request:</b><br>“Convert this PDF into an IL Broker Study Pack. Preserve the source terminology. Create concise flashcards plus exam-style 4-choice questions with explanations. Organize everything by chapter/topic. Do not invent facts. Output the downloadable study-pack JSON for my IL Broker Study app.”</div>
-    <p class="muted" style="font-size:13px">Study Pack import appends to your existing bank, so your hand-made cards and prior chapters remain intact.</p>
-    <button class="btn blue" style="width:100%" onclick="closeModal()">Done</button>`);
+
+function startFlashcards(customDeck=null){
+  let deck=customDeck||bank.filter(hasFlash);
+  if(!customDeck){
+    if(studyTopic!=='All Topics')deck=deck.filter(x=>(x.topic||'Uncategorized')===studyTopic);
+    if(studyMode==='hard')deck=deck.filter(x=>['again','hard'].includes(ratings[x.id]?.rating));
+    if(studyMode==='starred')deck=deck.filter(x=>x.starred);
+  }
+  if(!deck.length){alert('No flashcards match those settings.');openLibrary();return}
+  studyDeck=studyShuffle&&!customDeck?shuffle(deck):[...deck];studyIndex=0;studyShowingBack=false;showView('study');renderFlashcard();
 }
-function normalizeImportedItem(x){
-  const choices=Array.isArray(x.choices)?x.choices.map(v=>String(v??'')):['','','',''];
-  while(choices.length<4)choices.push('');
-  return {
-    id:x.id&&String(x.id).trim()?String(x.id):uid(),
-    topic:String(x.topic||x.chapter||'Imported').trim()||'Imported',
-    term:String(x.term||x.front||'').trim(),
-    definition:String(x.definition||x.back||'').trim(),
-    question:String(x.question||'').trim(),
-    choices:choices.slice(0,4),
-    correct:Number.isInteger(Number(x.correct))?Number(x.correct):0,
-    explanation:String(x.explanation||'').trim()
-  };
+function startReviewOnly(){studyMode='hard';studyTopic='All Topics';studyShuffle=true;startFlashcards()}
+function renderFlashcard(){
+  const host=document.getElementById('flashcardArea');
+  if(studyIndex>=studyDeck.length){
+    document.getElementById('studyMeta').textContent='Session complete';
+    document.getElementById('studyProgress').style.width='100%';
+    host.innerHTML=`<div class="card pad" style="text-align:center"><h2>Session complete</h2><p class="muted">You reviewed ${studyDeck.length} card${studyDeck.length===1?'':'s'}.</p><div class="grid two"><button class="btn blue" onclick="startFlashcards(studyDeck)">Study again</button><button class="btn secondary" onclick="openLibrary()">Browse cards</button></div></div>`;return;
+  }
+  const c=studyDeck[studyIndex],side=studyShowingBack?c.definition:c.term;
+  document.getElementById('studyMeta').textContent=`${studyIndex+1} of ${studyDeck.length} · ${c.topic||'Uncategorized'}`;
+  document.getElementById('studyProgress').style.width=(studyIndex/studyDeck.length*100)+'%';
+  host.innerHTML=`<div class="flashcard" id="activeFlashcard" onclick="flipCard()" onpointerdown="studyPointerDown(event)" onpointerup="studyPointerUp(event)">
+      <div class="corner"><span class="badge">${studyShowingBack?'BACK':'FRONT'}</span></div><button class="btn secondary small readbtn" onclick="event.stopPropagation();readCurrentCard()">🔊</button>
+      <div class="side">${nl2br(side)}</div><div class="hint">${studyShowingBack?'Tap to see front · swipe to move':'Tap to flip · swipe to move'}</div>
+    </div>
+    ${studyShowingBack?`<div class="rategrid"><button class="btn red" onclick="event.stopPropagation();rateCard('again')">Again</button><button class="btn amber" onclick="event.stopPropagation();rateCard('hard')">Hard</button><button class="btn green" onclick="event.stopPropagation();rateCard('know')">Know It</button></div>`:''}
+    <div class="study-nav"><button class="btn secondary" ${studyIndex===0?'disabled':''} onclick="prevCard()">‹</button><button class="btn ${studyShowingBack?'secondary':'blue'}" onclick="flipCard()">${studyShowingBack?'Show front':'Show answer'}</button><button class="btn secondary" onclick="nextCard()">›</button></div>`;
 }
-function importStudyPack(event){
-  const file=event.target.files[0]; if(!file)return;
-  const reader=new FileReader();
-  reader.onload=()=>{
-    try{
-      const data=JSON.parse(reader.result);
-      const raw=Array.isArray(data)?data:(data.items||data.bank);
-      if(!Array.isArray(raw))throw new Error('Missing items');
-      const imported=raw.map(normalizeImportedItem).filter(x=>(x.term&&x.definition)||hasValidQuestion(x));
-      if(!imported.length)throw new Error('No valid study items');
-      const existingIds=new Set(bank.map(x=>x.id));
-      imported.forEach(x=>{if(existingIds.has(x.id))x.id=uid()});
-      if(!confirm(`Add ${imported.length} study items to your existing bank?`))return;
-      bank.push(...imported); saveBank(); renderManage();
-      alert(`${imported.length} study items added.`);
-    }catch(e){alert('That file is not a valid IL Broker Study Pack JSON.');}
-    event.target.value='';
-  };
-  reader.readAsText(file);
+function flipCard(){studyShowingBack=!studyShowingBack;renderFlashcard()}
+function nextCard(){if(studyIndex<studyDeck.length){studyIndex++;studyShowingBack=false;renderFlashcard()}}
+function prevCard(){if(studyIndex>0){studyIndex--;studyShowingBack=false;renderFlashcard()}}
+function rateCard(r){
+  const c=studyDeck[studyIndex],prev=ratings[c.id]||{},counts=prev.counts||{again:0,hard:0,know:0};
+  counts[r]=(counts[r]||0)+1;ratings[c.id]={rating:r,at:new Date().toISOString(),times:(prev.times||0)+1,counts};localStorage.setItem(STUDY_KEY,JSON.stringify(ratings));
+  studyIndex++;studyShowingBack=false;renderFlashcard();refreshAll();
 }
-function exportData(){
-  const payload={app:'IL Broker Study',version:2,exportedAt:new Date().toISOString(),bank,history,ratings};
-  const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
-  const url=URL.createObjectURL(blob);
-  const a=document.createElement('a');a.href=url;a.download='il-broker-study-backup.json';a.click();
-  setTimeout(()=>URL.revokeObjectURL(url),500);
+function studyPointerDown(e){swipeStart={x:e.clientX,y:e.clientY,t:Date.now()}}
+function studyPointerUp(e){
+  if(!swipeStart)return;const dx=e.clientX-swipeStart.x,dy=e.clientY-swipeStart.y;swipeStart=null;
+  if(Math.abs(dx)>70&&Math.abs(dx)>Math.abs(dy)*1.4){e.stopPropagation();dx<0?nextCard():prevCard()}
 }
-function importData(event){
-  const file=event.target.files[0]; if(!file)return;
-  const reader=new FileReader();
-  reader.onload=()=>{
-    try{
-      const data=JSON.parse(reader.result);
-      const imported=Array.isArray(data)?data:data.bank;
-      if(!Array.isArray(imported))throw new Error('Missing bank');
-      if(!confirm(`Import ${imported.length} study items? This will replace the current question bank.`))return;
-      bank=imported;
-      if(data.history&&Array.isArray(data.history))history=data.history;
-      if(data.ratings&&typeof data.ratings==='object')ratings=data.ratings;
-      localStorage.setItem(DB_KEY,JSON.stringify(bank));
-      localStorage.setItem(HISTORY_KEY,JSON.stringify(history));
-      localStorage.setItem(STUDY_KEY,JSON.stringify(ratings));
-      refreshAll();renderManage();alert('Import complete.');
-    }catch(e){alert('That file is not a valid IL Broker Study backup.')}
-    event.target.value='';
-  };
-  reader.readAsText(file);
+function studySettings(){
+  modal(`<div class="modalhead"><h3>Study settings</h3><button class="closex" onclick="closeModal()">×</button></div>
+    <div class="field"><label>Set / topic</label><select id="studyTopicSel">${topics().map(t=>`<option ${t===studyTopic?'selected':''}>${escapeHtml(t)}</option>`).join('')}</select></div>
+    <div class="field"><label>Cards to include</label><select id="studyModeSel"><option value="all" ${studyMode==='all'?'selected':''}>All cards</option><option value="hard" ${studyMode==='hard'?'selected':''}>Again + Hard only</option><option value="starred" ${studyMode==='starred'?'selected':''}>Starred only</option></select></div>
+    <div class="field"><label><input id="studyShuffle" type="checkbox" style="width:auto;margin-right:7px" ${studyShuffle?'checked':''}> Shuffle cards</label></div>
+    <div class="grid two"><button class="btn secondary" onclick="closeModal()">Cancel</button><button class="btn blue" onclick="applyStudySettings()">Start</button></div>`);
 }
+function applyStudySettings(){
+  studyTopic=document.getElementById('studyTopicSel').value;studyMode=document.getElementById('studyModeSel').value;studyShuffle=document.getElementById('studyShuffle').checked;
+  ui.studyTopic=studyTopic;ui.studyMode=studyMode;ui.studyShuffle=studyShuffle;saveUi();closeModal();startFlashcards();
+}
+
+function openTestSetup(mode='test'){
+  const available=bank.filter(hasValidQuestion);if(!available.length){alert('Add at least one multiple-choice question first.');openLibrary();return}
+  modal(`<div class="modalhead"><div><h2>${mode==='quiz'?'Build a quiz':'Build a practice test'}</h2><div class="tiny">${mode==='quiz'?'Quizzes show feedback immediately.':'Tests hold results until the end.'}</div></div><button class="closex" onclick="closeModal()">×</button></div>
+    <div class="field"><label>Topic / set</label><select id="testTopic">${topics().map(t=>`<option>${escapeHtml(t)}</option>`).join('')}</select></div>
+    <div class="field"><label>Number of questions</label><select id="testCount"><option value="5">5</option><option value="10" selected>10</option><option value="20">20</option><option value="25">25</option><option value="50">50</option><option value="all">All available</option></select></div>
+    <div class="field"><label><input id="shuffleChoices" type="checkbox" checked style="width:auto;margin-right:7px"> Randomize answer choices</label></div>
+    <input id="sessionMode" type="hidden" value="${mode}"><div class="field"><label><input id="instantFeedback" type="checkbox" style="width:auto;margin-right:7px" ${mode==='quiz'?'checked disabled':''}> Show answer after each question</label></div>
+    <div class="grid two"><button class="btn secondary" onclick="closeModal()">Cancel</button><button class="btn blue" onclick="beginTest()">Start test</button></div>`);
+}
+function beginTest(){
+  const topic=document.getElementById('testTopic').value,countVal=document.getElementById('testCount').value,choiceShuffle=document.getElementById('shuffleChoices').checked,instant=document.getElementById('instantFeedback').checked,mode=document.getElementById('sessionMode')?.value||'test';
+  let qs=bank.filter(hasValidQuestion);if(topic!=='All Topics')qs=qs.filter(x=>(x.topic||'Uncategorized')===topic);qs=shuffle(qs);
+  const count=countVal==='all'?qs.length:Math.min(Number(countVal),qs.length);qs=qs.slice(0,count);
+  if(!qs.length){alert('No questions match that topic.');return}
+  closeModal();beginTestWithQuestions(qs,topic,choiceShuffle,instant,mode);
+}
+function prepareQuestion(q,doShuffle){
+  const objs=q.choices.map((text,i)=>({text,correct:i===q.correct})),arr=doShuffle?shuffle(objs):objs;
+  return {id:q.id,topic:q.topic||'Uncategorized',question:q.question,explanation:q.explanation||'',source:q.source||'',choices:arr,correctIndex:arr.findIndex(x=>x.correct)}
+}
+function beginTestWithQuestions(qs,label,choiceShuffle=true,instant=false,mode='test'){
+  testState={topic:label,questions:shuffle(qs).map(q=>prepareQuestion(q,choiceShuffle)),index:0,answers:[],instant,locked:false,mode};
+  closeModal();showView('test');document.getElementById('testTitle').textContent=mode==='quiz'?'Quiz':'Practice Test';renderTestQuestion();
+}
+function renderTestQuestion(){
+  if(!testState)return;const {questions,index}=testState,host=document.getElementById('testArea');
+  if(index>=questions.length){finishTest();return}
+  const q=questions[index],a=testState.answers[index],selected=a?.selected,revealed=testState.instant&&testState.locked;
+  document.getElementById('testMeta').textContent=`Question ${index+1} of ${questions.length} · ${q.topic}`;
+  document.getElementById('testProgress').style.width=(index/questions.length*100)+'%';
+  host.innerHTML=`<div class="question"><span class="badge">${escapeHtml(q.topic)}</span><h3 style="font-size:19px;line-height:1.45;margin-top:10px">${nl2br(q.question)}</h3>
+    <div style="margin-top:12px">${q.choices.map((c,i)=>{let cls='choice';if(selected===i)cls+=' selected';if(revealed){if(i===q.correctIndex)cls+=' correct';else if(selected===i)cls+=' wrong'}return `<button class="${cls}" ${revealed?'disabled':''} onclick="selectChoice(${i})">${String.fromCharCode(65+i)}. ${nl2br(c.text)}</button>`}).join('')}</div>
+    ${revealed?`<div class="explain"><b>${selected===q.correctIndex?'Correct':'Incorrect'}.</b> ${nl2br(q.explanation||'')}</div>`:''}</div>
+    <div style="height:10px"></div><button class="btn blue" style="width:100%" ${selected===undefined?'disabled':''} onclick="${revealed?'nextQuestion()':'submitQuestion()'}">${revealed?'Next question':index===questions.length-1?'Finish test':'Next'}</button>`;
+}
+function selectChoice(i){if(testState.locked)return;testState.answers[testState.index]={selected:i};renderTestQuestion()}
+function submitQuestion(){
+  const i=testState.index,q=testState.questions[i],a=testState.answers[i];if(!a)return;a.correct=a.selected===q.correctIndex;
+  if(testState.instant){testState.locked=true;renderTestQuestion()}else nextQuestion()
+}
+function nextQuestion(){const i=testState.index,q=testState.questions[i],a=testState.answers[i];if(a&&a.correct===undefined)a.correct=a.selected===q.correctIndex;testState.index++;testState.locked=false;renderTestQuestion()}
+function finishTest(){
+  testState.answers.forEach((a,i)=>{if(a.correct===undefined)a.correct=a.selected===testState.questions[i].correctIndex});
+  const correct=testState.answers.filter(a=>a.correct).length,total=testState.questions.length,pct=Math.round(correct/total*100);
+  const details=testState.questions.map((q,i)=>({id:q.id,topic:q.topic,correct:!!testState.answers[i]?.correct}));
+  history.unshift({id:uid(),date:new Date().toISOString(),topic:testState.topic,total,correct,pct,details});history=history.slice(0,150);saveHistory();
+  const missed=testState.questions.filter((q,i)=>!testState.answers[i]?.correct);
+  document.getElementById('testMeta').textContent='Complete';document.getElementById('testProgress').style.width='100%';
+  document.getElementById('testArea').innerHTML=`<div class="card pad" style="text-align:center"><div style="font-size:50px;font-weight:900;color:${pct>=75?'#17803d':'#b42318'}">${pct}%</div><h2>${correct} / ${total} correct</h2><p class="muted">${missed.length?`${missed.length} missed question${missed.length===1?'':'s'} ready for review.`:'No missed questions.'}</p>
+    <div class="grid two">${missed.length?`<button class="btn amber" onclick="reviewMissed()">Review missed</button>`:''}<button class="btn blue" onclick="openTestSetup('${testState.mode==='quiz'?'quiz':'test'}')">New ${testState.mode==='quiz'?'quiz':'test'}</button></div><div style="height:8px"></div><button class="btn secondary" style="width:100%" onclick="showView('progress')">View progress</button></div>`;
+}
+function reviewMissed(){
+  const missed=testState.questions.map((q,i)=>({q,a:testState.answers[i]})).filter(x=>!x.a?.correct);
+  modal(`<div class="modalhead"><div><h2>Missed questions</h2><div class="tiny">Turn any missed concept into a flashcard with one tap.</div></div><button class="closex" onclick="closeModal()">×</button></div>
+    <div class="library-list">${missed.map(({q})=>`<div class="card pad"><div class="term">${nl2br(q.question)}</div><div class="tiny" style="margin-top:8px">CORRECT ANSWER</div><div style="margin-top:3px">${nl2br(q.choices[q.correctIndex].text)}</div>${q.explanation?`<div class="explain">${nl2br(q.explanation)}</div>`:''}<button class="btn secondary small" style="margin-top:10px" onclick="makeFlashcardFromTestQuestion('${q.id}')">Make flashcard from this</button></div>`).join('')}</div>`);
+}
+function makeFlashcardFromTestQuestion(id){
+  const original=bank.find(x=>x.id===id);if(original){makeFlashcardFromQuestion(id);return}
+  const q=testState.questions.find(x=>x.id===id);if(!q)return;
+  const back=q.explanation?`${q.choices[q.correctIndex].text}\n\n${q.explanation}`:q.choices[q.correctIndex].text;
+  openEditor('','flash',{topic:q.topic,term:q.question,definition:back,source:q.source||'',choices:['','','',''],correct:0});
+}
+function confirmQuitTest(){if(confirm('Quit this test? The incomplete attempt will not be saved.')){testState=null;openLibrary()}}
 
 function renderProgress(){
-  const totals=history.reduce((a,h)=>{a.c+=h.correct||0;a.t+=h.total||0;return a},{c:0,t:0});
-  const ratingEntries=Object.values(ratings||{});
-  const reviewed=ratingEntries.filter(r=>r&&r.rating).length;
-  const known=ratingEntries.filter(r=>r?.rating==='know').length;
-  const needs=ratingEntries.filter(r=>['again','hard'].includes(r?.rating)).length;
-  document.getElementById('overallAccuracy').textContent=totals.t?Math.round(totals.c/totals.t*100)+'%':'—';
+  const t=history.reduce((a,h)=>{a.c+=h.correct||0;a.t+=h.total||0;return a},{c:0,t:0});
+  document.getElementById('overallAccuracy').textContent=t.t?Math.round(t.c/t.t*100)+'%':'—';
   document.getElementById('testsCompleted').textContent=history.length;
-  document.getElementById('questionsAnswered').textContent=totals.t.toLocaleString();
-  document.getElementById('cardsReviewed').textContent=reviewed.toLocaleString();
-  document.getElementById('cardsKnown').textContent=known.toLocaleString();
-  document.getElementById('cardsNeedReview').textContent=needs.toLocaleString();
-  const by={};
-  history.forEach(h=>(h.details||[]).forEach(d=>{
-    by[d.topic]??={c:0,t:0}; by[d.topic].t++; if(d.correct)by[d.topic].c++;
-  }));
+  document.getElementById('questionsAnswered').textContent=t.t;
+  const vals=Object.values(ratings);document.getElementById('cardsReviewed').textContent=vals.reduce((s,r)=>s+(r.times||1),0);
+  document.getElementById('cardsKnown').textContent=vals.filter(r=>r.rating==='know').length;
+  document.getElementById('cardsNeedReview').textContent=vals.filter(r=>['again','hard'].includes(r.rating)).length;
+  document.getElementById('progressGameXp').textContent=game.xp||0;
+  document.getElementById('progressBestStreak').textContent=game.bestStreak||0;
+  const by={};history.forEach(h=>(h.details||[]).forEach(d=>{by[d.topic]??={c:0,t:0};by[d.topic].t++;if(d.correct)by[d.topic].c++}));
   const entries=Object.entries(by).sort((a,b)=>(a[1].c/a[1].t)-(b[1].c/b[1].t));
-  const tp=document.getElementById('topicProgress');
-  tp.innerHTML=entries.length?entries.map(([topic,v])=>{
-    const pct=Math.round(v.c/v.t*100);
-    return `<div><div class="row"><span>${escapeHtml(topic)}</span><b>${pct}% <span class="muted" style="font-size:11px">(${v.t})</span></b></div><div class="progressbar" style="margin-top:6px"><div style="width:${pct}%"></div></div></div>`;
-  }).join(''):'<div class="empty">Complete a practice test to see topic accuracy.</div>';
-  const weak=document.getElementById('weakTopics');
-  const weakEntries=entries.filter(([,v])=>v.t>=2).slice(0,3);
-  weak.innerHTML=weakEntries.length?weakEntries.map(([topic,v])=>{
-    const pct=Math.round(v.c/v.t*100); return `<div class="listitem"><div class="row"><b>${escapeHtml(topic)}</b><span class="${pct>=75?'badge-good':'badge-bad'}">${pct}%</span></div><div class="meta">${v.c}/${v.t} questions correct</div></div>`;
-  }).join(''):'<div class="empty">More test attempts are needed before weak topics can be identified.</div>';
-  const hl=document.getElementById('historyList');
-  hl.innerHTML=history.length?history.slice(0,10).map(h=>`<div class="listitem"><div class="row"><div><b>${h.pct}%</b> • ${escapeHtml(h.topic)}</div><div class="meta">${new Date(h.date).toLocaleDateString()}</div></div><div class="meta">${h.correct}/${h.total} correct</div></div>`).join(''):'<div class="empty">No completed tests yet.</div>';
+  document.getElementById('topicProgress').innerHTML=entries.length?entries.map(([name,v])=>{const pct=Math.round(v.c/v.t*100);return `<div class="topicrow"><div class="row"><b>${escapeHtml(name)}</b><span>${pct}% · ${v.c}/${v.t}</span></div><div class="mini-progress"><div style="width:${pct}%"></div></div></div>`}).join(''):'<div class="empty">Complete a practice test to build topic statistics.</div>';
+  document.getElementById('historyList').innerHTML=history.length?history.slice(0,12).map(h=>`<div class="historyitem"><div class="row"><div><b>${h.pct}%</b> · ${escapeHtml(h.topic)}</div><div class="tiny">${new Date(h.date).toLocaleDateString()}</div></div><div class="tiny" style="margin-top:3px">${h.correct}/${h.total} correct</div></div>`).join(''):'<div class="card empty">No completed tests yet.</div>';
 }
-function clearProgress(){
-  if(!confirm('Clear test history AND flashcard study ratings? Your study bank will remain.'))return;
-  history=[];ratings={};localStorage.setItem(HISTORY_KEY,'[]');localStorage.setItem(STUDY_KEY,'{}');refreshAll();
+function clearProgress(){if(!confirm('Clear test history and flashcard ratings? Your cards/questions will remain.'))return;history=[];ratings={};localStorage.setItem(HISTORY_KEY,'[]');localStorage.setItem(STUDY_KEY,'{}');refreshAll()}
+
+function showDataMenu(){
+  modal(`<div class="modalhead"><div><h3>Backup & imports</h3><div class="tiny">Keep a copy of your manually created study bank.</div></div><button class="closex" onclick="closeModal()">×</button></div>
+    <div class="grid two">
+      <button class="action" onclick="exportData()">Export full backup<small>Cards, questions, test history, and flashcard ratings.</small></button>
+      <label class="action" style="display:block">Restore full backup<small>Replaces the current bank and restores saved progress.</small><input class="hidden" type="file" id="backupFile" accept=".json,application/json" onchange="importData(event)"></label>
+      <label class="action" style="display:block">Import study pack<small>Adds new cards/questions without deleting existing content.</small><input class="hidden" type="file" accept=".json,application/json" onchange="importStudyPack(event)"></label>
+      <button class="action" onclick="openSmartImport()">PDF → Study Pack<small>Upload course material to ChatGPT; import the generated pack here.</small></button>
+    </div>`);
 }
+function normalizeImportedItem(x){
+  const y={...x};y.id=y.id||uid();y.topic=y.topic||'Imported';y.createdAt=y.createdAt||new Date().toISOString();y.importedAt=new Date().toISOString();
+  if(!Array.isArray(y.choices))y.choices=[];if(y.correct!==undefined)y.correct=Number(y.correct);return y
+}
+function importStudyPack(event){
+  const file=event.target.files[0];if(!file)return;const r=new FileReader();
+  r.onload=()=>{try{const d=JSON.parse(r.result),items=Array.isArray(d)?d:(d.items||d.bank);if(!Array.isArray(items))throw 0;
+    const normalized=items.map(normalizeImportedItem).filter(x=>hasFlash(x)||hasValidQuestion(x));if(!normalized.length)throw 0;
+    const ids=new Set(bank.map(x=>x.id));normalized.forEach(x=>{if(ids.has(x.id))x.id=uid();bank.push(x)});saveBank();closeModal();openLibrary();alert(`Imported ${normalized.length} study item(s).`);
+  }catch{alert('This is not a valid IL Broker Study Pack JSON file.')}event.target.value=''};r.readAsText(file)
+}
+function exportData(){
+  const payload={app:'IL Broker Study',version:4,exportedAt:new Date().toISOString(),bank,history,ratings,ui,game};
+  const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='il-broker-study-backup.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),500)
+}
+function importData(event){
+  const f=event.target.files[0];if(!f)return;const r=new FileReader();
+  r.onload=()=>{try{const d=JSON.parse(r.result),items=Array.isArray(d)?d:d.bank;if(!Array.isArray(items))throw 0;if(!confirm(`Restore ${items.length} study items? This replaces your current bank.`))return;
+    bank=items;history=Array.isArray(d.history)?d.history:[];ratings=d.ratings&&typeof d.ratings==='object'?d.ratings:{};ui=d.ui&&typeof d.ui==='object'?d.ui:{};game=d.game&&typeof d.game==='object'?d.game:{xp:0,bestStreak:0,best:{},sessions:0};
+    localStorage.setItem(DB_KEY,JSON.stringify(bank));localStorage.setItem(HISTORY_KEY,JSON.stringify(history));localStorage.setItem(STUDY_KEY,JSON.stringify(ratings));localStorage.setItem(UI_KEY,JSON.stringify(ui));localStorage.setItem(GAME_KEY,JSON.stringify(game));refreshAll();closeModal();openLibrary();alert('Backup restored.');
+  }catch{alert('That file is not a valid full backup.')}event.target.value=''};r.readAsText(f)
+}
+function showPdfWorkflow(){
+  modal(`<div class="modalhead"><h3>PDF → Study Pack</h3><button class="closex" onclick="closeModal()">×</button></div>
+    <div class="notice">This app intentionally does not send PDFs to a paid AI API. Upload your course PDF to ChatGPT, have it converted into an IL Broker Study Pack JSON using only your supplied material, then import that JSON here. This keeps the app itself free.</div>
+    <div style="height:12px"></div><button class="btn blue" style="width:100%" onclick="closeModal()">Got it</button>`);
+}
+
+
+function saveGame(){localStorage.setItem(GAME_KEY,JSON.stringify(game));renderGameStats()}
+function renderGameStats(){const el=document.getElementById('gameXp');if(el)el.textContent=game.xp||0}
+function openQuizSetup(){openTestSetup('quiz')}
+function quizSelected(){const qs=bank.filter(x=>selectedIds.has(x.id)&&hasValidQuestion(x));if(!qs.length){alert('None of the selected items contain a test question.');return}beginTestWithQuestions(qs,'Selected questions',true,true,'quiz')}
+function readCurrentCard(){if(!('speechSynthesis' in window)){alert('Read aloud is not supported in this browser.');return}speechSynthesis.cancel();const c=studyDeck[studyIndex];if(c)speechSynthesis.speak(new SpeechSynthesisUtterance(studyShowingBack?c.definition:c.term))}
+
+function openSmartImport(tab='local'){
+  smartDrafts=[];smartSourceName='';
+  modal(`<div class="modalhead"><div><h2>Smart Import</h2><div class="tiny">Nothing is saved until you review the drafts.</div></div><button class="closex" onclick="closeModal()">×</button></div>
+    <div class="smart-tabs" id="smartTabs"><button class="${tab==='local'?'active':''}" onclick="smartImportTab('local')">Notes / PDF</button><button class="${tab==='pack'?'active':''}" onclick="smartImportTab('pack')">AI Study Pack</button></div><div id="smartBody" style="margin-top:12px"></div>`);smartImportTab(tab)
+}
+function smartImportTab(tab){
+  document.querySelectorAll('#smartTabs button').forEach((b,i)=>b.classList.toggle('active',(tab==='local'&&i===0)||(tab==='pack'&&i===1)));
+  const h=document.getElementById('smartBody');
+  if(tab==='pack'){h.innerHTML=`<div class="notice">For the strongest question generation while keeping this PWA free, upload your course source in ChatGPT and import the generated Study Pack JSON here. Do not place paid course PDFs or private Study Packs in your public GitHub repository.</div><div class="field" style="margin-top:12px"><label>Study Pack JSON</label><input type="file" accept=".json,application/json" onchange="importStudyPack(event)"></div>`;return}
+  h.innerHTML=`<div class="notice"><b>Local Smart Drafts are source-extraction, not a language model.</b> They identify clear definition-style facts and create editable flashcards/questions. Review every draft. PDF extraction uses a free PDF library and needs internet when that library first loads.</div><div class="field" style="margin-top:12px"><label>Set / chapter</label><input id="smartTopic" value="${escapeHtml(ui.lastTopic||'Imported Notes')}"></div><div class="smart-drop"><b>Upload PDF, TXT, or Markdown</b><input style="margin-top:10px" type="file" accept=".pdf,.txt,.md,text/plain,application/pdf" onchange="readSmartFile(event)"></div><div class="field" style="margin-top:12px"><label>Or paste notes</label><textarea id="smartText" class="longtext" placeholder="Paste notes here…"></textarea></div><button class="btn blue" style="width:100%" onclick="generateSmartDrafts()">Generate editable drafts</button><div id="smartStatus" class="tiny" style="margin-top:8px"></div><div id="smartDraftArea" style="margin-top:12px"></div>`;
+}
+async function readSmartFile(e){const f=e.target.files[0];if(!f)return;smartSourceName=f.name;const st=document.getElementById('smartStatus');st.textContent='Reading '+f.name+'…';try{let t;if(f.name.toLowerCase().endsWith('.pdf')||f.type==='application/pdf')t=await extractPdfText(f);else t=await f.text();document.getElementById('smartText').value=t;st.textContent=`Loaded ${f.name} · ${t.length.toLocaleString()} characters`}catch(err){st.textContent='Could not read file: '+err.message}}
+async function extractPdfText(file){const pdfjs=await import('https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/build/pdf.min.mjs');pdfjs.GlobalWorkerOptions.workerSrc='https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/build/pdf.worker.min.mjs';const pdf=await pdfjs.getDocument({data:new Uint8Array(await file.arrayBuffer())}).promise,out=[];for(let n=1;n<=pdf.numPages;n++){const page=await pdf.getPage(n),c=await page.getTextContent();out.push(`Page ${n}\n`+c.items.map(i=>i.str).join(' '))}return out.join('\n\n')}
+function generateSmartDrafts(){const text=document.getElementById('smartText').value.trim(),topic=document.getElementById('smartTopic').value.trim()||'Imported Notes';if(!text){alert('Paste notes or upload a file first.');return}smartDrafts=buildSmartDrafts(text,topic,smartSourceName||'Pasted notes');renderSmartDrafts()}
+function buildSmartDrafts(text,topic,source){const lines=text.split(/\n+/).map(x=>x.replace(/\s+/g,' ').replace(/^[•*\-]\s*/, '').trim()).filter(x=>x.length>8),facts=[],seen=new Set();for(const line of lines){if(/^page \d+$/i.test(line))continue;let m=line.match(/^(.{2,85}?)(?:\s+[-–—:]\s+)(.{12,900})$/);if(!m)m=line.match(/^(.{2,70}?)\s+(?:is|means|refers to|is defined as)\s+(.{12,900})$/i);if(m){const term=m[1].trim().replace(/[.:;]$/,''),definition=m[2].trim(),k=(term+'|'+definition).toLowerCase();if(term.split(' ').length<=12&&!seen.has(k)){seen.add(k);facts.push({term,definition,snippet:line})}}}const fs=facts.slice(0,80),drafts=fs.map(f=>({type:'flash',checked:true,topic,term:f.term,definition:f.definition,source:source+' · Local Smart Draft',snippet:f.snippet}));if(fs.length>=4){fs.slice(0,40).forEach((f,i)=>{const wrong=shuffle(fs.filter((_,j)=>j!==i)).slice(0,3),opts=shuffle([{text:f.term,correct:true},...wrong.map(x=>({text:x.term,correct:false}))]);drafts.push({type:'mcq',checked:true,topic,question:`Which term best matches this definition?\n\n${f.definition}`,choices:opts.map(x=>x.text),correct:opts.findIndex(x=>x.correct),explanation:`The source material pairs this definition with “${f.term}.”`,source:source+' · Local Smart Draft',snippet:f.snippet})})}return drafts}
+function renderSmartDrafts(){const h=document.getElementById('smartDraftArea');if(!smartDrafts.length){h.innerHTML='<div class="notice">No sufficiently clear definition-style facts were found. Try cleaner notes, a glossary section, or the AI Study Pack route.</div>';return}h.innerHTML=`<div class="row"><div><b>${smartDrafts.length} drafts</b><div class="tiny">Uncheck anything you do not want.</div></div><div class="wrap"><button class="btn secondary small" onclick="toggleSmart(true)">All</button><button class="btn secondary small" onclick="toggleSmart(false)">None</button></div></div><div class="smart-drafts" style="margin-top:9px">${smartDrafts.map((d,i)=>`<div class="smart-draft"><div class="row" style="align-items:flex-start"><input style="width:20px;height:20px;flex:0 0 auto" type="checkbox" ${d.checked?'checked':''} onchange="smartDrafts[${i}].checked=this.checked"><div style="flex:1;min-width:0"><span class="badge ${d.type==='mcq'?'green':'blue'}">${d.type==='mcq'?'Question':'Flashcard'}</span><div class="term" style="margin-top:6px">${nl2br(d.type==='mcq'?d.question:d.term)}</div>${d.type==='flash'?`<div class="definition" style="margin-top:5px">${nl2br(d.definition)}</div>`:`<div class="tiny" style="margin-top:5px">Answer: ${nl2br(d.choices[d.correct])}</div>`}<div class="source-snippet"><b>Source snippet:</b> ${nl2br(d.snippet||'')}</div></div></div></div>`).join('')}</div><button class="btn green" style="width:100%;margin-top:10px" onclick="importSmartDrafts()">Add checked drafts</button>`}
+function toggleSmart(v){smartDrafts.forEach(d=>d.checked=v);renderSmartDrafts()}
+function importSmartDrafts(){const chosen=smartDrafts.filter(d=>d.checked);if(!chosen.length){alert('Select at least one draft.');return}chosen.forEach(d=>{const it={id:uid(),topic:d.topic,createdAt:new Date().toISOString(),source:d.source,generated:'local-smart-draft'};if(d.type==='flash'){it.term=d.term;it.definition=d.definition}else{it.question=d.question;it.choices=d.choices;it.correct=d.correct;it.explanation=d.explanation}bank.push(it)});saveBank();closeModal();openLibrary(chosen[0].topic);alert(`Added ${chosen.length} draft item(s). Review and edit them in the library.`)}
+
+function gameName(t){return t==='speed'?'Speed Round':t==='streak'?'Streak Challenge':t==='match'?'Match':'Solo Showdown'}
+function openGameSetup(type){const list=type==='match'?bank.filter(hasFlash):bank.filter(hasValidQuestion);if(!list.length){alert(type==='match'?'Create or import flashcards first.':'Create or import multiple-choice questions first.');return}modal(`<div class="modalhead"><div><h2>${gameName(type)}</h2><div class="tiny">${type==='speed'?'60-second question sprint.':type==='streak'?'Three lives; protect your streak.':type==='match'?'Match terms with definitions.':'Timed personal challenge with speed points.'}</div></div><button class="closex" onclick="closeModal()">×</button></div><div class="field"><label>Set / topic</label><select id="gameTopic">${topics().map(t=>`<option>${escapeHtml(t)}</option>`).join('')}</select></div><div class="grid two"><button class="btn secondary" onclick="closeModal()">Cancel</button><button class="btn purple" onclick="startGame('${type}')">Play</button></div>`)}
+function gamePool(topic,pred){let x=bank.filter(pred);if(topic!=='All Topics')x=x.filter(i=>(i.topic||'Uncategorized')===topic);return shuffle(x)}
+function startGame(type){const topic=document.getElementById('gameTopic').value;closeModal();clearGameTimer();showView('play');if(type==='match'){startMatch(topic);return}const qs=gamePool(topic,hasValidQuestion);gameState={type,topic,questions:qs.map(q=>prepareQuestion(q,true)),index:0,score:0,streak:0,lives:3,correct:0,answered:0,endAt:type==='speed'?Date.now()+60000:null,qEndAt:type==='solo'?Date.now()+15000:null};renderQuestionGame();if(type==='speed')gameTimer=setInterval(()=>{if(!gameState)return;const left=Math.max(0,gameState.endAt-Date.now()),el=document.getElementById('gameClock');if(el)el.textContent=Math.ceil(left/1000)+'s';if(left<=0)finishGame()},250);if(type==='solo')startSoloClock()}
+function startSoloClock(){clearGameTimer();gameTimer=setInterval(()=>{if(!gameState||gameState.type!=='solo')return;const left=Math.max(0,gameState.qEndAt-Date.now()),el=document.getElementById('gameClock');if(el)el.textContent=(left/1000).toFixed(1)+'s';if(left<=0){gameState.streak=0;gameState.answered++;gameState.index++;gameState.qEndAt=Date.now()+15000;renderQuestionGame()}},100)}
+function renderQuestionGame(){const g=gameState;if(!g)return;if(g.type==='streak'&&g.lives<=0){finishGame();return}if(g.index>=g.questions.length){g.questions=shuffle(g.questions);g.index=0}const q=g.questions[g.index];document.getElementById('gameArea').innerHTML=`<div class="game-panel"><div class="row"><div><div class="tiny">${gameName(g.type)}</div><div class="game-score">${g.score}</div></div><div style="text-align:right"><div id="gameClock" class="game-time">${g.type==='speed'?Math.ceil((g.endAt-Date.now())/1000)+'s':g.type==='solo'?'15.0s':`❤ ${g.lives}`}</div><div class="tiny">Streak ${g.streak}</div></div></div></div><div class="question" style="margin-top:10px"><h3 style="font-size:19px;line-height:1.45">${nl2br(q.question)}</h3>${q.choices.map((c,i)=>`<button class="choice" onclick="answerGame(${i})">${String.fromCharCode(65+i)}. ${nl2br(c.text)}</button>`).join('')}</div>`}
+function answerGame(i){const g=gameState;if(!g)return;const q=g.questions[g.index],ok=i===q.correctIndex;g.answered++;if(ok){g.correct++;g.streak++;game.bestStreak=Math.max(game.bestStreak||0,g.streak);let pts=100+g.streak*10;if(g.type==='solo')pts+=Math.max(0,Math.round((g.qEndAt-Date.now())/100));g.score+=pts}else{g.streak=0;if(g.type==='streak')g.lives--}game.xp=(game.xp||0)+(ok?8:1);saveGame();g.index++;if(g.type==='solo')g.qEndAt=Date.now()+15000;renderQuestionGame()}
+function finishGame(){clearGameTimer();const g=gameState;if(!g)return;game.best=game.best||{};game.best[g.type]=Math.max(game.best[g.type]||0,g.score);game.sessions=(game.sessions||0)+1;game.xp=(game.xp||0)+Math.round(g.score/20);saveGame();document.getElementById('gameArea').innerHTML=`<div class="game-panel" style="text-align:center"><div class="tiny">${gameName(g.type)} complete</div><div class="game-score">${g.score}</div><p class="muted">${g.correct}/${g.answered} correct · Best ${game.best[g.type]}</p><button class="btn purple" onclick="openGameSetup('${g.type}')">Play again</button></div>`;gameState=null}
+function startMatch(topic){const cs=gamePool(topic,hasFlash).slice(0,6);if(cs.length<2){alert('Match needs at least two flashcards in that set.');return}let tiles=[];cs.forEach((c,i)=>{tiles.push({key:uid(),pid:'p'+i,text:c.term,side:'t'},{key:uid(),pid:'p'+i,text:c.definition,side:'d'})});gameState={type:'match',topic,tiles:shuffle(tiles),selected:null,done:new Set(),moves:0,start:Date.now()};renderMatch()}
+function renderMatch(){const g=gameState,h=document.getElementById('gameArea');if(g.done.size===g.tiles.length/2){const secs=Math.max(1,Math.round((Date.now()-g.start)/1000)),score=Math.max(100,3000-g.moves*80-secs*10);game.best=game.best||{};game.best.match=Math.max(game.best.match||0,score);game.xp=(game.xp||0)+Math.round(score/25);saveGame();h.innerHTML=`<div class="game-panel" style="text-align:center"><div class="tiny">Match complete</div><div class="game-score">${score}</div><p class="muted">${g.moves} moves · ${secs}s</p><button class="btn purple" onclick="openGameSetup('match')">Play again</button></div>`;gameState=null;return}h.innerHTML=`<div class="game-panel"><div class="row"><b>Match</b><span class="tiny">${g.moves} moves</span></div></div><div class="match-grid" style="margin-top:10px">${g.tiles.map(t=>`<button class="match-tile ${g.done.has(t.pid)?'done':''} ${g.selected?.key===t.key?'active':''}" onclick="pickMatch('${t.key}')">${nl2br(t.text)}</button>`).join('')}</div>`}
+function pickMatch(key){const g=gameState,t=g.tiles.find(x=>x.key===key);if(!t||g.done.has(t.pid))return;if(!g.selected){g.selected=t;renderMatch();return}if(g.selected.key===t.key){g.selected=null;renderMatch();return}g.moves++;if(g.selected.pid===t.pid&&g.selected.side!==t.side){g.done.add(t.pid);g.selected=null;renderMatch()}else{g.selected=t;renderMatch();setTimeout(()=>{if(gameState===g&&g.selected===t){g.selected=null;renderMatch()}},650)}}
+function clearGameTimer(){if(gameTimer){clearInterval(gameTimer);gameTimer=null}}
+
+function modal(html){document.getElementById('modal').innerHTML=html;document.getElementById('modalBack').classList.add('show')}
+function closeModal(){document.getElementById('modalBack').classList.remove('show')}
+function modalBackdrop(e){if(e.target.id==='modalBack')closeModal()}
 
 window.addEventListener('online',()=>document.getElementById('offlinePill').textContent='Online');
-window.addEventListener('offline',()=>document.getElementById('offlinePill').textContent='Offline mode');
-document.getElementById('offlinePill').textContent=navigator.onLine?'Online':'Offline mode';
-
-if('serviceWorker' in navigator){
-  window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js').catch(()=>{}));
-}
+window.addEventListener('offline',()=>document.getElementById('offlinePill').textContent='Offline');
+document.getElementById('offlinePill').textContent=navigator.onLine?'Online':'Offline';
+if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js').catch(()=>{}));
 load();
 </script>
 </body>

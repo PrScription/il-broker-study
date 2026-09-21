@@ -1,12 +1,12 @@
 {
   "name": "IL Broker Study",
   "short_name": "Broker Study",
-  "description": "Offline flashcards and practice tests for Illinois Broker exam study.",
+  "description": "Private flashcards, quizzes, tests, smart imports, and study games.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#f3f4f6",
-  "theme_color": "#0f172a",
+  "background_color": "#f7f8fc",
+  "theme_color": "#172554",
   "icons": [
     {
       "src": "./icon-192.png",
