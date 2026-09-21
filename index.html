@@ -223,7 +223,7 @@ option{background:#0a101c;color:#f4f7fb}
 <div class="app">
 <header>
   <div class="toprow">
-    <div><div class="brand">IL Broker Study</div><div class="subbrand">Private study workspace · V4.2</div></div>
+    <div><div class="brand">IL Broker Study</div><div class="subbrand">Private study workspace · V4.3</div></div>
     <div class="head-actions">
       <div class="pill" id="offlinePill">Online</div>
       <button class="iconbtn" aria-label="Quick add" onclick="openQuickAdd()">+</button>
@@ -252,7 +252,7 @@ option{background:#0a101c;color:#f4f7fb}
     <button class="mode-card" onclick="showView('play')"><div class="mode-icon">★</div><b>Play</b><small>Speed, streak, match, and solo challenge modes.</small></button>
   </div>
 
-  <div class="section-title"><div><h3>Your sets</h3><div class="tiny">Topics work like Quizlet-style study sets.</div></div><button class="btn secondary small" onclick="showView('create')">+ Create</button></div>
+  <div class="section-title"><div><h3>Your sets</h3><div class="tiny">Topics work like Quizlet-style study sets.</div></div><button class="btn secondary small" onclick="openCreate('flash')">+ Create</button></div>
   <div id="homeSets" class="set-grid"></div>
 
   <div class="section-title"><div><h3>Build from your material</h3></div></div>
@@ -303,12 +303,45 @@ option{background:#0a101c;color:#f4f7fb}
 </section>
 
 <section class="view" id="createView">
-  <div><h2>Create</h2><div class="muted">Manual creation stays the primary workflow.</div></div>
-  <div class="create-grid">
-    <button class="feature-card" onclick="openEditor('', 'flash')"><h3>New Flashcard</h3><p>Long front/back text, set/topic tagging, source notes, and no app-imposed character cap.</p></button>
-    <button class="feature-card" onclick="openEditor('', 'mcq')"><h3>New Multiple Choice</h3><p>Long scenarios, four choices, correct answer, and detailed explanation.</p></button>
-    <button class="feature-card" onclick="openSmartImport('local')"><h3>Smart Import</h3><p>Paste notes or upload a PDF/text file. Review locally generated drafts before adding them.</p></button>
-    <button class="feature-card" onclick="openSmartImport('pack')"><h3>AI Study Pack</h3><p>Import the higher-quality JSON pack generated from your source material in ChatGPT.</p></button>
+  <div class="row" style="align-items:flex-start">
+    <div><h2>Create</h2><div class="muted">Add material directly—no extra popup step.</div></div>
+    <button class="btn secondary small" onclick="resetCreateForm()">Clear</button>
+  </div>
+
+  <div class="smart-tabs" id="createTypeTabs" style="margin-top:14px">
+    <button class="active" data-create-type="flash" onclick="setCreateType('flash')">Flashcard</button>
+    <button data-create-type="mcq" onclick="setCreateType('mcq')">Question</button>
+    <button data-create-type="smart" onclick="openSmartImport('local')">Smart Import</button>
+  </div>
+
+  <div class="card pad" style="margin-top:12px" id="inlineCreateCard">
+    <div class="field">
+      <label>Study set / chapter / topic</label>
+      <input id="cTopic" placeholder="e.g. Ch 04 — Federal Laws">
+    </div>
+
+    <div id="createFlashFields">
+      <div class="sectionhead">Flashcard</div>
+      <div class="field"><label>Front / term</label><textarea id="cTerm" class="longtext" placeholder="What do you want to recall?"></textarea></div>
+      <div class="field"><label>Back / definition</label><textarea id="cDefinition" class="longtext" placeholder="Answer, definition, rule, formula, etc."></textarea></div>
+    </div>
+
+    <div id="createQuestionFields" class="hidden">
+      <div class="sectionhead">Multiple-choice question</div>
+      <div class="field"><label>Question / scenario</label><textarea id="cQuestion" class="longtext" placeholder="Write the question or scenario…"></textarea></div>
+      <div class="field"><label>Choice A</label><textarea id="cChoice0" class="choiceText"></textarea></div>
+      <div class="field"><label>Choice B</label><textarea id="cChoice1" class="choiceText"></textarea></div>
+      <div class="field"><label>Choice C</label><textarea id="cChoice2" class="choiceText"></textarea></div>
+      <div class="field"><label>Choice D</label><textarea id="cChoice3" class="choiceText"></textarea></div>
+      <div class="field"><label>Correct answer</label><select id="cCorrect"><option value="0">A</option><option value="1">B</option><option value="2">C</option><option value="3">D</option></select></div>
+      <div class="field"><label>Explanation</label><textarea id="cExplanation" class="longtext" placeholder="Why is this the correct answer?"></textarea></div>
+    </div>
+
+    <div class="sectionhead">Optional source note</div>
+    <div class="field"><label>Source / page / note</label><input id="cSource" placeholder="e.g. Colibri Ch. 4, p. 62"></div>
+
+    <button id="createSaveBtn" class="btn blue" style="width:100%" onclick="saveInlineCreate()">Save Flashcard</button>
+    <div id="createStatus" class="tiny" style="margin-top:8px;text-align:center"></div>
   </div>
 </section>
 
@@ -365,7 +398,7 @@ option{background:#0a101c;color:#f4f7fb}
 <nav>
   <button data-view="home" class="active" onclick="showView('home')"><span>⌂</span>Home</button>
   <button data-view="library" onclick="openLibrary()"><span>▤</span>Library</button>
-  <button data-view="create" onclick="showView('create')"><span>＋</span>Create</button>
+  <button data-view="create" onclick="openCreate('flash')"><span>＋</span>Create</button>
   <button data-view="play" onclick="showView('play')"><span>★</span>Play</button>
   <button data-view="progress" onclick="showView('progress')"><span>▥</span>Progress</button>
 </nav>
@@ -628,10 +661,65 @@ function previewItem(id){
     <div class="grid two" style="margin-top:14px"><button class="btn blue" onclick="openEditor('${id}','both')">Edit</button><button class="btn secondary" onclick="closeModal()">Close</button></div>`);
 }
 
-function openQuickAdd(){
-  modal(`<div class="modalhead"><h3>Quick add</h3><button class="closex" onclick="closeModal()">×</button></div>
-  <div class="grid two"><button class="action" onclick="openEditor('', 'flash')">Flashcard<small>Front + back with no practical text limit.</small></button><button class="action" onclick="openEditor('', 'mcq')">Multiple-choice question<small>Four choices, correct answer, explanation.</small></button></div>`);
+
+let inlineCreateType='flash';
+
+function openCreate(type='flash'){
+  showView('create');
+  setCreateType(type);
+  const topic=document.getElementById('cTopic');
+  if(topic&&!topic.value)topic.value=ui.lastTopic||'';
+  setTimeout(()=>document.getElementById(type==='mcq'?'cQuestion':'cTerm')?.focus(),60);
 }
+
+function setCreateType(type='flash'){
+  if(type==='smart'){openSmartImport('local');return}
+  inlineCreateType=type==='mcq'?'mcq':'flash';
+  document.querySelectorAll('#createTypeTabs [data-create-type]').forEach(b=>b.classList.toggle('active',b.dataset.createType===inlineCreateType));
+  document.getElementById('createFlashFields')?.classList.toggle('hidden',inlineCreateType!=='flash');
+  document.getElementById('createQuestionFields')?.classList.toggle('hidden',inlineCreateType!=='mcq');
+  const btn=document.getElementById('createSaveBtn');
+  if(btn)btn.textContent=inlineCreateType==='mcq'?'Save Question':'Save Flashcard';
+  const status=document.getElementById('createStatus');if(status)status.textContent='';
+}
+
+function resetCreateForm(){
+  ['cTerm','cDefinition','cQuestion','cChoice0','cChoice1','cChoice2','cChoice3','cExplanation','cSource'].forEach(id=>{const el=document.getElementById(id);if(el)el.value=''});
+  const correct=document.getElementById('cCorrect');if(correct)correct.value='0';
+  const status=document.getElementById('createStatus');if(status)status.textContent='';
+}
+
+function saveInlineCreate(){
+  const topic=document.getElementById('cTopic')?.value.trim()||'Uncategorized';
+  const source=document.getElementById('cSource')?.value.trim()||'';
+  let item={id:uid(),topic,source,createdAt:new Date().toISOString(),updatedAt:new Date().toISOString()};
+  const status=document.getElementById('createStatus');
+
+  if(inlineCreateType==='flash'){
+    const term=document.getElementById('cTerm')?.value.trim()||'';
+    const definition=document.getElementById('cDefinition')?.value.trim()||'';
+    if(!term||!definition){if(status)status.textContent='Enter both the front and back before saving.';return}
+    item.term=term;item.definition=definition;
+  }else{
+    const question=document.getElementById('cQuestion')?.value.trim()||'';
+    const choices=[0,1,2,3].map(i=>document.getElementById('cChoice'+i)?.value.trim()||'');
+    const correct=Number(document.getElementById('cCorrect')?.value||0);
+    const explanation=document.getElementById('cExplanation')?.value.trim()||'';
+    if(!question||choices.some(x=>!x)){if(status)status.textContent='Enter the question and all four choices before saving.';return}
+    item.question=question;item.choices=choices;item.correct=correct;item.explanation=explanation;
+  }
+
+  bank.push(item);
+  ui.lastTopic=topic;
+  saveUi();
+  localStorage.setItem(DB_KEY,JSON.stringify(bank));
+  refreshAll();
+  resetCreateForm();
+  const topicEl=document.getElementById('cTopic');if(topicEl)topicEl.value=topic;
+  if(status){status.textContent=inlineCreateType==='mcq'?'Question saved.':'Flashcard saved.';setTimeout(()=>{if(status)status.textContent=''},1800)}
+}
+
+function openQuickAdd(){openCreate('flash')}
 function charInfo(id){const el=document.getElementById(id),out=document.getElementById(id+'Count');if(el&&out)out.textContent=el.value.length.toLocaleString()+' characters'}
 function textField(id,label,value='',cls='longtext'){
   return `<div class="field"><label>${label}</label><textarea id="${id}" class="${cls}" oninput="charInfo('${id}')">${escapeHtml(value)}</textarea><div class="counter" id="${id}Count">${String(value||'').length.toLocaleString()} characters</div></div>`
