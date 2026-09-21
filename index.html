@@ -230,7 +230,7 @@ option{background:#0a101c;color:#f4f7fb}
 <div class="app">
 <header>
   <div class="toprow">
-    <div><div class="brand">IL Broker Study</div><div class="subbrand">Private study workspace · V4.4</div></div>
+    <div><div class="brand">IL Broker Study</div><div class="subbrand">Private study workspace · V4.5</div></div>
     <div class="head-actions">
       <div class="pill" id="offlinePill">Online</div>
       <button class="iconbtn" aria-label="Quick add" onclick="openQuickAdd()">+</button>
@@ -275,8 +275,8 @@ option{background:#0a101c;color:#f4f7fb}
   <div class="library-head">
     <div><h2>Cards & Questions</h2><div class="muted" id="libraryMeta">0 items</div></div>
     <div class="wrap">
-      <button class="btn blue small" onclick="openEditor('', 'flash')">+ Flashcard</button>
-      <button class="btn green small" onclick="openEditor('', 'mcq')">+ Question</button>
+      <button class="btn blue small" onclick="openCreate('flash')">+ Flashcard</button>
+      <button class="btn green small" onclick="openCreate('mcq')">+ Question</button>
     </div>
   </div>
 
@@ -645,7 +645,7 @@ function moveItem(id,delta){
 }
 function showItemMenu(id){
   const x=bank.find(z=>z.id===id);if(!x)return;
-  modal(`<div class="modalhead"><h3>Card actions</h3><button class="closex" onclick="closeModal()">×</button></div>
+  showModal(`<div class="modalhead"><h3>Card actions</h3><button class="closex" onclick="closeModal()">×</button></div>
     <div class="grid two">
       <button class="btn secondary" onclick="openEditor('${id}','both')">Edit</button>
       <button class="btn secondary" onclick="duplicateItem('${id}')">Duplicate</button>
@@ -666,7 +666,7 @@ function previewItem(id){
   if(hasValidQuestion(x)){
     body+=`<div style="height:12px"></div><div class="question"><div class="item-label">Practice question</div><h3 style="margin-top:6px;line-height:1.4">${nl2br(x.question)}</h3>${x.choices.map((c,i)=>`<div class="choice ${i===x.correct?'correct':''}" style="cursor:default">${String.fromCharCode(65+i)}. ${nl2br(c)}</div>`).join('')}${x.explanation?`<div class="explain">${nl2br(x.explanation)}</div>`:''}</div>`;
   }
-  modal(`<div class="modalhead"><div><h3>${escapeHtml(x.topic||'Uncategorized')}</h3><div class="tiny">${hasFlash(x)?'Flashcard':''}${hasFlash(x)&&hasValidQuestion(x)?' + ':''}${hasValidQuestion(x)?'Practice question':''}</div></div><button class="closex" onclick="closeModal()">×</button></div>
+  showModal(`<div class="modalhead"><div><h3>${escapeHtml(x.topic||'Uncategorized')}</h3><div class="tiny">${hasFlash(x)?'Flashcard':''}${hasFlash(x)&&hasValidQuestion(x)?' + ':''}${hasValidQuestion(x)?'Practice question':''}</div></div><button class="closex" onclick="closeModal()">×</button></div>
     ${body}
     <div class="grid two" style="margin-top:14px"><button class="btn blue" onclick="openEditor('${id}','both')">Edit</button><button class="btn secondary" onclick="closeModal()">Close</button></div>`);
 }
@@ -788,12 +788,13 @@ function textField(id,label,value='',cls='longtext'){
   return `<div class="field"><label>${label}</label><textarea id="${id}" class="${cls}" oninput="charInfo('${id}')">${escapeHtml(value)}</textarea><div class="counter" id="${id}Count">${String(value||'').length.toLocaleString()} characters</div></div>`
 }
 function openEditor(id='',type='both',prefill=null){
+  if(!id&&!prefill){openCreate(type==='mcq'?'mcq':'flash');return}
   const x=id?bank.find(z=>z.id===id):(prefill||{id:'',topic:ui.lastTopic||'',term:'',definition:'',question:'',choices:['','','',''],correct:0,explanation:'',source:''});
   if(!x)return;
   const choices=[...(x.choices||[])];while(choices.length<4)choices.push('');
   const showFlash=type!=='mcq'||id||prefill?.term,showMcq=type!=='flash'||id||prefill?.question;
   const title=id?'Edit study item':type==='flash'?'Add flashcard':type==='mcq'?'Add multiple-choice question':'Add study item';
-  modal(`<div class="modalhead"><div><h2>${title}</h2><div class="tiny">Long-form fields are intentionally unrestricted by the app.</div></div><button class="closex" onclick="closeModal()">×</button></div>
+  showModal(`<div class="modalhead"><div><h2>${title}</h2><div class="tiny">Long-form fields are intentionally unrestricted by the app.</div></div><button class="closex" onclick="closeModal()">×</button></div>
     <div class="field"><label>Topic / chapter / set</label><input id="eTopic" value="${escapeHtml(x.topic||'')}" placeholder="e.g. Chapter 1 — Illinois License Law"></div>
     ${showFlash?`<div class="sectionhead">Flashcard</div>${textField('eTerm','Front / term',x.term||'')}${textField('eDefinition','Back / definition',x.definition||'')}`:''}
     ${showMcq?`<div class="sectionhead">Multiple-choice question</div>${textField('eQuestion','Question / scenario',x.question||'')}
@@ -875,7 +876,7 @@ function studyPointerUp(e){
   if(Math.abs(dx)>70&&Math.abs(dx)>Math.abs(dy)*1.4){e.stopPropagation();dx<0?nextCard():prevCard()}
 }
 function studySettings(){
-  modal(`<div class="modalhead"><h3>Study settings</h3><button class="closex" onclick="closeModal()">×</button></div>
+  showModal(`<div class="modalhead"><h3>Study settings</h3><button class="closex" onclick="closeModal()">×</button></div>
     <div class="field"><label>Set / topic</label><select id="studyTopicSel">${topics().map(t=>`<option ${t===studyTopic?'selected':''}>${escapeHtml(t)}</option>`).join('')}</select></div>
     <div class="field"><label>Cards to include</label><select id="studyModeSel"><option value="all" ${studyMode==='all'?'selected':''}>All cards</option><option value="hard" ${studyMode==='hard'?'selected':''}>Again + Hard only</option><option value="starred" ${studyMode==='starred'?'selected':''}>Starred only</option></select></div>
     <div class="field"><label><input id="studyShuffle" type="checkbox" style="width:auto;margin-right:7px" ${studyShuffle?'checked':''}> Shuffle cards</label></div>
@@ -888,7 +889,7 @@ function applyStudySettings(){
 
 function openTestSetup(mode='test'){
   const available=bank.filter(hasValidQuestion);if(!available.length){alert('Add at least one multiple-choice question first.');openLibrary();return}
-  modal(`<div class="modalhead"><div><h2>${mode==='quiz'?'Build a quiz':'Build a practice test'}</h2><div class="tiny">${mode==='quiz'?'Quizzes show feedback immediately.':'Tests hold results until the end.'}</div></div><button class="closex" onclick="closeModal()">×</button></div>
+  showModal(`<div class="modalhead"><div><h2>${mode==='quiz'?'Build a quiz':'Build a practice test'}</h2><div class="tiny">${mode==='quiz'?'Quizzes show feedback immediately.':'Tests hold results until the end.'}</div></div><button class="closex" onclick="closeModal()">×</button></div>
     <div class="field"><label>Topic / set</label><select id="testTopic">${topics().map(t=>`<option>${escapeHtml(t)}</option>`).join('')}</select></div>
     <div class="field"><label>Number of questions</label><select id="testCount"><option value="5">5</option><option value="10" selected>10</option><option value="20">20</option><option value="25">25</option><option value="50">50</option><option value="all">All available</option></select></div>
     <div class="field"><label><input id="shuffleChoices" type="checkbox" checked style="width:auto;margin-right:7px"> Randomize answer choices</label></div>
@@ -951,7 +952,7 @@ function finishTest(){
 }
 function reviewMissed(){
   const missed=testState.questions.map((q,i)=>({q,a:testState.answers[i]})).filter(x=>!x.a?.correct);
-  modal(`<div class="modalhead"><div><h2>Missed questions</h2><div class="tiny">Turn any missed concept into a flashcard with one tap.</div></div><button class="closex" onclick="closeModal()">×</button></div>
+  showModal(`<div class="modalhead"><div><h2>Missed questions</h2><div class="tiny">Turn any missed concept into a flashcard with one tap.</div></div><button class="closex" onclick="closeModal()">×</button></div>
     <div class="library-list">${missed.map(({q})=>`<div class="card pad"><div class="term">${nl2br(q.question)}</div><div class="tiny" style="margin-top:8px">CORRECT ANSWER</div><div style="margin-top:3px">${nl2br(q.choices[q.correctIndex].text)}</div>${q.explanation?`<div class="explain">${nl2br(q.explanation)}</div>`:''}<button class="btn secondary small" style="margin-top:10px" onclick="makeFlashcardFromTestQuestion('${q.id}')">Make flashcard from this</button></div>`).join('')}</div>`);
 }
 function makeFlashcardFromTestQuestion(id){
@@ -979,13 +980,46 @@ function renderProgress(){
 }
 function clearProgress(){if(!confirm('Clear test history and flashcard ratings? Your cards/questions will remain.'))return;history=[];ratings={};localStorage.setItem(HISTORY_KEY,'[]');localStorage.setItem(STUDY_KEY,'{}');refreshAll()}
 
+
+function runAppSelfCheck(){
+  const checks=[];
+  const add=(name,ok,detail='')=>checks.push({name,ok:!!ok,detail});
+  try{
+    add('Local study storage',!!window.localStorage);
+    add('Create screen',!!document.getElementById('createView')&&typeof saveInlineCreate==='function');
+    add('Library screen',!!document.getElementById('libraryView')&&typeof renderLibrary==='function');
+    add('Dialog system',!!document.getElementById('modalBack')&&!!document.getElementById('modal')&&typeof showModal==='function');
+    add('Flashcard engine',typeof startFlashcards==='function'&&typeof rateCard==='function');
+    add('Quiz engine',typeof openQuizSetup==='function'&&typeof beginTestWithQuestions==='function');
+    add('Practice-test completion',typeof finishTest==='function'&&typeof advanceAfterScored==='function');
+    add('Smart Import',typeof openSmartImport==='function'&&typeof buildSmartDrafts==='function');
+    add('Study Pack import',typeof importStudyPack==='function');
+    add('Backup/restore',typeof exportData==='function'&&typeof importData==='function');
+    add('Games',typeof openGameSetup==='function'&&typeof startGame==='function'&&typeof startMatch==='function');
+    add('Progress',typeof renderProgress==='function');
+
+    // Storage write/read round trip with a throwaway key.
+    const k='ilBrokerSelfCheck_'+Date.now();
+    localStorage.setItem(k,'ok');
+    add('Storage write/read',localStorage.getItem(k)==='ok');
+    localStorage.removeItem(k);
+  }catch(err){
+    add('Runtime check',false,err?.message||String(err));
+  }
+
+  const passed=checks.filter(x=>x.ok).length;
+  const body=checks.map(x=>`<div class="row" style="padding:8px 0;border-bottom:1px solid var(--line)"><div>${escapeHtml(x.name)}${x.detail?`<div class="tiny">${escapeHtml(x.detail)}</div>`:''}</div><span class="badge ${x.ok?'green':'amber'}">${x.ok?'PASS':'FAIL'}</span></div>`).join('');
+  showModal(`<div class="modalhead"><div><h2>App self-check</h2><div class="tiny">${passed}/${checks.length} checks passed</div></div><button class="closex" onclick="closeModal()">×</button></div><div>${body}</div><button class="btn blue" style="width:100%;margin-top:12px" onclick="closeModal()">Close</button>`);
+}
+
 function showDataMenu(){
-  modal(`<div class="modalhead"><div><h3>Backup & imports</h3><div class="tiny">Keep a copy of your manually created study bank.</div></div><button class="closex" onclick="closeModal()">×</button></div>
+  showModal(`<div class="modalhead"><div><h3>Backup & imports</h3><div class="tiny">Keep a copy of your manually created study bank.</div></div><button class="closex" onclick="closeModal()">×</button></div>
     <div class="grid two">
       <button class="action" onclick="exportData()">Export full backup<small>Cards, questions, test history, and flashcard ratings.</small></button>
       <label class="action" style="display:block">Restore full backup<small>Replaces the current bank and restores saved progress.</small><input class="hidden" type="file" id="backupFile" accept=".json,application/json" onchange="importData(event)"></label>
       <label class="action" style="display:block">Import study pack<small>Adds new cards/questions without deleting existing content.</small><input class="hidden" type="file" accept=".json,application/json" onchange="importStudyPack(event)"></label>
       <button class="action" onclick="openSmartImport()">PDF → Study Pack<small>Upload course material to ChatGPT; import the generated pack here.</small></button>
+      <button class="action" onclick="runAppSelfCheck()">Run app self-check<small>Checks storage, Create, Library, quiz/test engine, modal system, and course bank without changing your study data.</small></button>
     </div>`);
 }
 function normalizeImportedItem(x){
@@ -1011,7 +1045,7 @@ function importData(event){
   }catch{alert('That file is not a valid full backup.')}event.target.value=''};r.readAsText(f)
 }
 function showPdfWorkflow(){
-  modal(`<div class="modalhead"><h3>PDF → Study Pack</h3><button class="closex" onclick="closeModal()">×</button></div>
+  showModal(`<div class="modalhead"><h3>PDF → Study Pack</h3><button class="closex" onclick="closeModal()">×</button></div>
     <div class="notice">This app intentionally does not send PDFs to a paid AI API. Upload your course PDF to ChatGPT, have it converted into an IL Broker Study Pack JSON using only your supplied material, then import that JSON here. This keeps the app itself free.</div>
     <div style="height:12px"></div><button class="btn blue" style="width:100%" onclick="closeModal()">Got it</button>`);
 }
@@ -1025,7 +1059,7 @@ function readCurrentCard(){if(!('speechSynthesis' in window)){alert('Read aloud 
 
 function openSmartImport(tab='local'){
   smartDrafts=[];smartSourceName='';
-  modal(`<div class="modalhead"><div><h2>Smart Import</h2><div class="tiny">Nothing is saved until you review the drafts.</div></div><button class="closex" onclick="closeModal()">×</button></div>
+  showModal(`<div class="modalhead"><div><h2>Smart Import</h2><div class="tiny">Nothing is saved until you review the drafts.</div></div><button class="closex" onclick="closeModal()">×</button></div>
     <div class="smart-tabs" id="smartTabs"><button class="${tab==='local'?'active':''}" onclick="smartImportTab('local')">Notes / PDF</button><button class="${tab==='pack'?'active':''}" onclick="smartImportTab('pack')">AI Study Pack</button></div><div id="smartBody" style="margin-top:12px"></div>`);smartImportTab(tab)
 }
 function smartImportTab(tab){
@@ -1043,7 +1077,7 @@ function toggleSmart(v){smartDrafts.forEach(d=>d.checked=v);renderSmartDrafts()}
 function importSmartDrafts(){const chosen=smartDrafts.filter(d=>d.checked);if(!chosen.length){alert('Select at least one draft.');return}chosen.forEach(d=>{const it={id:uid(),topic:d.topic,createdAt:new Date().toISOString(),source:d.source,generated:'local-smart-draft'};if(d.type==='flash'){it.term=d.term;it.definition=d.definition}else{it.question=d.question;it.choices=d.choices;it.correct=d.correct;it.explanation=d.explanation}bank.push(it)});saveBank();closeModal();openLibrary(chosen[0].topic);alert(`Added ${chosen.length} draft item(s). Review and edit them in the library.`)}
 
 function gameName(t){return t==='speed'?'Speed Round':t==='streak'?'Streak Challenge':t==='match'?'Match':'Solo Showdown'}
-function openGameSetup(type){const list=type==='match'?bank.filter(hasFlash):bank.filter(hasValidQuestion);if(!list.length){alert(type==='match'?'Create or import flashcards first.':'Create or import multiple-choice questions first.');return}modal(`<div class="modalhead"><div><h2>${gameName(type)}</h2><div class="tiny">${type==='speed'?'60-second question sprint.':type==='streak'?'Three lives; protect your streak.':type==='match'?'Match terms with definitions.':'Timed personal challenge with speed points.'}</div></div><button class="closex" onclick="closeModal()">×</button></div><div class="field"><label>Set / topic</label><select id="gameTopic">${topics().map(t=>`<option>${escapeHtml(t)}</option>`).join('')}</select></div><div class="grid two"><button class="btn secondary" onclick="closeModal()">Cancel</button><button class="btn purple" onclick="startGame('${type}')">Play</button></div>`)}
+function openGameSetup(type){const list=type==='match'?bank.filter(hasFlash):bank.filter(hasValidQuestion);if(!list.length){alert(type==='match'?'Create or import flashcards first.':'Create or import multiple-choice questions first.');return}showModal(`<div class="modalhead"><div><h2>${gameName(type)}</h2><div class="tiny">${type==='speed'?'60-second question sprint.':type==='streak'?'Three lives; protect your streak.':type==='match'?'Match terms with definitions.':'Timed personal challenge with speed points.'}</div></div><button class="closex" onclick="closeModal()">×</button></div><div class="field"><label>Set / topic</label><select id="gameTopic">${topics().map(t=>`<option>${escapeHtml(t)}</option>`).join('')}</select></div><div class="grid two"><button class="btn secondary" onclick="closeModal()">Cancel</button><button class="btn purple" onclick="startGame('${type}')">Play</button></div>`)}
 function gamePool(topic,pred){let x=bank.filter(pred);if(topic!=='All Topics')x=x.filter(i=>(i.topic||'Uncategorized')===topic);return shuffle(x)}
 function startGame(type){const topic=document.getElementById('gameTopic').value;closeModal();clearGameTimer();showView('play');if(type==='match'){startMatch(topic);return}const qs=gamePool(topic,hasValidQuestion);gameState={type,topic,questions:qs.map(q=>prepareQuestion(q,true)),index:0,score:0,streak:0,lives:3,correct:0,answered:0,endAt:type==='speed'?Date.now()+60000:null,qEndAt:type==='solo'?Date.now()+15000:null};renderQuestionGame();if(type==='speed')gameTimer=setInterval(()=>{if(!gameState)return;const left=Math.max(0,gameState.endAt-Date.now()),el=document.getElementById('gameClock');if(el)el.textContent=Math.ceil(left/1000)+'s';if(left<=0)finishGame()},250);if(type==='solo')startSoloClock()}
 function startSoloClock(){clearGameTimer();gameTimer=setInterval(()=>{if(!gameState||gameState.type!=='solo')return;const left=Math.max(0,gameState.qEndAt-Date.now()),el=document.getElementById('gameClock');if(el)el.textContent=(left/1000).toFixed(1)+'s';if(left<=0){gameState.streak=0;gameState.answered++;gameState.index++;gameState.qEndAt=Date.now()+15000;renderQuestionGame()}},100)}
@@ -1085,7 +1119,7 @@ async function loadBuiltInCourseBank(){
   }
 }
 
-function modal(html){document.getElementById('modal').innerHTML=html;document.getElementById('modalBack').classList.add('show')}
+function showModal(content){const host=document.getElementById('modal');const back=document.getElementById('modalBack');if(!host||!back){alert('This dialog could not open. Please refresh the app.');return}host.innerHTML=content;back.classList.add('show')}
 function closeModal(){document.getElementById('modalBack').classList.remove('show')}
 function modalBackdrop(e){if(e.target.id==='modalBack')closeModal()}
 
