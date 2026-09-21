@@ -217,13 +217,20 @@ option{background:#0a101c;color:#f4f7fb}
 .stat{background:rgba(255,255,255,.055)!important;border-color:rgba(255,255,255,.10)!important}
 .divider{background:#263247!important}
 
+
+/* V4.4 create validation */
+.create-error{border-color:#f17470!important;box-shadow:0 0 0 3px rgba(241,116,112,.14)!important}
+#createStatusTop.success{display:block!important;background:#0f2a1d;color:#b7f7cd;border:1px solid #2d7d50}
+#createStatusTop.error{display:block!important;background:#341716;color:#ffd0cd;border:1px solid #9c4540}
+#createStatusTop.info{display:block!important;background:#132142;color:#cbd6ff;border:1px solid #38509b}
+
 </style>
 </head>
 <body>
 <div class="app">
 <header>
   <div class="toprow">
-    <div><div class="brand">IL Broker Study</div><div class="subbrand">Private study workspace · V4.3</div></div>
+    <div><div class="brand">IL Broker Study</div><div class="subbrand">Private study workspace · V4.4</div></div>
     <div class="head-actions">
       <div class="pill" id="offlinePill">Online</div>
       <button class="iconbtn" aria-label="Quick add" onclick="openQuickAdd()">+</button>
@@ -305,7 +312,7 @@ option{background:#0a101c;color:#f4f7fb}
 <section class="view" id="createView">
   <div class="row" style="align-items:flex-start">
     <div><h2>Create</h2><div class="muted">Add material directly—no extra popup step.</div></div>
-    <button class="btn secondary small" onclick="resetCreateForm()">Clear</button>
+    <button class="btn secondary small" onclick="resetCreateForm(false)">Clear</button>
   </div>
 
   <div class="smart-tabs" id="createTypeTabs" style="margin-top:14px">
@@ -315,9 +322,12 @@ option{background:#0a101c;color:#f4f7fb}
   </div>
 
   <div class="card pad" style="margin-top:12px" id="inlineCreateCard">
+    <div id="createStatusTop" class="hidden" role="status" aria-live="polite" style="margin-bottom:12px;padding:11px 12px;border-radius:10px;font-size:13px;font-weight:750"></div>
     <div class="field">
       <label>Study set / chapter / topic</label>
-      <input id="cTopic" placeholder="e.g. Ch 04 — Federal Laws">
+      <input id="cTopic" list="topicSuggestions" placeholder="e.g. Ch 04 — Federal Laws" oninput="rememberCreateTopic()">
+      <datalist id="topicSuggestions"></datalist>
+      <div class="tiny" style="margin-top:6px">This topic is remembered automatically for the next card/question.</div>
     </div>
 
     <div id="createFlashFields">
@@ -341,7 +351,7 @@ option{background:#0a101c;color:#f4f7fb}
     <div class="field"><label>Source / page / note</label><input id="cSource" placeholder="e.g. Colibri Ch. 4, p. 62"></div>
 
     <button id="createSaveBtn" class="btn blue" style="width:100%" onclick="saveInlineCreate()">Save Flashcard</button>
-    <div id="createStatus" class="tiny" style="margin-top:8px;text-align:center"></div>
+    <div id="createStatus" class="tiny" style="margin-top:8px;text-align:center">Topic will stay filled after saving.</div>
   </div>
 </section>
 
@@ -664,8 +674,44 @@ function previewItem(id){
 
 let inlineCreateType='flash';
 
+function updateTopicSuggestions(){
+  const list=document.getElementById('topicSuggestions');
+  if(!list)return;
+  const recent=[];
+  if(ui.lastTopic)recent.push(ui.lastTopic);
+  [...bank].reverse().forEach(x=>{const t=(x.topic||'').trim();if(t&&!recent.includes(t))recent.push(t)});
+  topics().filter(t=>t!=='All Topics').forEach(t=>{if(!recent.includes(t))recent.push(t)});
+  list.innerHTML=recent.slice(0,40).map(t=>'<option value="'+escapeHtml(t)+'"></option>').join('');
+}
+
+function rememberCreateTopic(){
+  const value=document.getElementById('cTopic')?.value.trim();
+  if(value){ui.lastTopic=value;saveUi()}
+}
+
+function showCreateStatus(message,type='info'){
+  const top=document.getElementById('createStatusTop');
+  if(!top)return;
+  top.className=type;
+  top.textContent=message;
+  top.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function clearCreateErrors(){
+  document.querySelectorAll('#inlineCreateCard .create-error').forEach(el=>el.classList.remove('create-error'));
+  const top=document.getElementById('createStatusTop');
+  if(top){top.className='hidden';top.textContent=''}
+}
+
+function createFieldError(id,message){
+  const el=document.getElementById(id);
+  if(el){el.classList.add('create-error');el.scrollIntoView({behavior:'smooth',block:'center'});setTimeout(()=>el.focus(),250)}
+  showCreateStatus(message,'error');
+}
+
 function openCreate(type='flash'){
   showView('create');
+  updateTopicSuggestions();
   setCreateType(type);
   const topic=document.getElementById('cTopic');
   if(topic&&!topic.value)topic.value=ui.lastTopic||'';
@@ -680,43 +726,60 @@ function setCreateType(type='flash'){
   document.getElementById('createQuestionFields')?.classList.toggle('hidden',inlineCreateType!=='mcq');
   const btn=document.getElementById('createSaveBtn');
   if(btn)btn.textContent=inlineCreateType==='mcq'?'Save Question':'Save Flashcard';
-  const status=document.getElementById('createStatus');if(status)status.textContent='';
+  clearCreateErrors();
 }
 
-function resetCreateForm(){
+function resetCreateForm(keepTopic=true){
+  const remembered=document.getElementById('cTopic')?.value.trim()||ui.lastTopic||'';
   ['cTerm','cDefinition','cQuestion','cChoice0','cChoice1','cChoice2','cChoice3','cExplanation','cSource'].forEach(id=>{const el=document.getElementById(id);if(el)el.value=''});
   const correct=document.getElementById('cCorrect');if(correct)correct.value='0';
-  const status=document.getElementById('createStatus');if(status)status.textContent='';
+  const topic=document.getElementById('cTopic');if(topic)topic.value=keepTopic?remembered:'';
+  clearCreateErrors();
+  const status=document.getElementById('createStatus');if(status)status.textContent=keepTopic&&remembered?'Topic kept for the next item.':'';
 }
 
 function saveInlineCreate(){
-  const topic=document.getElementById('cTopic')?.value.trim()||'Uncategorized';
+  clearCreateErrors();
+  const topicEl=document.getElementById('cTopic');
+  const topic=topicEl?.value.trim()||'Uncategorized';
   const source=document.getElementById('cSource')?.value.trim()||'';
-  let item={id:uid(),topic,source,createdAt:new Date().toISOString(),updatedAt:new Date().toISOString()};
-  const status=document.getElementById('createStatus');
+  const item={id:uid(),topic,source,createdAt:new Date().toISOString(),updatedAt:new Date().toISOString()};
 
   if(inlineCreateType==='flash'){
     const term=document.getElementById('cTerm')?.value.trim()||'';
     const definition=document.getElementById('cDefinition')?.value.trim()||'';
-    if(!term||!definition){if(status)status.textContent='Enter both the front and back before saving.';return}
+    if(!term)return createFieldError('cTerm','Flashcard not saved: enter the front / term.');
+    if(!definition)return createFieldError('cDefinition','Flashcard not saved: enter the back / definition.');
     item.term=term;item.definition=definition;
   }else{
     const question=document.getElementById('cQuestion')?.value.trim()||'';
+    if(!question)return createFieldError('cQuestion','Question not saved: enter the question or scenario.');
     const choices=[0,1,2,3].map(i=>document.getElementById('cChoice'+i)?.value.trim()||'');
-    const correct=Number(document.getElementById('cCorrect')?.value||0);
-    const explanation=document.getElementById('cExplanation')?.value.trim()||'';
-    if(!question||choices.some(x=>!x)){if(status)status.textContent='Enter the question and all four choices before saving.';return}
-    item.question=question;item.choices=choices;item.correct=correct;item.explanation=explanation;
+    const missing=choices.findIndex(x=>!x);
+    if(missing>=0)return createFieldError('cChoice'+missing,'Question not saved: Choice '+String.fromCharCode(65+missing)+' is empty.');
+    item.question=question;
+    item.choices=choices;
+    item.correct=Number(document.getElementById('cCorrect')?.value||0);
+    item.explanation=document.getElementById('cExplanation')?.value.trim()||'';
   }
 
-  bank.push(item);
-  ui.lastTopic=topic;
-  saveUi();
-  localStorage.setItem(DB_KEY,JSON.stringify(bank));
-  refreshAll();
-  resetCreateForm();
-  const topicEl=document.getElementById('cTopic');if(topicEl)topicEl.value=topic;
-  if(status){status.textContent=inlineCreateType==='mcq'?'Question saved.':'Flashcard saved.';setTimeout(()=>{if(status)status.textContent=''},1800)}
+  try{
+    // Test the complete next database before changing in-memory state.
+    const next=[...bank,item];
+    localStorage.setItem(DB_KEY,JSON.stringify(next));
+    bank=next;
+    ui.lastTopic=topic;
+    saveUi();
+    refreshAll();
+    resetCreateForm(true);
+    const topicAfter=document.getElementById('cTopic');if(topicAfter)topicAfter.value=topic;
+    updateTopicSuggestions();
+    showCreateStatus(inlineCreateType==='mcq'?'Question saved. Ready for another in the same topic.':'Flashcard saved. Ready for another in the same topic.','success');
+    const focusId=inlineCreateType==='mcq'?'cQuestion':'cTerm';
+    setTimeout(()=>document.getElementById(focusId)?.focus(),250);
+  }catch(err){
+    showCreateStatus('Could not save to this device. '+(err?.message||'Browser storage returned an error.'),'error');
+  }
 }
 
 function openQuickAdd(){openCreate('flash')}
