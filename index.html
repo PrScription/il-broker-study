@@ -156,6 +156,57 @@ header{background:rgba(23,37,84,.97)}
 .xp-pill{display:inline-flex;gap:5px;align-items:center;border-radius:999px;background:rgba(255,255,255,.13);padding:6px 9px;font-size:11px;color:#fff}
 nav{grid-template-columns:repeat(5,1fr)}nav button span{display:block;font-size:17px;line-height:18px;margin-bottom:3px}
 
+
+/* V4.1 dark theme */
+html{color-scheme:dark}
+:root{
+  --bg:#070b14;--panel:#111827;--ink:#f4f7fb;--muted:#9aa7ba;--line:#263247;
+  --navy:#0b1220;--blue:#7893ff;--blue2:#172554;--green:#42c97b;--red:#f17470;
+  --amber:#f3b95a;--purple:#a78bfa;--shadow:0 10px 30px rgba(0,0,0,.28)
+}
+html,body{background:#070b14!important;color:var(--ink)!important}
+body{background:radial-gradient(circle at top,#111b35 0,#070b14 440px)!important}
+header{background:rgba(7,11,20,.97)!important;border-bottom:1px solid #1f2a3e}
+.card,.action,.mode-card,.feature-card,.set-card,.controls,.study-item,.question,.game-panel,.historyitem,.smart-draft,.preview-card,.modal{
+  background:#111827!important;color:#f4f7fb!important;border-color:#263247!important
+}
+.mode-card:hover,.set-card:hover,.feature-card:hover,.action:hover{border-color:#4a5e8e!important;background:#141d2e!important}
+.item-actions button,.btn.secondary,.choice,.match-tile{
+  background:#0d1422!important;color:#eef2f8!important;border-color:#2a3850!important
+}
+.btn.secondary:hover,.choice:hover,.match-tile:hover{background:#162035!important}
+.btn.ghost{color:#bac5d6!important;border-color:#33445f!important}
+input,select,textarea{
+  background:#0a101c!important;color:#f4f7fb!important;border-color:#334158!important
+}
+input::placeholder,textarea::placeholder{color:#6f7d92!important}
+input:focus,select:focus,textarea:focus{border-color:#7893ff!important;box-shadow:0 0 0 3px rgba(120,147,255,.16)!important}
+.drag-handle{background:#0b111d!important;border-color:#263247!important;color:#738096!important}
+.study-item.selected{background:#121b31!important;border-color:#7893ff!important}
+.segment,.smart-tabs{background:#090f1a!important;border-color:#263247!important}
+.segment button.active,.smart-tabs button.active{background:#182238!important;color:#fff!important}
+.flashcard{background:#111827!important;color:#f4f7fb!important;border-color:#2b3850!important}
+.choice.selected{background:#17244a!important;border-color:#7893ff!important}
+.choice.correct{background:#0f2a1d!important;border-color:#42c97b!important;color:#eafff1!important}
+.choice.wrong{background:#341716!important;border-color:#f17470!important;color:#fff0ef!important}
+.explain,.source-snippet{background:#0b1220!important;border-color:#263247!important;color:#cbd5e1!important}
+.notice{background:#2a2110!important;border-color:#5a4520!important;color:#f4d79a!important}
+.install-tip{background:#0d1931!important;border-color:#263e70!important;color:#c9d7ff!important}
+.badge{background:#1b2434!important;color:#cbd5e1!important}
+.badge.blue{background:#182653!important;color:#bac8ff!important}
+.badge.green{background:#103321!important;color:#9fe8b8!important}
+.badge.amber{background:#35240e!important;color:#f6cf88!important}
+.mini-progress,.progressbar{background:#1b2535!important}
+nav{background:rgba(9,14,24,.97)!important;border-color:#263247!important}
+nav button{color:#8f9bae!important}nav button.active{background:#172554!important;color:#b9c7ff!important}
+.modalback{background:rgba(0,0,0,.72)!important}
+.modalhead{background:#111827!important}
+.closex{background:#1b2434!important;color:#d5deeb!important}
+.smart-drop{background:#0b111d!important;border-color:#334158!important}
+.item-label,.item-number,.tiny,.muted,.set-meta,.counter,.flashcard .hint{color:#9aa7ba!important}
+.hero{background:linear-gradient(135deg,#0d1530 0%,#172554 65%,#243b7a 100%)!important}
+.game-banner{background:linear-gradient(135deg,#17132f,#4b2c8a)!important}
+
 </style>
 </head>
 <body>
@@ -831,6 +882,36 @@ function renderMatch(){const g=gameState,h=document.getElementById('gameArea');i
 function pickMatch(key){const g=gameState,t=g.tiles.find(x=>x.key===key);if(!t||g.done.has(t.pid))return;if(!g.selected){g.selected=t;renderMatch();return}if(g.selected.key===t.key){g.selected=null;renderMatch();return}g.moves++;if(g.selected.pid===t.pid&&g.selected.side!==t.side){g.done.add(t.pid);g.selected=null;renderMatch()}else{g.selected=t;renderMatch();setTimeout(()=>{if(gameState===g&&g.selected===t){g.selected=null;renderMatch()}},650)}}
 function clearGameTimer(){if(gameTimer){clearInterval(gameTimer);gameTimer=null}}
 
+
+const BUILTIN_COURSE_BANK_VERSION='2025-09-21.1';
+async function loadBuiltInCourseBank(){
+  if(ui.courseBankVersion===BUILTIN_COURSE_BANK_VERSION)return;
+  try{
+    const response=await fetch('./course-bank.json',{cache:'no-store'});
+    if(!response.ok)throw new Error('course bank unavailable');
+    const data=await response.json();
+    const raw=Array.isArray(data)?data:data.items;
+    if(!Array.isArray(raw))throw new Error('invalid course bank');
+    const existingIds=new Set(bank.map(x=>x.id));
+    let added=0;
+    for(const entry of raw){
+      const item=normalizeImportedItem(entry);
+      if(!existingIds.has(item.id)&&hasValidQuestion(item)){
+        bank.push(item);existingIds.add(item.id);added++;
+      }
+    }
+    ui.courseBankVersion=BUILTIN_COURSE_BANK_VERSION;
+    saveUi();
+    if(added){
+      localStorage.setItem(DB_KEY,JSON.stringify(bank));
+      refreshAll();
+      if(currentView==='library')renderLibrary();
+    }
+  }catch(err){
+    // Leave the version unset so the app retries automatically next time it is online.
+  }
+}
+
 function modal(html){document.getElementById('modal').innerHTML=html;document.getElementById('modalBack').classList.add('show')}
 function closeModal(){document.getElementById('modalBack').classList.remove('show')}
 function modalBackdrop(e){if(e.target.id==='modalBack')closeModal()}
@@ -840,6 +921,7 @@ window.addEventListener('offline',()=>document.getElementById('offlinePill').tex
 document.getElementById('offlinePill').textContent=navigator.onLine?'Online':'Offline';
 if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js').catch(()=>{}));
 load();
+loadBuiltInCourseBank();
 </script>
 </body>
 </html>

@@ -1,0 +1,1128 @@
+{
+  "app": "IL Broker Built-in Course Bank",
+  "version": "2025-09-21.1",
+  "source": "User-supplied 60-Hr Illinois Real Estate Broker Prelicensing (2025)",
+  "note": "Transformed practice questions. Correct answers are grounded in the supplied course; distractors are newly authored.",
+  "items": [
+    {
+      "id": "course2025_ch01_q01",
+      "topic": "Ch 01 — Introduction to Illinois License Law",
+      "question": "What is the common purpose of state real estate license laws described in the course?",
+      "choices": [
+        "To guarantee every real estate transaction closes",
+        "To protect the public’s health, safety, and welfare through competent and ethical licensees",
+        "To set uniform commission rates for all brokerages",
+        "To eliminate local regulation of real estate"
+      ],
+      "correct": 1,
+      "explanation": "The course explains that real estate license laws protect the public’s health, safety, and welfare by promoting competence, ethics, and professionalism among licensees.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 1"
+    },
+    {
+      "id": "course2025_ch01_q02",
+      "topic": "Ch 01 — Introduction to Illinois License Law",
+      "question": "Which Illinois Compiled Statutes chapters does the course identify as especially important to a real estate licensee?",
+      "choices": [
+        "Chapters 105 and 205",
+        "Chapters 225 and 765",
+        "Chapters 454 and 765",
+        "Chapters 5 and 20"
+      ],
+      "correct": 1,
+      "explanation": "The course identifies Chapter 225 (Professions and Occupations) and Chapter 765 (Property) as especially important.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 1"
+    },
+    {
+      "id": "course2025_ch01_q03",
+      "topic": "Ch 01 — Introduction to Illinois License Law",
+      "question": "In the citation 225 ILCS 454/5-20, what does 454 identify?",
+      "choices": [
+        "The county where the property is located",
+        "The Real Estate License Act of 2000 and its amendments",
+        "The license renewal year",
+        "The broker’s license number"
+      ],
+      "correct": 1,
+      "explanation": "The course explains that 454 identifies the act containing the Real Estate License Act of 2000 and later amendments.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 1"
+    },
+    {
+      "id": "course2025_ch01_q04",
+      "topic": "Ch 01 — Introduction to Illinois License Law",
+      "question": "Which combination matches the course’s initial managing broker licensing requirements?",
+      "choices": [
+        "At least 18 years old and licensed as a broker for one year",
+        "At least 20 years old and licensed as a broker for at least two consecutive years of the preceding three",
+        "At least 21 years old and five years of sales experience",
+        "At least 25 years old and currently a sponsoring broker"
+      ],
+      "correct": 1,
+      "explanation": "The course states that an initial managing broker applicant must be at least 20 and have been licensed as a broker for at least two consecutive years of the preceding three years.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 1 / Illinois licensing material"
+    },
+    {
+      "id": "course2025_ch02_q01",
+      "topic": "Ch 02 — Real Property Fundamentals",
+      "question": "Which form of co-ownership can be held in unequal shares and has no right of survivorship?",
+      "choices": [
+        "Joint tenancy",
+        "Tenancy in common",
+        "Tenancy by the entirety",
+        "Severalty"
+      ],
+      "correct": 1,
+      "explanation": "The course states that tenancy in common may be owned in unequal portions and does not include a right of survivorship.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 2"
+    },
+    {
+      "id": "course2025_ch02_q02",
+      "topic": "Ch 02 — Real Property Fundamentals",
+      "question": "What is a defining feature of joint tenancy?",
+      "choices": [
+        "Unequal ownership shares are required",
+        "Each co-owner has an equal undivided interest and a right of survivorship",
+        "Only the unity of possession is required",
+        "A deceased owner’s share always passes through a will"
+      ],
+      "correct": 1,
+      "explanation": "Joint tenancy is described as equal undivided ownership with the right of survivorship and the four unities of possession, interest, time, and title.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 2"
+    },
+    {
+      "id": "course2025_ch02_q03",
+      "topic": "Ch 02 — Real Property Fundamentals",
+      "question": "How does a metes-and-bounds legal description operate?",
+      "choices": [
+        "It lists only the tax parcel number",
+        "It starts at a point of beginning, follows directions and distances, and returns to the point of beginning",
+        "It identifies only a subdivision lot and block",
+        "It is based only on street address"
+      ],
+      "correct": 1,
+      "explanation": "The course defines metes and bounds as beginning at an identifiable POB, describing boundaries by courses and distances, and returning to the POB.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 2"
+    },
+    {
+      "id": "course2025_ch02_q04",
+      "topic": "Ch 02 — Real Property Fundamentals",
+      "question": "What legal right allows a joint tenant or tenant in common to end the co-ownership?",
+      "choices": [
+        "Escheat",
+        "Partition",
+        "Subrogation",
+        "Novation"
+      ],
+      "correct": 1,
+      "explanation": "The course states that parties to joint tenancy or tenancy in common have the right of partition to end the co-ownership.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 2"
+    },
+    {
+      "id": "course2025_ch03_q01",
+      "topic": "Ch 03 — Land Use Controls",
+      "question": "What does the course’s PETE mnemonic represent?",
+      "choices": [
+        "Police power, eminent domain, taxation, and escheat",
+        "Possession, easements, title, and estates",
+        "Planning, environment, taxation, and encumbrances",
+        "Property, equity, tenancy, and enforcement"
+      ],
+      "correct": 0,
+      "explanation": "P-E-T-E is used for the government interests of police power, eminent domain, taxation, and escheat.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 3"
+    },
+    {
+      "id": "course2025_ch03_q02",
+      "topic": "Ch 03 — Land Use Controls",
+      "question": "Which statement correctly distinguishes eminent domain from condemnation?",
+      "choices": [
+        "Condemnation is the government’s right; eminent domain is the court case",
+        "Eminent domain is the right to take private property for public use; condemnation is the legal proceeding used to exercise that right",
+        "They are unrelated concepts",
+        "Eminent domain applies only to taxes"
+      ],
+      "correct": 1,
+      "explanation": "The course distinguishes eminent domain as the governmental right and condemnation as the legal proceeding used to exercise that right.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 3"
+    },
+    {
+      "id": "course2025_ch03_q03",
+      "topic": "Ch 03 — Land Use Controls",
+      "question": "According to the course, how long is the Illinois statutory period referenced for an adverse-possession claim?",
+      "choices": [
+        "5 years",
+        "10 years",
+        "15 years",
+        "20 years"
+      ],
+      "correct": 3,
+      "explanation": "The course states that the time required to claim adverse possession in Illinois is 20 years.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 3"
+    },
+    {
+      "id": "course2025_ch03_q04",
+      "topic": "Ch 03 — Land Use Controls",
+      "question": "If a deed restriction and a zoning ordinance impose different limits on the same property, which controls under the course rule?",
+      "choices": [
+        "The newer restriction always controls",
+        "The zoning rule always controls",
+        "The more restrictive use prevails",
+        "The deed restriction is automatically void"
+      ],
+      "correct": 2,
+      "explanation": "The course states that when a deed restriction and zoning ordinance differ, the more restrictive use prevails.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 3"
+    },
+    {
+      "id": "course2025_ch04_q01",
+      "topic": "Ch 04 — Federal Laws",
+      "question": "For which homes does the federal lead-based paint disclosure rule discussed in the course apply?",
+      "choices": [
+        "Homes built before 1978",
+        "Homes built before 1990",
+        "Only multifamily homes",
+        "All homes regardless of age"
+      ],
+      "correct": 0,
+      "explanation": "The course states that Title X requires disclosure of known lead-based paint hazards for homes built before 1978.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 4"
+    },
+    {
+      "id": "course2025_ch04_q02",
+      "topic": "Ch 04 — Federal Laws",
+      "question": "After receiving the property report required by the Interstate Land Sales Full Disclosure Act, what minimum rescission period does the course describe for a prospective buyer?",
+      "choices": [
+        "Three days",
+        "Five days",
+        "Seven days",
+        "Thirty days"
+      ],
+      "correct": 2,
+      "explanation": "The course states that prospective buyers have a minimum of seven days to rescind after receiving the property report.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 4"
+    },
+    {
+      "id": "course2025_ch04_q03",
+      "topic": "Ch 04 — Federal Laws",
+      "question": "When a settlement service provider refers a consumer to an affiliated provider, which action is consistent with the course discussion of an affiliated business arrangement?",
+      "choices": [
+        "Require the consumer to use the affiliate",
+        "Hide the ownership relationship",
+        "Disclose the affiliated arrangement and do not require use of the affiliate",
+        "Collect a referral payment unrelated to ownership"
+      ],
+      "correct": 2,
+      "explanation": "The course states that the affiliated business arrangement must be disclosed, the consumer may not be required to use the affiliate, and compensation is limited as described by the ownership interest.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 4"
+    },
+    {
+      "id": "course2025_ch04_q04",
+      "topic": "Ch 04 — Federal Laws",
+      "question": "Which situation best matches the limited federal 'Mrs. Murphy' exemption described in the course glossary?",
+      "choices": [
+        "A broker-owned 20-unit building",
+        "An owner-occupied dwelling with four or fewer units, with no real estate licensee involved and nondiscriminatory advertising",
+        "Any single-family rental advertised by a broker",
+        "Any owner-occupied property regardless of size"
+      ],
+      "correct": 1,
+      "explanation": "The course describes a limited exemption for an owner-occupied dwelling with four or fewer units, subject to restrictions including no broker involvement and nondiscriminatory advertising.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 4"
+    },
+    {
+      "id": "course2025_ch05_q01",
+      "topic": "Ch 05 — Real Estate Agency Fundamentals",
+      "question": "Which common-law duty requires an agent to put the principal’s interests above the agent’s own interests?",
+      "choices": [
+        "Accounting",
+        "Loyalty",
+        "Disclosure",
+        "Reasonable care"
+      ],
+      "correct": 1,
+      "explanation": "The course describes loyalty as putting the principal’s interests above all others, including the agent’s.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 5"
+    },
+    {
+      "id": "course2025_ch05_q02",
+      "topic": "Ch 05 — Real Estate Agency Fundamentals",
+      "question": "How does the course characterize transactional or facilitational brokerage in Illinois?",
+      "choices": [
+        "It is the default agency relationship",
+        "It is recognized only for commercial transactions",
+        "It is not recognized as an agency relationship in Illinois",
+        "It is required when both parties are unrepresented"
+      ],
+      "correct": 2,
+      "explanation": "The course explicitly states that transactional brokerage is not recognized in Illinois.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 5"
+    },
+    {
+      "id": "course2025_ch05_q03",
+      "topic": "Ch 05 — Real Estate Agency Fundamentals",
+      "question": "When the principal withdraws from an agency relationship, what term does the course use?",
+      "choices": [
+        "Renunciation",
+        "Revocation",
+        "Reconciliation",
+        "Rescission"
+      ],
+      "correct": 1,
+      "explanation": "The course uses revocation for withdrawal by the principal; renunciation is rejection of the relationship by the agent.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 5"
+    },
+    {
+      "id": "course2025_ch05_q04",
+      "topic": "Ch 05 — Real Estate Agency Fundamentals",
+      "question": "What happens to the duty of confidentiality when an agency relationship terminates?",
+      "choices": [
+        "It automatically ends",
+        "It survives termination",
+        "It applies only for 30 days",
+        "It becomes the sponsoring broker’s duty only"
+      ],
+      "correct": 1,
+      "explanation": "The course states that confidentiality survives termination of the agency relationship.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 5"
+    },
+    {
+      "id": "course2025_ch06_q01",
+      "topic": "Ch 06 — Illinois Real Estate Agency",
+      "question": "An Illinois designated agent receives contemporaneous offers from two buyer clients on the same property. What does the course require?",
+      "choices": [
+        "Keep the situation secret from both clients",
+        "Give written disclosure to all affected clients",
+        "Automatically cancel one client’s offer",
+        "Convert both clients to customers"
+      ],
+      "correct": 1,
+      "explanation": "The course requires written disclosure to all clients when a designated agent has contemporaneous offers from two or more clients on the same property.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 6"
+    },
+    {
+      "id": "course2025_ch06_q02",
+      "topic": "Ch 06 — Illinois Real Estate Agency",
+      "question": "When an Illinois licensee has a direct or indirect interest in property involved in a transaction, when must licensee status and interest be disclosed?",
+      "choices": [
+        "Only after closing",
+        "In writing before initiating the transaction",
+        "Only if the other party asks",
+        "At the next license renewal"
+      ],
+      "correct": 1,
+      "explanation": "The course states that the licensee must disclose in writing their license status and direct or indirect interest before initiating the transaction.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 6"
+    },
+    {
+      "id": "course2025_ch06_q03",
+      "topic": "Ch 06 — Illinois Real Estate Agency",
+      "question": "After a brokerage agreement terminates, which duties does the course identify as continuing unless a written agreement provides otherwise?",
+      "choices": [
+        "Marketing and showing property",
+        "Accounting for transaction money/property and protecting confidential information",
+        "Negotiating new offers and setting list price",
+        "Preparing appraisals and legal documents"
+      ],
+      "correct": 1,
+      "explanation": "The course identifies continued duties to account for transaction monies/property and to keep confidential information confidential.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 6"
+    },
+    {
+      "id": "course2025_ch06_q04",
+      "topic": "Ch 06 — Illinois Real Estate Agency",
+      "question": "Which action does the Illinois course say does NOT by itself breach a licensee’s duty to a buyer client?",
+      "choices": [
+        "Showing the same property to another prospective buyer",
+        "Disclosing the buyer’s confidential maximum price without permission",
+        "Ignoring the buyer’s lawful directions",
+        "Withholding a material fact actually known to the agent"
+      ],
+      "correct": 0,
+      "explanation": "The course states that showing a property of interest to other prospective buyers or tenants does not itself breach the duty owed to the client.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 6"
+    },
+    {
+      "id": "course2025_ch07_q01",
+      "topic": "Ch 07 — Illinois Law",
+      "question": "How many total education hours does the course describe for obtaining an Illinois managing broker license?",
+      "choices": [
+        "75 hours",
+        "120 hours",
+        "150 hours",
+        "165 hours"
+      ],
+      "correct": 3,
+      "explanation": "The course describes 165 total hours: 120 hours tied to broker pre/post-licensing plus 45 hours of managing-broker prelicensing.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 7"
+    },
+    {
+      "id": "course2025_ch07_q02",
+      "topic": "Ch 07 — Illinois Law",
+      "question": "What maximum Recovery Fund liability does the course state for activities by one licensee or one unlicensed employee in one transaction or set of facts?",
+      "choices": [
+        "$50,000",
+        "$100,000",
+        "$300,000",
+        "Unlimited"
+      ],
+      "correct": 2,
+      "explanation": "The course states a maximum liability of $300,000, or another amount adopted by rule, for the described single-licensee/transaction situation.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 7"
+    },
+    {
+      "id": "course2025_ch07_q03",
+      "topic": "Ch 07 — Illinois Law",
+      "question": "For how long must records relating to a transaction of a special account be maintained according to the course?",
+      "choices": [
+        "1 year",
+        "3 years",
+        "5 years",
+        "10 years"
+      ],
+      "correct": 2,
+      "explanation": "The course states that records relating to a transaction of a special account must be maintained for at least five years.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 7"
+    },
+    {
+      "id": "course2025_ch07_q04",
+      "topic": "Ch 07 — Illinois Law",
+      "question": "Within what period must a change in designated managing broker be reported to IDFPR according to the course?",
+      "choices": [
+        "5 days",
+        "10 days",
+        "15 days",
+        "30 days"
+      ],
+      "correct": 2,
+      "explanation": "The course states that changes in designated managing brokers must be reported to IDFPR within 15 days.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 7"
+    },
+    {
+      "id": "course2025_ch08_q01",
+      "topic": "Ch 08 — Advertising and Technology",
+      "question": "What makes a real estate advertisement a prohibited blind advertisement under the Illinois material?",
+      "choices": [
+        "It uses a photograph",
+        "It omits the sponsoring broker’s business name",
+        "It lists the property price",
+        "It appears only online"
+      ],
+      "correct": 1,
+      "explanation": "The course states that an advertisement for property or services that does not include the sponsoring broker’s business name is a blind advertisement and is illegal.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 8"
+    },
+    {
+      "id": "course2025_ch08_q02",
+      "topic": "Ch 08 — Advertising and Technology",
+      "question": "When an ad includes the sponsoring broker’s name plus a team or individual broker name, how must the sponsoring broker’s name compare in size?",
+      "choices": [
+        "It may be smaller if a logo is present",
+        "It must be at least equal in size or larger",
+        "It must be exactly twice as large",
+        "There is no size requirement"
+      ],
+      "correct": 1,
+      "explanation": "The course states that the sponsoring broker’s business name must be at least equal in size or larger than the team or individual broker name.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 8"
+    },
+    {
+      "id": "course2025_ch08_q03",
+      "topic": "Ch 08 — Advertising and Technology",
+      "question": "Which auction advertisement does the course identify as deceptive or misleading?",
+      "choices": [
+        "Advertising an auction date and time",
+        "Calling an auction 'absolute' or 'without reserve' when a minimum or opening bid is required",
+        "Advertising an auction online",
+        "Including the sponsoring broker’s name"
+      ],
+      "correct": 1,
+      "explanation": "The course identifies advertising an auction as absolute/without reserve when a minimum or opening bid is required as deceptive.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 8"
+    },
+    {
+      "id": "course2025_ch08_q04",
+      "topic": "Ch 08 — Advertising and Technology",
+      "question": "How may certain otherwise misleading words such as 'realty,' 'agency,' or 'properties' appear in an Illinois real estate team name under the course rule?",
+      "choices": [
+        "Only if followed by the word 'team'",
+        "Only if written in all capitals",
+        "Only on social media",
+        "They can never be used"
+      ],
+      "correct": 0,
+      "explanation": "The course states that listed terms may be used in team names when followed by the word 'team.'",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 8"
+    },
+    {
+      "id": "course2025_ch09_q01",
+      "topic": "Ch 09 — Contract Fundamentals",
+      "question": "What does the course require for an Illinois brokerage-services contract to be enforceable?",
+      "choices": [
+        "It must be oral and witnessed",
+        "It must be in writing and specify an exact termination date",
+        "It must run for at least one year",
+        "It must use a state-mandated form"
+      ],
+      "correct": 1,
+      "explanation": "The course states that Illinois brokerage-services contracts must be in writing to be enforceable and must include an exact termination date.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 9"
+    },
+    {
+      "id": "course2025_ch09_q02",
+      "topic": "Ch 09 — Contract Fundamentals",
+      "question": "Why is specific performance particularly relevant to real estate contracts according to the course?",
+      "choices": [
+        "It is limited to contracts involving services",
+        "It is generally available when the contract involves unique goods such as real property",
+        "It is the automatic remedy for every breach",
+        "It is used only to recover a commission"
+      ],
+      "correct": 1,
+      "explanation": "The course explains that specific performance is generally available when the contract concerns unique goods, such as real property.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 9"
+    },
+    {
+      "id": "course2025_ch09_q03",
+      "topic": "Ch 09 — Contract Fundamentals",
+      "question": "Which condition is part of the course’s description of a real estate licensee qualifying as a statutory nonemployee for federal tax purposes?",
+      "choices": [
+        "The licensee must be paid strictly by the hour",
+        "The licensee must work without a written contract",
+        "The licensee is properly licensed, paid for output rather than hours, and works under a written contract stating nonemployee tax treatment",
+        "The sponsoring broker must withhold all payroll taxes"
+      ],
+      "correct": 2,
+      "explanation": "The course lists proper licensure, output-based compensation, and a written contract stating the person will not be treated as an employee for federal tax purposes.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 9"
+    },
+    {
+      "id": "course2025_ch09_q04",
+      "topic": "Ch 09 — Contract Fundamentals",
+      "question": "Which three common listing agreement types does the course identify?",
+      "choices": [
+        "Exclusive right to sell, exclusive agency, and open listing",
+        "Net, option, and installment listing",
+        "Gross, net, and percentage listing",
+        "Seller, buyer, and tenant listing"
+      ],
+      "correct": 0,
+      "explanation": "The course identifies exclusive right to sell, exclusive agency, and open (non-exclusive) listing agreements as the three common types.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 9"
+    },
+    {
+      "id": "course2025_ch10_q01",
+      "topic": "Ch 10 — Real Estate Contracts",
+      "question": "Which combination is necessary for a valid offer under the course discussion?",
+      "choices": [
+        "An oral statement and estimated terms",
+        "A written offer with clear intent, definite terms, and communication to the offeree",
+        "A broker signature only",
+        "A deposit without any written terms"
+      ],
+      "correct": 1,
+      "explanation": "The course states that the offer must be in writing, show intent to contract, contain definite terms, and be communicated to the offeree.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 10"
+    },
+    {
+      "id": "course2025_ch10_q02",
+      "topic": "Ch 10 — Real Estate Contracts",
+      "question": "What happens when a seller makes a counteroffer?",
+      "choices": [
+        "The counteroffer can never be withdrawn",
+        "The counteroffer must be in writing and may be withdrawn before acceptance",
+        "The original buyer is automatically bound",
+        "The counteroffer requires court approval"
+      ],
+      "correct": 1,
+      "explanation": "The course states that a seller’s counteroffer must be in writing and may be withdrawn at any time before acceptance.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 10"
+    },
+    {
+      "id": "course2025_ch10_q03",
+      "topic": "Ch 10 — Real Estate Contracts",
+      "question": "Under the Illinois Quinlan and Tyson rule discussed in the course, what may a real estate licensee do with an approved standardized purchase agreement?",
+      "choices": [
+        "Draft new legal clauses without an attorney",
+        "Fill in the blanks with factual information; specialized language should be referred to an attorney",
+        "Rewrite the contract from scratch",
+        "Act as both attorney and broker in the same transaction"
+      ],
+      "correct": 1,
+      "explanation": "The course limits the licensee to filling in blanks with factual information on approved preprinted forms; specialized language requires an attorney.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 10"
+    },
+    {
+      "id": "course2025_ch10_q04",
+      "topic": "Ch 10 — Real Estate Contracts",
+      "question": "What relationship does the course identify as the core contract driving the settlement process?",
+      "choices": [
+        "The agreement between the lender and appraiser",
+        "The purchase contract between buyer and seller",
+        "The MLS participation agreement",
+        "The agreement between the inspector and buyer"
+      ],
+      "correct": 1,
+      "explanation": "The course states that the contract between buyer and seller drives the settlement process.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 10"
+    },
+    {
+      "id": "course2025_ch11_q01",
+      "topic": "Ch 11 — Property Valuation",
+      "question": "How does the course distinguish a comparative market analysis from an appraisal?",
+      "choices": [
+        "A CMA is legally identical to an appraisal",
+        "A CMA may use some sales-comparison methodology but is not the equivalent of an appraisal",
+        "Only appraisers may compare properties",
+        "A CMA is used only for commercial property"
+      ],
+      "correct": 1,
+      "explanation": "The course says a CMA may use some sales-comparison methodology but is never the equivalent of an appraisal.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 11"
+    },
+    {
+      "id": "course2025_ch11_q02",
+      "topic": "Ch 11 — Property Valuation",
+      "question": "Which expression best describes the cost approach taught in the course?",
+      "choices": [
+        "Gross income × tax rate",
+        "Cost to build − depreciation + site value",
+        "Sale price − mortgage balance",
+        "Net income + debt service"
+      ],
+      "correct": 1,
+      "explanation": "The cost approach develops value by estimating construction cost, subtracting depreciation, and adding site value.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 11"
+    },
+    {
+      "id": "course2025_ch11_q03",
+      "topic": "Ch 11 — Property Valuation",
+      "question": "Which type of depreciation does the course describe as always incurable because the cause is outside the owner’s control?",
+      "choices": [
+        "Physical deterioration",
+        "Functional obsolescence",
+        "External or economic obsolescence",
+        "Accrued depreciation"
+      ],
+      "correct": 2,
+      "explanation": "The course states that external/economic obsolescence comes from outside the owner’s control and is always considered incurable.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 11"
+    },
+    {
+      "id": "course2025_ch11_q04",
+      "topic": "Ch 11 — Property Valuation",
+      "question": "For what type of property is the income approach described as most useful?",
+      "choices": [
+        "Property that produces or can produce income",
+        "Vacant land only",
+        "Owner-occupied homes with no rental potential",
+        "Property with no financial records"
+      ],
+      "correct": 0,
+      "explanation": "The course describes the income/capitalization approach as most useful for income-producing property and property with income potential.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 11"
+    },
+    {
+      "id": "course2025_ch12_q01",
+      "topic": "Ch 12 — Financing Fundamentals",
+      "question": "Which activity occurs in the primary mortgage market according to the course?",
+      "choices": [
+        "Only trading existing mortgage-backed securities",
+        "Originating, underwriting, closing, and funding mortgage loans",
+        "Recording deeds at the county office",
+        "Setting local property tax rates"
+      ],
+      "correct": 1,
+      "explanation": "The course describes the primary market as where loans are originated, processed, underwritten, closed, and funded.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 12"
+    },
+    {
+      "id": "course2025_ch12_q02",
+      "topic": "Ch 12 — Financing Fundamentals",
+      "question": "What does mortgage prequalification establish?",
+      "choices": [
+        "A guaranteed final loan approval",
+        "How much a buyer may be eligible to borrow",
+        "The final appraised value of the property",
+        "A binding interest rate for the life of the loan"
+      ],
+      "correct": 1,
+      "explanation": "The course states that prequalification establishes how much a home buyer may be eligible to borrow.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 12"
+    },
+    {
+      "id": "course2025_ch12_q03",
+      "topic": "Ch 12 — Financing Fundamentals",
+      "question": "Which situation matches the course description of illegal property flipping as mortgage fraud?",
+      "choices": [
+        "A property is renovated and sold after a legitimate increase in value",
+        "Parties collude to buy low, obtain an unjustifiably inflated appraisal, and resell much higher",
+        "A buyer makes a larger down payment",
+        "A lender sells a loan on the secondary market"
+      ],
+      "correct": 1,
+      "explanation": "The course describes illegal flipping as involving collusion and an inflated appraisal without a valid reason for the increase in value.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 12"
+    },
+    {
+      "id": "course2025_ch12_q04",
+      "topic": "Ch 12 — Financing Fundamentals",
+      "question": "What is 'loan flipping' in the course’s discussion of predatory lending?",
+      "choices": [
+        "Selling a mortgage to the secondary market",
+        "Repeated refinancing with minimal or no tangible benefit to the borrower",
+        "Converting a fixed-rate mortgage to cash",
+        "Transferring title with a quitclaim deed"
+      ],
+      "correct": 1,
+      "explanation": "The course identifies loan flipping as repeated refinancing, usually with minimal to no net tangible benefit to the borrower.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 12"
+    },
+    {
+      "id": "course2025_ch13_q01",
+      "topic": "Ch 13 — Real Estate Financing Options",
+      "question": "Which set of FHA standards is stated in the course summary?",
+      "choices": [
+        "20% down and no mortgage insurance",
+        "3.5% minimum down, 31% housing-expense ratio, 43% total debt-to-income ratio, and mortgage insurance",
+        "0% down and no funding fee",
+        "10% down and a 50% total debt ratio"
+      ],
+      "correct": 1,
+      "explanation": "The course summary states a 3.5% minimum down payment, 31% housing expense ratio, 43% total debt-to-income ratio, and required FHA mortgage insurance.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 13"
+    },
+    {
+      "id": "course2025_ch13_q02",
+      "topic": "Ch 13 — Real Estate Financing Options",
+      "question": "Which statement matches the course’s description of VA-guaranteed loans?",
+      "choices": [
+        "They always require mortgage insurance",
+        "They may offer no down payment and no mortgage insurance, but a funding fee applies",
+        "They require a 31% housing-expense ratio",
+        "They permit a prepayment penalty"
+      ],
+      "correct": 1,
+      "explanation": "The course states that eligible VA borrowers may obtain loans with no down payment and no mortgage insurance, while a variable funding fee is required.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 13"
+    },
+    {
+      "id": "course2025_ch13_q03",
+      "topic": "Ch 13 — Real Estate Financing Options",
+      "question": "What does the course state about USDA Rural Development Section 502 financing for eligible borrowers?",
+      "choices": [
+        "It is limited to 50% financing",
+        "It may provide up to 100% financing with no mortgage insurance",
+        "It can be used only for investment property",
+        "It always requires a 20% down payment"
+      ],
+      "correct": 1,
+      "explanation": "The course states that eligible Section 502 borrowers may receive up to 100% financing with no mortgage insurance.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 13"
+    },
+    {
+      "id": "course2025_ch13_q04",
+      "topic": "Ch 13 — Real Estate Financing Options",
+      "question": "What is a real estate short sale?",
+      "choices": [
+        "A sale completed in fewer than 30 days",
+        "A sale in which the lender agrees to accept less than the outstanding loan balance",
+        "A sale with no lender involvement",
+        "A foreclosure auction with a short bidding period"
+      ],
+      "correct": 1,
+      "explanation": "The course defines a short sale as one in which the lender agrees to accept less than the loan balance; it also warns that the process may take months.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 13"
+    },
+    {
+      "id": "course2025_ch14_q01",
+      "topic": "Ch 14 — Conveying Real Property",
+      "question": "What is marketable title as described in the course?",
+      "choices": [
+        "Title that guarantees the property will appreciate",
+        "Title free from undisclosed encumbrances or defects that could expose the buyer to litigation or impair use/resale",
+        "Title that has never been recorded",
+        "Title held only by a lender"
+      ],
+      "correct": 1,
+      "explanation": "The course describes marketable title as free and clear from undisclosed encumbrances or defects that could expose a purchaser to litigation or interfere with use or resale.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 14"
+    },
+    {
+      "id": "course2025_ch14_q02",
+      "topic": "Ch 14 — Conveying Real Property",
+      "question": "What can a suit to quiet title accomplish?",
+      "choices": [
+        "Set a property’s listing price",
+        "Resolve gaps or flaws in the chain of title and remove a cloud on title",
+        "Create a mortgage lien",
+        "Convert personal property to a fixture"
+      ],
+      "correct": 1,
+      "explanation": "The course explains that a quiet-title action can resolve title problems or missing links and remove a cloud on title.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 14"
+    },
+    {
+      "id": "course2025_ch14_q03",
+      "topic": "Ch 14 — Conveying Real Property",
+      "question": "What protection does a quitclaim deed provide to the grantee?",
+      "choices": [
+        "Full warranty against all title defects",
+        "Warranty only for the grantor’s ownership period",
+        "No warranties; it conveys whatever interest the grantor may have",
+        "A guarantee of market value"
+      ],
+      "correct": 2,
+      "explanation": "The course states that a quitclaim deed conveys whatever interest the grantor may have and makes no warranties.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 14"
+    },
+    {
+      "id": "course2025_ch14_q04",
+      "topic": "Ch 14 — Conveying Real Property",
+      "question": "Is recording required for a deed to be valid according to the course?",
+      "choices": [
+        "Yes, every deed is invalid until recorded",
+        "No; an unrecorded deed may be valid, though recording protects the grantee against challenges",
+        "Only quitclaim deeds must be recorded",
+        "Only deeds involving financing must be recorded"
+      ],
+      "correct": 1,
+      "explanation": "The course states that recording is not required for deed validity, although recording gives public notice and protects the grantee’s interest.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 14"
+    },
+    {
+      "id": "course2025_ch15_q01",
+      "topic": "Ch 15 — Leasing and Property Management",
+      "question": "Which statement best matches the course description of property management licensing in Illinois?",
+      "choices": [
+        "Property management never requires a real estate license",
+        "Administering, marketing, and maintaining property for a fee requires a broker or managing broker license; a residential leasing agent has a narrower residential leasing role",
+        "Only attorneys may manage property",
+        "A residential leasing agent may manage every type of commercial property"
+      ],
+      "correct": 1,
+      "explanation": "The course states that property-management tasks for a fee require a broker or managing broker license, while a residential leasing agent may lease and collect rent on residential property.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 15"
+    },
+    {
+      "id": "course2025_ch15_q02",
+      "topic": "Ch 15 — Leasing and Property Management",
+      "question": "What document creates and governs the agency relationship between a property owner and property manager?",
+      "choices": [
+        "A deed",
+        "A written property management agreement",
+        "A mortgage note",
+        "A zoning certificate"
+      ],
+      "correct": 1,
+      "explanation": "The course states that the owner/manager relationship is created and governed by a written property management agreement.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 15"
+    },
+    {
+      "id": "course2025_ch15_q03",
+      "topic": "Ch 15 — Leasing and Property Management",
+      "question": "What is the difference between contract rent and market rent?",
+      "choices": [
+        "Contract rent is what the tenant actually pays under the lease; market rent is what the property could command in the open market",
+        "Contract rent is always higher than market rent",
+        "Market rent is set by the tenant",
+        "There is no difference"
+      ],
+      "correct": 0,
+      "explanation": "The course defines contract rent as the rent stated in the lease and market rent as what the property could rent for in the open market if unencumbered by a lease.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 15"
+    },
+    {
+      "id": "course2025_ch15_q04",
+      "topic": "Ch 15 — Leasing and Property Management",
+      "question": "Which eviction practices does the course identify as illegal in Illinois?",
+      "choices": [
+        "Court-ordered eviction and emergency eviction",
+        "Self-help eviction and retaliatory eviction",
+        "Eviction after a final judgment only",
+        "Eviction for nonpayment after lawful process"
+      ],
+      "correct": 1,
+      "explanation": "The course states that self-help/lock-out eviction and retaliatory eviction are illegal in Illinois.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 15"
+    },
+    {
+      "id": "course2025_ch16_q01",
+      "topic": "Ch 16 — Working With Sellers",
+      "question": "Who ultimately determines the listing price of a seller’s property?",
+      "choices": [
+        "The listing broker",
+        "The appraiser",
+        "The seller",
+        "The buyer’s lender"
+      ],
+      "correct": 2,
+      "explanation": "The course states that the seller is ultimately responsible for determining the listing price, with the broker providing research and relevant data.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 16"
+    },
+    {
+      "id": "course2025_ch16_q02",
+      "topic": "Ch 16 — Working With Sellers",
+      "question": "Which statement about an Illinois exclusive listing agreement is supported by the course?",
+      "choices": [
+        "It may renew automatically unless the seller objects",
+        "It must have a specific ending date and cannot contain an automatic renewal clause",
+        "It must last exactly six months",
+        "It can be oral if the seller agrees"
+      ],
+      "correct": 1,
+      "explanation": "The course states that an exclusive listing must have a specific ending date and that automatic renewal clauses are prohibited.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 16"
+    },
+    {
+      "id": "course2025_ch16_q03",
+      "topic": "Ch 16 — Working With Sellers",
+      "question": "If a written brokerage agreement is effective for longer than one year, what annual termination right does the course describe for the seller client?",
+      "choices": [
+        "No termination right until the full term ends",
+        "The right to terminate with no more than 30 days’ written notice",
+        "The right to terminate only with 90 days’ notice",
+        "Automatic termination every six months"
+      ],
+      "correct": 1,
+      "explanation": "The course states that the seller client must receive an annual right to terminate by giving no more than 30 days’ written notice.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 16"
+    },
+    {
+      "id": "course2025_ch16_q04",
+      "topic": "Ch 16 — Working With Sellers",
+      "question": "When is brokerage compensation on the sale of a property negotiated according to the course?",
+      "choices": [
+        "After closing",
+        "At the time the written listing agreement is made",
+        "Only after an offer is accepted",
+        "It is fixed by the state"
+      ],
+      "correct": 1,
+      "explanation": "The course states that compensation is negotiated between the client and broker when the written listing agreement is made.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 16"
+    },
+    {
+      "id": "course2025_ch17_q01",
+      "topic": "Ch 17 — The Selling Process",
+      "question": "What is the primary purpose of a comparative market analysis (CMA)?",
+      "choices": [
+        "To issue a legally binding appraisal",
+        "To estimate an approximate market value by comparing the subject with relevant nearby properties",
+        "To determine the mortgage interest rate",
+        "To replace the seller’s disclosure report"
+      ],
+      "correct": 1,
+      "explanation": "The course describes a CMA as comparing the subject with relevant properties that sold, are for sale, or did not sell to estimate approximate market value.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 17"
+    },
+    {
+      "id": "course2025_ch17_q02",
+      "topic": "Ch 17 — The Selling Process",
+      "question": "What does a seller’s net estimate represent?",
+      "choices": [
+        "The property’s assessed tax value",
+        "The money the seller is expected to receive after transaction costs and expenses are paid",
+        "The buyer’s cash-to-close amount",
+        "The appraiser’s final opinion of value"
+      ],
+      "correct": 1,
+      "explanation": "The course describes the seller’s net as the estimated money the seller should receive after costs and expenses, including commission, are paid.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 17"
+    },
+    {
+      "id": "course2025_ch17_q03",
+      "topic": "Ch 17 — The Selling Process",
+      "question": "For a home built before 1978, which disclosure does the course say the seller must complete in addition to applicable Illinois disclosures?",
+      "choices": [
+        "A federal lead-based paint disclosure",
+        "A flood insurance policy application",
+        "A mortgage preapproval form",
+        "A zoning variance request"
+      ],
+      "correct": 0,
+      "explanation": "The course states that homes built before 1978 require the federal lead-based paint disclosure information.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 17"
+    },
+    {
+      "id": "course2025_ch17_q04",
+      "topic": "Ch 17 — The Selling Process",
+      "question": "During transaction management for a seller, which action does the course specifically recommend regarding appraisal and contingencies?",
+      "choices": [
+        "Ignore both until closing day",
+        "Verify the appraisal has been ordered and ensure contingencies are met while monitoring dates",
+        "Have the listing agent perform the appraisal",
+        "Automatically waive contingencies for the seller"
+      ],
+      "correct": 1,
+      "explanation": "The course advises verifying that the appraisal has been ordered, ensuring contingencies are met, and closely tracking deadlines.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 17"
+    },
+    {
+      "id": "course2025_ch18_q01",
+      "topic": "Ch 18 — Working With Buyers",
+      "question": "Which duty is specifically listed for an Illinois buyer’s agent in the course?",
+      "choices": [
+        "Withhold known material facts to protect the seller",
+        "Present offers and counteroffers in a timely manner and disclose material facts actually known to the agent",
+        "Set the buyer’s maximum offer without consultation",
+        "Guarantee financing approval"
+      ],
+      "correct": 1,
+      "explanation": "The course lists timely presentation of offers/counteroffers and disclosure of material facts actually known to the agent among the buyer agent’s statutory duties.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 18"
+    },
+    {
+      "id": "course2025_ch18_q02",
+      "topic": "Ch 18 — Working With Buyers",
+      "question": "When must an Illinois licensee disclose in writing that a designated agency relationship exists and identify the designated agent?",
+      "choices": [
+        "Only after an offer is written",
+        "No later than when beginning to work as a designated agent on the consumer’s behalf",
+        "At closing",
+        "Only if the buyer asks"
+      ],
+      "correct": 1,
+      "explanation": "The course states that the written designated-agency disclosure is due no later than when the licensee begins working as designated agent for the consumer.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 18"
+    },
+    {
+      "id": "course2025_ch18_q03",
+      "topic": "Ch 18 — Working With Buyers",
+      "question": "After receiving designated-agency disclosure, which option does the course say a buyer may choose?",
+      "choices": [
+        "Only an exclusive agreement is allowed",
+        "An exclusive agreement, a nonexclusive agreement, or continued work as an unrepresented customer",
+        "The buyer must immediately become a client",
+        "The buyer must work with multiple brokerages"
+      ],
+      "correct": 1,
+      "explanation": "The course describes all three choices: exclusive brokerage, nonexclusive brokerage, or continuing as an unrepresented customer.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 18"
+    },
+    {
+      "id": "course2025_ch18_q04",
+      "topic": "Ch 18 — Working With Buyers",
+      "question": "A licensee represents multiple buyer clients interested in the same parcel. What does the course say the licensee should do?",
+      "choices": [
+        "Advise the parties in writing because the situation may create a conflict of interest",
+        "Secretly choose the buyer with the highest budget",
+        "Stop showing the property to everyone",
+        "Disclose each buyer’s confidential maximum price"
+      ],
+      "correct": 0,
+      "explanation": "The course states that when representing multiple buyers on one parcel, the parties should be advised in writing because of the potential conflict.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 18"
+    },
+    {
+      "id": "course2025_ch19_q01",
+      "topic": "Ch 19 — The Buying Process",
+      "question": "What must an Illinois designated agent do when two or more buyer clients have contemporaneous offers on the same property?",
+      "choices": [
+        "Disclose the situation in writing to all affected clients",
+        "Submit only the highest offer",
+        "Tell each buyer the other buyer’s confidential price ceiling",
+        "Cancel both agency relationships automatically"
+      ],
+      "correct": 0,
+      "explanation": "The course requires written disclosure to all affected clients, who may then decide whether to retain the agent or request another designated agent.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 19"
+    },
+    {
+      "id": "course2025_ch19_q02",
+      "topic": "Ch 19 — The Buying Process",
+      "question": "What risk does the course identify for a buyer who submits a backup offer?",
+      "choices": [
+        "A backup offer can never become binding",
+        "If the primary contract fails, the backup buyer may become obligated to perform unless the offer was retracted before moving into first position",
+        "The seller must reject every other offer",
+        "The buyer automatically loses earnest money immediately"
+      ],
+      "correct": 1,
+      "explanation": "The course warns that a backup buyer may become obligated if the primary contract falls through unless the backup offer is withdrawn before it moves into first position.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 19"
+    },
+    {
+      "id": "course2025_ch19_q03",
+      "topic": "Ch 19 — The Buying Process",
+      "question": "A buyer wants specialized legal language added to an Illinois standardized purchase agreement. What should the licensee do?",
+      "choices": [
+        "Draft the language personally",
+        "Refer the buyer to an attorney",
+        "Leave the contract unsigned but proceed orally",
+        "Ask the appraiser to draft the clause"
+      ],
+      "correct": 1,
+      "explanation": "The course states that licensees may fill approved blanks with factual information, but specialized contractual language requires an attorney.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 19"
+    },
+    {
+      "id": "course2025_ch19_q04",
+      "topic": "Ch 19 — The Buying Process",
+      "question": "Which item is a typical purchase-agreement issue the course says should be addressed?",
+      "choices": [
+        "Whether the purchase is contingent on financing or sale of the buyer’s current home",
+        "The buyer’s favorite paint color",
+        "The broker’s personal tax return",
+        "The appraiser’s future employment"
+      ],
+      "correct": 0,
+      "explanation": "The course lists financing and sale-of-current-home contingencies among typical purchase-agreement provisions to address.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 19"
+    },
+    {
+      "id": "course2025_ch20_q01",
+      "topic": "Ch 20 — Real Estate Calculations",
+      "question": "How many square feet are in one acre according to the course?",
+      "choices": [
+        "40,000",
+        "42,000",
+        "43,560",
+        "48,000"
+      ],
+      "correct": 2,
+      "explanation": "The course uses 43,560 square feet as one acre.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 20"
+    },
+    {
+      "id": "course2025_ch20_q02",
+      "topic": "Ch 20 — Real Estate Calculations",
+      "question": "A rectangular lot measures 65 feet by 150 feet. What is its area?",
+      "choices": [
+        "8,750 square feet",
+        "9,750 square feet",
+        "10,150 square feet",
+        "12,900 square feet"
+      ],
+      "correct": 1,
+      "explanation": "Area = width × length: 65 × 150 = 9,750 square feet.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 20"
+    },
+    {
+      "id": "course2025_ch20_q03",
+      "topic": "Ch 20 — Real Estate Calculations",
+      "question": "A rectangular lot is 65 feet by 150 feet. How many linear feet are around its perimeter?",
+      "choices": [
+        "215 feet",
+        "300 feet",
+        "365 feet",
+        "430 feet"
+      ],
+      "correct": 3,
+      "explanation": "Perimeter = 65 + 150 + 65 + 150 = 430 linear feet.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 20"
+    },
+    {
+      "id": "course2025_ch20_q04",
+      "topic": "Ch 20 — Real Estate Calculations",
+      "question": "A lot measures 200 feet by 300 feet. Approximately how many acres is it?",
+      "choices": [
+        "0.72 acres",
+        "1.00 acre",
+        "1.378 acres",
+        "2.00 acres"
+      ],
+      "correct": 2,
+      "explanation": "The lot contains 60,000 square feet. Dividing by 43,560 square feet per acre gives approximately 1.378 acres.",
+      "source": "60-Hr Illinois Broker Prelicensing (2025), Chapter 20"
+    }
+  ]
+}
