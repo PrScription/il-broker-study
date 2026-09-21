@@ -230,7 +230,7 @@ option{background:#0a101c;color:#f4f7fb}
 <div class="app">
 <header>
   <div class="toprow">
-    <div><div class="brand">IL Broker Study</div><div class="subbrand">Private study workspace · V4.5</div></div>
+    <div><div class="brand">IL Broker Study</div><div class="subbrand">Private study workspace · V4.6</div></div>
     <div class="head-actions">
       <div class="pill" id="offlinePill">Online</div>
       <button class="iconbtn" aria-label="Quick add" onclick="openQuickAdd()">+</button>
@@ -443,7 +443,10 @@ let currentView='home',libraryType='all',selectMode=false,selectedIds=new Set();
 let studyDeck=[],studyIndex=0,studyShowingBack=false,studyTopic='All Topics',studyMode='all',studyShuffle=true;
 let testState=null,dragState=null,swipeStart=null,gameState=null,gameTimer=null,smartDrafts=[],smartSourceName='';
 
-function safeParse(s,f){try{return JSON.parse(s)}catch{return f}}
+function safeParse(s,f){
+  if(s===null||s===undefined||s==='')return f;
+  try{const parsed=JSON.parse(s);return parsed===null||parsed===undefined?f:parsed}catch{return f}
+}
 function uid(){return 'q_'+Date.now().toString(36)+Math.random().toString(36).slice(2,8)}
 function escapeHtml(s=''){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
 function nl2br(s=''){return escapeHtml(s).replace(/\n/g,'<br>')}
@@ -458,12 +461,25 @@ function saveRatings(){localStorage.setItem(STUDY_KEY,JSON.stringify(ratings));r
 function saveHistory(){localStorage.setItem(HISTORY_KEY,JSON.stringify(history));refreshAll()}
 function saveUi(){localStorage.setItem(UI_KEY,JSON.stringify(ui))}
 function load(){
-  bank=safeParse(localStorage.getItem(DB_KEY),[]);
-  history=safeParse(localStorage.getItem(HISTORY_KEY),[]);
-  ratings=safeParse(localStorage.getItem(STUDY_KEY),{});
-  ui=safeParse(localStorage.getItem(UI_KEY),{});
-  studyTopic=ui.studyTopic||'All Topics'; studyMode=ui.studyMode||'all'; studyShuffle=ui.studyShuffle!==false;
-  bank=bank.map((x,i)=>({...x,createdAt:x.createdAt||new Date(Date.now()-((bank.length-i)*1000)).toISOString()}));
+  const loadedBank=safeParse(localStorage.getItem(DB_KEY),[]);
+  const loadedHistory=safeParse(localStorage.getItem(HISTORY_KEY),[]);
+  const loadedRatings=safeParse(localStorage.getItem(STUDY_KEY),{});
+  const loadedUi=safeParse(localStorage.getItem(UI_KEY),{});
+  const loadedGame=safeParse(localStorage.getItem(GAME_KEY),{xp:0,bestStreak:0,best:{},sessions:0});
+
+  bank=Array.isArray(loadedBank)?loadedBank:[];
+  history=Array.isArray(loadedHistory)?loadedHistory:[];
+  ratings=loadedRatings&&typeof loadedRatings==='object'&&!Array.isArray(loadedRatings)?loadedRatings:{};
+  ui=loadedUi&&typeof loadedUi==='object'&&!Array.isArray(loadedUi)?loadedUi:{};
+  game=loadedGame&&typeof loadedGame==='object'&&!Array.isArray(loadedGame)
+    ?{xp:0,bestStreak:0,best:{},sessions:0,...loadedGame}
+    :{xp:0,bestStreak:0,best:{},sessions:0};
+
+  studyTopic=ui.studyTopic||'All Topics';
+  studyMode=ui.studyMode||'all';
+  studyShuffle=ui.studyShuffle!==false;
+
+  bank=bank.map((x,i)=>({...x,correct:x.correct===undefined?x.correct:Number(x.correct),createdAt:x.createdAt||new Date(Date.now()-((bank.length-i)*1000)).toISOString()}));
   localStorage.setItem(DB_KEY,JSON.stringify(bank));
   refreshAll();
 }
