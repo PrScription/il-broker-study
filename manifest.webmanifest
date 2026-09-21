@@ -1,12 +1,12 @@
 {
   "name": "IL Broker Study",
   "short_name": "Broker Study",
-  "description": "Private flashcards, quizzes, tests, smart imports, and study games.",
+  "description": "Dark-mode Illinois Broker flashcards, quizzes, tests, built-in course practice, and study games.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#f7f8fc",
-  "theme_color": "#172554",
+  "background_color": "#070b14",
+  "theme_color": "#070b14",
   "icons": [
     {
       "src": "./icon-192.png",

@@ -207,13 +207,23 @@ nav button{color:#8f9bae!important}nav button.active{background:#172554!importan
 .hero{background:linear-gradient(135deg,#0d1530 0%,#172554 65%,#243b7a 100%)!important}
 .game-banner{background:linear-gradient(135deg,#17132f,#4b2c8a)!important}
 
+
+/* V4.2 dark hardening */
+*{-webkit-tap-highlight-color:rgba(120,147,255,.16)}
+::selection{background:#334a9b;color:#fff}
+option{background:#0a101c;color:#f4f7fb}
+.selectionbar{background:#080d17!important;border:1px solid #2b3850!important}
+.selectionbar .btn.secondary{background:#131d2f!important;color:#f4f7fb!important}
+.stat{background:rgba(255,255,255,.055)!important;border-color:rgba(255,255,255,.10)!important}
+.divider{background:#263247!important}
+
 </style>
 </head>
 <body>
 <div class="app">
 <header>
   <div class="toprow">
-    <div><div class="brand">IL Broker Study</div><div class="subbrand">Private study workspace</div></div>
+    <div><div class="brand">IL Broker Study</div><div class="subbrand">Private study workspace · V4.2</div></div>
     <div class="head-actions">
       <div class="pill" id="offlinePill">Online</div>
       <button class="iconbtn" aria-label="Quick add" onclick="openQuickAdd()">+</button>
@@ -758,14 +768,26 @@ function renderTestQuestion(){
   host.innerHTML=`<div class="question"><span class="badge">${escapeHtml(q.topic)}</span><h3 style="font-size:19px;line-height:1.45;margin-top:10px">${nl2br(q.question)}</h3>
     <div style="margin-top:12px">${q.choices.map((c,i)=>{let cls='choice';if(selected===i)cls+=' selected';if(revealed){if(i===q.correctIndex)cls+=' correct';else if(selected===i)cls+=' wrong'}return `<button class="${cls}" ${revealed?'disabled':''} onclick="selectChoice(${i})">${String.fromCharCode(65+i)}. ${nl2br(c.text)}</button>`}).join('')}</div>
     ${revealed?`<div class="explain"><b>${selected===q.correctIndex?'Correct':'Incorrect'}.</b> ${nl2br(q.explanation||'')}</div>`:''}</div>
-    <div style="height:10px"></div><button class="btn blue" style="width:100%" ${selected===undefined?'disabled':''} onclick="${revealed?'nextQuestion()':'submitQuestion()'}">${revealed?'Next question':index===questions.length-1?'Finish test':'Next'}</button>`;
+    <div style="height:10px"></div><button class="btn blue" style="width:100%" ${selected===undefined?'disabled':''} onclick="${revealed?'advanceAfterScored()':'submitQuestion()'}">${index===questions.length-1?(testState.mode==='quiz'?'Finish quiz':'Finish test'):(revealed?'Next question':'Next')}</button>`;
 }
 function selectChoice(i){if(testState.locked)return;testState.answers[testState.index]={selected:i};renderTestQuestion()}
 function submitQuestion(){
-  const i=testState.index,q=testState.questions[i],a=testState.answers[i];if(!a)return;a.correct=a.selected===q.correctIndex;
-  if(testState.instant){testState.locked=true;renderTestQuestion()}else nextQuestion()
+  if(!testState)return;
+  const i=testState.index,q=testState.questions[i],a=testState.answers[i];
+  if(!a||a.selected===undefined)return;
+  a.correct=a.selected===q.correctIndex;
+  if(testState.instant){testState.locked=true;renderTestQuestion();return}
+  advanceAfterScored();
 }
-function nextQuestion(){const i=testState.index,q=testState.questions[i],a=testState.answers[i];if(a&&a.correct===undefined)a.correct=a.selected===q.correctIndex;testState.index++;testState.locked=false;renderTestQuestion()}
+function advanceAfterScored(){
+  if(!testState)return;
+  const i=testState.index,q=testState.questions[i],a=testState.answers[i];
+  if(!a||a.selected===undefined)return;
+  if(a.correct===undefined)a.correct=a.selected===q.correctIndex;
+  if(i>=testState.questions.length-1){finishTest();return}
+  testState.index++;testState.locked=false;renderTestQuestion();
+}
+function nextQuestion(){advanceAfterScored()}
 function finishTest(){
   testState.answers.forEach((a,i)=>{if(a.correct===undefined)a.correct=a.selected===testState.questions[i].correctIndex});
   const correct=testState.answers.filter(a=>a.correct).length,total=testState.questions.length,pct=Math.round(correct/total*100);
@@ -919,7 +941,12 @@ function modalBackdrop(e){if(e.target.id==='modalBack')closeModal()}
 window.addEventListener('online',()=>document.getElementById('offlinePill').textContent='Online');
 window.addEventListener('offline',()=>document.getElementById('offlinePill').textContent='Offline');
 document.getElementById('offlinePill').textContent=navigator.onLine?'Online':'Offline';
-if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js').catch(()=>{}));
+if('serviceWorker' in navigator)window.addEventListener('load',async()=>{try{
+  const reg=await navigator.serviceWorker.register('./service-worker.js',{updateViaCache:'none'});
+  await reg.update();
+  let reloading=false;
+  navigator.serviceWorker.addEventListener('controllerchange',()=>{if(reloading)return;reloading=true;location.reload()});
+}catch(e){}});
 load();
 loadBuiltInCourseBank();
 </script>
