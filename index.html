@@ -243,7 +243,7 @@ option{background:#0a101c;color:#f4f7fb}
 <div class="app">
 <header>
   <div class="toprow">
-    <div><div class="brand">Study Hub</div><div class="subbrand">Private multi-study workspace · V5.0</div></div>
+    <div><div class="brand">Study Hub</div><div class="subbrand">Private multi-study workspace · V5.1</div></div>
     <div class="head-actions">
       <div class="pill" id="offlinePill">Online</div>
       <button class="iconbtn" aria-label="Quick add" onclick="openQuickAdd()">+</button>
@@ -1286,6 +1286,31 @@ function importData(event){
     applyHubBackup(d);closeModal();showView('home');alert('Backup restored.');
   }catch(err){alert('That file is not a valid Study Hub backup: '+(err?.message||err))}event.target.value=''};
   r.readAsText(f)
+}
+
+function normalizeImportedItem(x){
+  const y={...x};
+  y.id=y.id||uid();
+  y.topic=y.topic||'Imported';
+  y.createdAt=y.createdAt||new Date().toISOString();
+  y.importedAt=new Date().toISOString();
+  if(!Array.isArray(y.choices))y.choices=[];
+  if(y.correct!==undefined)y.correct=Number(y.correct);
+  return y;
+}
+function importStudyPack(event){
+  const file=event.target.files[0];if(!file)return;const r=new FileReader();
+  r.onload=()=>{try{
+    const d=JSON.parse(r.result),items=Array.isArray(d)?d:(d.items||d.bank);
+    if(!Array.isArray(items))throw new Error('No study items found.');
+    const normalized=items.map(normalizeImportedItem).filter(x=>hasFlash(x)||hasValidQuestion(x));
+    if(!normalized.length)throw new Error('No valid flashcards or questions found.');
+    const ids=new Set(bank.map(x=>x.id));
+    normalized.forEach(x=>{if(ids.has(x.id))x.id=uid();ids.add(x.id);bank.push(x)});
+    saveBank();closeModal();openLibrary();alert(`Imported ${normalized.length} item(s) into ${activeStudy()?.name||'this Study'}.`);
+  }catch(err){alert('This is not a valid Study Pack JSON file: '+(err?.message||err))}
+  event.target.value=''};
+  r.readAsText(file)
 }
 
 function showPdfWorkflow(){
